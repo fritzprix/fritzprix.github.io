@@ -1,0 +1,17 @@
+{
+    "title": "RMI (Remote Method Invocation) fromework for Java built-in SDP",
+    "tags": [
+        "Java",
+        "RMI",
+        "RPC",
+        "Zero Configuration",
+        "mDNS-SD"
+    ],
+    "summary": "RMI (Remote Method Invocation) framework supporting service discovery out-of-box among devices within same network considering  IOT(internet of device) proof-of-concept project",
+    "description": "A year since 2017, I was responsible for taking development owership of out-sourced project which had been lousily maintained almost 2 years, so I struggled hard to find out how the unmanageble code could be refactored into manageable and extensible code. so I started to have an interest in meta programming support in Java. I started this project for learning experience of meta programming in Java.",
+    "year": 2018,
+    "opensource": {
+        "type":"github",
+        "url":"https://github.com/fritzprix/yarmi"
+    }
+}
