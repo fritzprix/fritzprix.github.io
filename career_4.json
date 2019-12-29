@@ -7,7 +7,7 @@
     ],
     "markdown":"https://raw.githubusercontent.com/fritzprix/cdsl/master/simplified.md",
     "summary": "Memory Efficient C data structure library which can be easily ported to baremetal target.",
-    "description": "I was working on small operating system project (TachyOS) personally 2015 so the data structure library which can be easilty built on free hosting (baremetal) target was required. a kernel source code of every operating system has its own data structure implementation, so I decided to develop my own for the project. unusual aspect of this project is use of recursion on implementing balanced tree. the recursion is considered impractical though, for balanced tree, the recursion depth can be maintained reasonable level. and the recursion has beneficial impact on memory footprint. because tree node doesn't need to have pointer to parent node. so size of data structure could be reduced.",
+    "description": "I was working on small operating system project (TachyOS) personally 2015 and data structure implementation which can be easily built on free hosting (baremetal) target was required. so I decided to build my own for the project. unusual aspect of this project is use of recursion on implementing balanced tree. the recursion is considered impractical though, for balanced tree, the recursion depth can be maintained reasonable level. and the recursion has beneficial impact on memory footprint. because tree node doesn't need to have pointer to parent node. so size of data structure could be reduced.",
     "year": 2015,
     "opensource": {
         "type":"github",
