@@ -1,0 +1,27 @@
+{
+    "name":"Doowoong Lee",
+    "gbName":"David Lee",
+    "photo":"matthew.png",
+    "tags":[
+        "software engineer",
+        "geek",
+        "open source"
+    ],
+    "whoim":"I'm David, a passionate software engineer and open-source advocate. I enjoy writing program that fullfills my interest in spare time, and sharing them through open source platform. (e.g. github) if you feel like to see my personal projects more detail, you can visit github profile through link below.",
+    "social":[
+        {
+            "type":"github",
+            "url":"https://github.com/fritzprix"
+        },
+        {
+            "type":"linkedin",
+            "color":"blue",
+            "url":"https://www.linkedin.com/in/david-lee-7630b6146/"
+        },
+        {
+            "type":"facebook",
+            "color":"blue",
+            "url":"https://www.facebook.com/doowoong"
+        }
+    ]
+}
