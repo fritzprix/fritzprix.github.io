@@ -105,10 +105,21 @@ k3sup join --ip {AGENT_IP} --server-ip {SERVER_IP} --user {USER}
 k3sup join --ip 192.168.32.2 --server-ip 192.168.32.1 --user pi
 ```
 > 이렇게 K3S cluster 설정이 끝났다. k3sup은 설치 과정에서 kubeconfig file을 자동으로 local로 가져와 준다.
+
+> :warning: If you want to set this ```kubeconfig``` file as default kubeconfig. you can move the ```kubeconfig``` file under ```~/.kube/```
+```
+
+```
 ## Check K3S installation with ```kubectl```
 > 다음의 명령을 통해서 node들이 정상적으로 보이는지 확인한다.
 ```sh
 kubectl get node
+
+AME            STATUS   ROLES                  AGE   VERSION
+worker-2   Ready    <none>                 11d   v1.22.7+k3s1
+worker-1   Ready    <none>                 11d   v1.22.7+k3s1
+master     Ready    control-plane,master   11d   v1.22.7+k3s1
+
 ```
 
 > 정상적으로 설치가 완료되었다면 위와 같이 node들이 확인될 것이다.
