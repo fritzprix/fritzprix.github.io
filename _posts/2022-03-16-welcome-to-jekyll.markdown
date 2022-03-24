@@ -25,7 +25,7 @@ katex: True
       |Agent Node|256MB|1GB|
 - [k3sup](https://github.com/alexellis/k3sup) - bootstrap Kubernetes with k3s over SSH < 1 min
 - [Docker](https://www.docker.com/)
-- [Ubuntu Core 20 for Raspberry Pi 64-bit](https://ubuntu.com/download/raspberry-pi/thank-you?version=20&architecture=core-20-arm64+raspi)
+- [Raspberry Pi OS Lite (64-bit)](https://ubuntu.com/download/raspberry-pi/thank-you?version=20&architecture=core-20-arm64+raspi)
 - [Raspberry Pi3 Model B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/) 
 
 ![RPI3](https://kr.element14.com/productimages/large/en_GB/2842228-40.jpg)
