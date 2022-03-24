@@ -52,18 +52,20 @@ katex: True
 3. rpi-imager 추가 설정
    > rpi-imager에서는 Hostname, SSH Login 및 Network 정보 등을 미리 설정하는 기능을 제공한다. 이를 잘 활용하면 OS 설치 이후 초기 설정 작업의 많은 부분이 간소화된다. 아래 그림의 사각형으로 Highlight된 버튼을 통해 추가적인 설정을 할 수 있다.
 
-   ![rpi_option_box](/assets/img/rpi_option_box.png)
-   1. Hostname 설정
+     ![rpi_option_box](/assets/img/rpi_option_box.png)
+   - Hostname 설정
       > Hostname의 경우 각 Node의 구별이 용이하도록 설정 (예 : Master / Worker_1 ...)
 
-   ![rpi_option_hostname](/assets/img/rpi_option_hostname.png)
-   2. Enable SSH & Login Username / Password
+     ![rpi_option_hostname](/assets/img/rpi_option_hostname.png)
+
+   - Enable SSH & Login Username / Password
       > SSH 접근을 위한 기본 정보 입력
 
-   ![rpi_option_ssh](/assets/img/rpi_option_ssh.png)
+     ![rpi_option_ssh](/assets/img/rpi_option_ssh.png)
       > :warning: login username은 모든 node들에 대해서 동일하게 설정해 주어야 한다. 향후 사용하게 될 설치 도구인 k3sup은 동일한 username이 설정되어 있다고 가정하기 때문이다.
-   3. (Optional) Wifi 설정
-      > 유선이 아닌 무선망으로 연결할 경우 선택
+
+   - (Optional) Wifi 설정
+     > 유선이 아닌 무선망으로 연결할 경우 선택
 
 ## Installing K3S to Raspberry Pi3
 
