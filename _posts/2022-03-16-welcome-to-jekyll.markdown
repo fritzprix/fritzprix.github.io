@@ -56,11 +56,11 @@ katex: True
    1. Hostname 설정
       > Hostname의 경우 각 Node의 구별이 용이하도록 설정 (예 : Master / Worker_1 ...)
 
-      ![rpi_option_hostname](/assets/img/rpi_option_hostname.png)
+   ![rpi_option_hostname](/assets/img/rpi_option_hostname.png)
    2. Enable SSH & Login Username / Password
       > SSH 접근을 위한 기본 정보 입력
 
-      ![rpi_option_ssh](/assets/img/rpi_option_ssh.png)
+   ![rpi_option_ssh](/assets/img/rpi_option_ssh.png)
       > :warning: login username은 모든 node들에 대해서 동일하게 설정해 주어야 한다. 향후 사용하게 될 설치 도구인 k3sup은 동일한 username이 설정되어 있다고 가정하기 때문이다.
    3. (Optional) Wifi 설정
       > 유선이 아닌 무선망으로 연결할 경우 선택
