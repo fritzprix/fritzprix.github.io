@@ -1,13 +1,14 @@
 ---
 layout: post
 comments: true
-title:  "Build Toy Cluster with Rpi3 & Kubernetes (1)"
+title:  "Build Toy Cluster with Rpi3 & Kubernetes"
 date:   2022-03-16 18:22:46 +0900
 categories: jekyll update
 katex: True
 ---
 
 # Kubernetes Cluster on [Raspberry Pi](https://www.raspberrypi.org/)
+![](https://www.techworm.net/wp-content/uploads/2018/03/Build-your-own-Supper-Computer-with-Raspberry-pi-3-Cluster.png)
 > 이번 과제는 Raspberry Pi3를 이용하여 현시점 기준 가장 효과적으로 Kubernetes Cluster를 구축하는 방법을 소개한다. 사용될 기술들은 아래와 같다.
 
 ### Technology used
@@ -42,29 +43,78 @@ katex: True
 > [참고 1](http://www.roylongbottom.org.uk/dhrystone%20results.htm) / [참고 2](http://www.roylongbottom.org.uk/Raspberry%20Pi%20Benchmarks.htm)
 -->
 
-## Build Toy Cluster with Rpi3
-![](https://www.techworm.net/wp-content/uploads/2018/03/Build-your-own-Supper-Computer-with-Raspberry-pi-3-Cluster.png)
+### Installing Operating System
 1. rpi-imager [다운로드 및 설치](https://www.raspberrypi.com/software/)
 2. rpi-imager에서 Raspberry Pi용 Ubuntu 이미지 및 SDCard 설정
    > ![](/assets/img/rpi_image_select.png)
    - Operating System > Raspberry Pi OS (other) > Raspberry Pi OS Lite (64-bit) 선택
-   - Image를 설치할 MicroSD를 선택 해준다.
-1. rpi-imager 추가 설정
-   > Hostname, SSH Login 및 Network 정보 등 이전에는 설치 이후에 따로 설정해야 하는 내용들이 Image Write 시점에 설정할 수 있도록 되어 있다. (아래 그림의 사각형으로 Highlight된 버튼을 통해 설정메뉴를 불러올 수 있다. 단, Operating System을 설정하면 활성화된다.)
-
+   - Image를 설치할 MicroSD를 선택
+3. rpi-imager 추가 설정
+   > rpi-imager에서는 Hostname, SSH Login 및 Network 정보 등을 미리 설정하는 기능을 제공한다. 이를 잘 활용하면 OS 설치 이후 초기 설정 작업의 많은 부분이 간소화된다. 아래 그림의 사각형으로 Highlight된 버튼을 통해 추가적인 설정을 할 수 있다. 
    > ![](/assets/img/rpi_option_box.png)
-   1. Hostname
-      > Hostname의 경우 각 Node의 구별이 용이하도록 설정해 주도록 하자. (예 : Master / Worker_1 ...)
+   1. Hostname 설정
+      > Hostname의 경우 각 Node의 구별이 용이하도록 설정 (예 : Master / Worker_1 ...)
+      ![](/assets/img/rpi_option_hostname.png)
    2. Enable SSH & Login Username / Password
-      > SSH 접근을 위한 기본 설정을 한다.
+      > SSH 접근을 위한 기본 정보 입력 
+      ![](/assets/img/rpi_option_ssh.png)
+      > :warning: login username은 모든 node들에 대해서 동일하게 설정해 주어야 한다. 향후 사용하게 될 설치 도구인 k3sup은 동일한 username이 설정되어 있다고 가정하기 때문이다.
    3. (Optional) Wifi 설정
-      > 유선이 아닌 무선망으로 연결할 경우 설정해 주도록 한다. 
+      > 유선이 아닌 무선망으로 연결할 경우 선택
 
-## Prepare SSD Image for Rpi3
-### Raspberry Pi3에 사용할 Ubuntu 배포판을 Micro SD card에 설치한다
-## Installing K3S to Rpi3
-## k3sup - Easy way to configure cluster
 
+## Installing K3S to Raspberry Pi3
+> 앞서 언급한 것과 같이 ```k3sup```을 활용한다. 이를 위해서는 k3sup이 ```ssh```를 통해 대상 nodes (server 및 agent 포함)에 사용자의 별도의 입력 없이 접근 가능하도록 설정할 필요가 있다. 이번 내용에서는 개인의 Private Network에 설정 (대상이 Raspberry Pi3이기 때문에..) 하는 것을 기준으로 설명을 할 예정이며 따라서 nodes에 ssh identity를 직접 추가하는 방식으로 진행한다.
+### Generate SSH key
+> 아마 Raspberry Pi3 Cluster를 구축하는 사람이라면 이미 SSH Key를 생성하여 사용하고 있을 것이라 생각한다. 혹시 그렇지 않을 경우[이곳](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)을 참고 하여 진행하면 된다.
+### Add SSH identity to nodes
+> ```ssh``` key 생성이 완료된 상태라면 생성된 ```ssh``` key를 대상 node에 아래의 명령으로 추가 할 수 있다.
+```bash
+ssh-copy-id {USER}@{IP_ADDRESS}
+```
+> 아래는 예시이다. rpi-imager에서 기본으로 설정된 user값인 ```pi```을 그대로 사용하고 해당 node의 ip 주소가 192.168.32.1 인경우 아래와 같다.
+```bash
+ssh-copy-id pi@192.168.32.1 
+```
+> 위와 같은 방법으로 모든 node들(server 와 agent 모두)에 대해서 동일하게 ```ssh``` identity를 추가해 준다.
+### k3sup - Easy way to configure cluster
+> ```k3sup```은 manual하게 각 node별로 설정해 주어야 하는 번거로운 과정을 단 한줄의 command로 대체할 수 있도록 해준다. AWS와 같은 public cloud도 잘 지원하기 때문에 K3S 기반의 Kubernetes 환경을 구축하여 운용 등에 유용하게 쓰일 수 있다고 생각된다. 상세한 내용은 [Github](https://github.com/alexellis/k3sup#bootstrapping-kubernetes)를 참고하도록 한다.
+#### Install k3sup
+> MacOS나 Linux 등 xnix 계열의 경우 아래의 command를 통하여 설치 및 확인이 가능하다. 기타 Windows 등의 설치는 [Github](https://github.com/alexellis/k3sup#bootstrapping-kubernetes)을 참고
+```sh
+curl -sLS https://get.k3sup.dev | sh
+sudo install k3sup /usr/local/bin/
+
+k3sup --help
+```
+#### K3S server setup
+```sh
+k3sup install --ip {SERVER_IP} --user {USER}
+```
+> Server (cluster의 master)의 IP 주소가 192.168.32.1이고 username이 pi라고 가정하면 아래와 같이 입력
+```sh
+k3sup install --ip 192.168.32.1 --user pi
+```
+
+#### K3S agent setup
+```sh
+k3sup join --ip {AGENT_IP} --server-ip {SERVER_IP} --user {USER}
+```
+> Server의 IP 주소가 192.168.32.1이고 현재 설정하려는 agent의 IP가 192.168.32.2일 경우 아래와 같이 입력
+```sh
+k3sup join --ip 192.168.32.2 --server-ip 192.168.32.1 --user pi
+```
+> 이렇게 K3S cluster 설정이 끝났다. k3sup은 설치 과정에서 kubeconfig file을 자동으로 local로 가져와 준다.
+## Check K3S installation with ```kubectl```
+> 다음의 명령을 통해서 node들이 정상적으로 보이는지 확인한다.
+```sh
+kubectl get node
+```
+
+> 정상적으로 설치가 완료되었다면 위와 같이 node들이 확인될 것이다.
+
+## What's next
+> K3S를 이용해 Kubernetes Cluster가 구축 되었으니 다음에는 Cluster에 Docker Registry를 등록하고 Cross-platform docker image를 생성하는 등 Cluster에 간단한 App을 배포하는 방법을 살펴볼 예정이다. 
 <div id="disqus_thread"></div>
 <script>
     /**
