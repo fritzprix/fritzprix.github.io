@@ -11,7 +11,7 @@ categories: math probability math
 ---
 
 
-> 이 글을 통해서 Bayes' Theorem (베이즈 정리) 최대한 이해하기 쉽게 베이즈 정리가 어떤 것이고 이것이 어떤 유용성이 있는지 정리하고자 한다.
+> 이 글을 통해서 Bayes' Theorem을 가능한 이해하기 쉽게 정리하고 이것이 어떤 유용성이 있는지 알아보고자 한다.
 
 ## What is Bayes' Theorem?
 
