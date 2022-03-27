@@ -3,17 +3,21 @@ layout: post
 author: Doowoong(David) Lee
 image: https://t1.daumcdn.net/cfile/tistory/991172345B62609234
 locale: ko_KR
-tags: Probability Statistics Math
+tags: probability statistics math bayes theorem covid19 inspection
 comments: true
 title:  "Bayes' theorem"
 date:   2022-03-27 19:09:00 +0900
-categories: math probability math
+categories: math probability statistics
 ---
 
 
 > 이 글을 통해서 Bayes' Theorem을 가능한 이해하기 쉽게 정리하고 이것이 어떤 유용성이 있는지 알아보고자 한다.
 
 ## What is Bayes' Theorem?
+
+> 본론에 앞서 아래 영상을 보고 오면 조금 더 빠른 이해에 도움이 될 것이다.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XQoLVl31ZfQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 > Bayes' Theorem을 위해서 사용될 표현을 아래와 같이 정리한다.
 
@@ -82,7 +86,7 @@ P(K = P) => Probability of Kit Positive
 P(A = P | K = P) = P(K = P | A = P) * P(A = P) / P(K = P)
 ```
 
->  실제 감염률로 주어진 값 ```P(A = P)``` = 0.03을 제외 하면 P(K = P)를 알아야만 한다. 이는 두 가지 경우의 Joint Probability의 합으로 얻을 수 있다. 다시말해 ```P(K = P | A = P) P(A = P)``` 즉, 실제 감염자가 Kit 양성으로 나올 확률과 양성률의 결합 확률 그리고 ```P(K = P | A = N)```비감염자가 양성으로 나올 확률과 비감염률의 결합 확률을 구함으로써 얻을 수 있으며 아래와 같다.
+> 실제 감염률로 주어진 값 ```P(A = P)``` = 0.03을 제외 하면 P(K = P)를 알아야만 한다. 이는 두 가지 경우의 Joint Probability의 합으로 얻을 수 있다. 다시말해 ```P(K = P | A = P) P(A = P)``` 즉, 실제 감염자가 Kit 양성으로 나올 확률과 양성률의 결합 확률 그리고 ```P(K = P | A = N)```비감염자가 양성으로 나올 확률과 비감염률의 결합 확률을 구함으로써 얻을 수 있으며 아래와 같다.
 
 ```math
  P(K = P) = 
