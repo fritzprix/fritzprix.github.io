@@ -19,7 +19,20 @@ categories: math probability statistics
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XQoLVl31ZfQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-> Bayes' Theorem을 위해서 사용될 표현을 아래와 같이 정리한다.
+> COVID19 자가 진단 키트를 이용하여 감염 여부를 검사한다고 생각해보자. 만약 당신이 검사 키트의 양성이 나왔다면 어느 정도의 확신을 가지고 양성이라고 말할 수 있는 것일까? 질병청의 발표에 따르면 현재 자가진단키트의 정확도를 아래와 같이 설명하고 있다.
+
+- 질병이 있는 환자 중 검사결과가 양성으로 나타날 확률이 90% 이상
+- 질병이 없는 환자 중 검사결과가 음성으로 나타날 확률이 99% 이상
+
+> 다순히 생각한다면 '진단 키트에서 양성이니 90%의 확률로 양성인가?'라는 생각을 할지 모른다. 하지만 이는 완전히 잘못된 생각이다.
+
+## Conditional Probability
+
+> 위 질병청의 정확도에 대한 발표를 살펴 보면 2가지 경우에 모두 조건이 달려 있다는 것을 알 수 있다. '질병이 있는 환자 중..' 그리고 '질병이 없는 환자 중..'과 같은 특정 조건이 발생된 것을 가정하고 확률을 정의하는 것을 Conditional Probability라고 한다. 따라서 양성으로 나타날 확률이 90%라는 것은 단순히 역으로 실제 양성일 확률이 90%라는 것을 의미하는 것이 아니다. 우리가 자가 진단 키트 검사를 통해 알고 싶은 것은 질병청에서 제공하는 정보를 거꾸로 뒤집어 놓은 형태인 즉, '검사 결과가 양성인 사람이 실제 질병이 있을 경우'에 해당한다. 특정 조건부 확률로 부터 역의 의존 관계의 조건부 확률을 Bayes' Theorem을 활용해 구 할 수 있다.
+
+## Bayes' Theorem from scratch
+
+> Bayes' Theorem의 설명을 위해서 사용될 표현들을 아래와 같이 정리한다.
 
 - 임의의 확률 분포를 갖는 Random Process K에 대해 k일 확률 ```P(K = k)```
 - 결합 확률 (Joint Probability)
@@ -53,15 +66,15 @@ P(A,K) = P(K | A) * P(A)
 P(A | K) = P(K | A) * P(A) / P(K)
 ```
 
-> 바로 이것이 Bayes' Theorem이다. 여기까지만 보면 실생활의 유용성을 떠올리기 어려울 수 있다. 하지만 정리를 유심히 관찰하면 그 유용성의 Hint를 얻을 수 있는데 ```P(A | K)```를 ```P(K | A)```로 부터 알아 낼 수 있다라는 것이다. 실제 다양한 실생활 문제에서 Conditional Probability는 두가지 경우 중 한가지를 상대적으로 조사하기 쉽거나 알려져 있는 경우가 있다. 다른 말로하면 두가지 중 하나는 알려져 있지 않거나 조사하기가 매우 까다롭다는 것인데 이럴 때 Bayes' Theorem을 이용하면 매우 유용하다.
+> 바로 이것이 Bayes' Theorem이다. 위 유도된 표현을 보면 앞서 설명한 것처럼 특정 조건 확률로 부터 역의 의존 관계인 조건 확률 즉, ```P(A | K)```를 ```P(K | A)```로 부터 알아 낼 수 있다는 것을 알 수 있을 것이다.
 
-## Example. COVID19 Self-Inspection Kit Problem
+### Bayes' Theorem을 활용한 자가 진단 키트 정확도 추정
 
-> 재미있게도 현재 COVID19의 자가 진단 Kit의 정확도 사례가 이 Bayes' Theorem을 설명하는 아주 좋은 예시가 되기 때문에 활용하려고 한다. [질병청의 보도자료](https://www.mfds.go.kr/brd/m_99/view.do?seq=46123)의 예시로 제시된 ```P(A = P)``` = 0.03 ( 3%의 감염률 ) 조건으로 검사 키트의 정확도를 구해 보자
+> 앞서 설명한 바와 같이 현재 COVID19의 자가 진단 Kit의 정확도 사례가 이 Bayes' Theorem을 설명하는 아주 좋은 예시가 되기 때문에 일반적으로 궁금해 하는 정확도 즉, 진단 키트 양성일 경우 실제 양성일 확률(실제 감염)을 구함으로써 Bayes' Theorem을 적용해 보자. 우산 [질병청의 보도자료](https://www.mfds.go.kr/brd/m_99/view.do?seq=46123)의 예시로 제시된 ```P(A = P)``` = 0.03 ( 3%의 감염률 )를 기본 조건으로 선택한다.
 
 ### Given Condition from CDC report
 
-> 질병 관리 청에서 공개한 위 자료를 살펴 보면 아래 2개의 조건부 확률이 존재함을 알 수 있다. 여기서 K는 검사 키트의 결과 그리고 A는 Actual Result 즉, 실제 감염 여부이다. 두 개의 이산 확률 분포 모델은 모두 ```S = { Positive, Negative }```의 단순한 Sample Space를 갖는다. 따라서 이를 표현하면 아래와 같다.
+> 질병청에서 공개한 2가지 조건부 확률을 수학적 표현으로 나타내면 아래와 같다. 여기서 K는 검사 키트의 결과 그리고 A는 Actual Result 즉, 실제 감염 여부이다. 두 개의 이산 확률 분포 모델은 모두 ```S = { Positive, Negative }```의 단순한 Sample Space를 갖는다.
 
 - 질병이 있는 환자 중에서 키트 양성이 나타날 확률 ```P(K = P | A = P)``` : 0.9 (90%)
 - 질병이 없는 환자 중에서 키트 음성이 나타날 확률 ```P(K = N | A = N)``` : 0.99 (99%)
