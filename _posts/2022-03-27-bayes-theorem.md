@@ -169,7 +169,7 @@ P(A = P | K = N) = 0.1 * 0.03 / 0.963
 
 ## What's next?
 
-> 다음에는 이러한 Bayes' Theorem이 Deep Learning의 기본 원리와 어떠한 관계가 있는지 살펴볼 예정이다.
+> 다음에는 이러한 Bayes' Theorem이 Machine Learning에서 어떠한 형태로 활용되는지 알아볼 예정이다.
 
 
 <div id="disqus_thread"></div>
