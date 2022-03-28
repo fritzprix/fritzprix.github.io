@@ -34,9 +34,9 @@ categories: math probability statistics
 
 > Bayes' Theorem의 설명을 위해서 사용될 표현들을 아래와 같이 정리한다.
 
-- 임의의 확률 분포를 갖는 Random Process K에 대해 사건 K의 발생 확률 ```P(K = k)```
+- 임의의 확률 분포를 갖는 Random Process K에 대해 사건 k의 발생 확률 ```P(K = k)```
 - 결합 확률 (Joint Probability)
-  > 임의의 확률 분포를 갖는 Random Process K와 A에 대해 동시에 사건 k와 사건 a가 발생할 확률 ```P(K = k, A = a)```
+  > 임의의 확률 분포를 갖는 Random Process K와 A 각각에 대해 동시에 사건 k와 사건 a가 발생할 확률 ```P(K = k, A = a)```
 - 조건부 확률 (Conditional Probability)
   > 임의의 확률 분포를 갖는 Random Process A에 대해 사건 a가 발생했을 때 K에서 사건 k가 발생 될 확률 ```P(K = k | A = a)```  
 
@@ -168,7 +168,7 @@ P(A = P | K = N) = 0.1 * 0.03 / 0.963
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
     var disqus_config = function () {
-    this.page.url = "https://fritzprix.github.io/math/probability/2022/03/27/bayes-theorem.html";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.url = "https://fritzprix.github.io/math/probability/statistics/2022/03/27/bayes-theorem.html";  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {
