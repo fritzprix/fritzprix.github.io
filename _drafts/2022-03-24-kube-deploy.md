@@ -11,6 +11,21 @@ categories: Kubernetes Docker
 
 ---
 
+## [Install Kubernetes Helm](https://helm.sh/docs/intro/install/)
+
+```shell
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+$ chmod 700 get_helm.sh
+
+$ ./get_helm.sh
+Downloading https://get.helm.sh/helm-v3.8.1-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/local/bin
+
+```
+## [Install HDFS via Helm](https://artifacthub.io/packages/helm/gradiant/hdfs)
+
 
 
 <div id="disqus_thread"></div>
