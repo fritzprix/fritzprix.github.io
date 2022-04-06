@@ -220,7 +220,7 @@ Events:
 ```sh
 pi@raspberrypi-1:/mnt/ssd/data $ ls
 test.txt
-pi@raspberrypi-2:/mnt/ssd/data $ cat test.txt 
+pi@raspberrypi-1:/mnt/ssd/data $ cat test.txt 
 Local Volume
 
 ```
