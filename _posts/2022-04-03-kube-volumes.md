@@ -118,7 +118,7 @@ metadata:
   name: test-local-pv
 spec:
   capacity:
-    storage: 10Gi
+    storage: 400Gi
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
@@ -132,8 +132,8 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - k8s-worker-01
-          - k8s-worker-02
+          - raspberrypi-1
+          - raspberrypi-2
           ...
 
 ```
