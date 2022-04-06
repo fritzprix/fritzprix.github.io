@@ -9,29 +9,29 @@ title:  "Adding Local Storage as persistent volume to Kubernetes cluster"
 date:   2022-04-03 19:09:00 +0900
 categories: kubernetes raspberrypi
 ---
-> Raspberry Pi3로 구성된 Kubernetes Cluster기반에 HDFS 운영을 위해 SSD를 연결하고 이를 Kubernetes Cluster에 추가하는 과정 그리고 Kubernetes의 Persistent Volume과 관련 간단한 내용을 정리하고자 한다. 현재 Cluster의 구성은 아래의 그림과 같이 Master Node 1에 (참고로 Kubernetes는 HA를 위하여 Multi Master를 지원함) 2개의 Slave Node로 구성된 소규모의 Cluster에 각 Slave에 512GB의 SSD를 설치하였다. Storage를 연결하고 이를 Mount하는 과정은 생략함. Kubernetes는 다양한 Storage의 유형을 다루는 Storage Class와 Storage의 논리적 형태인 Volume의 개념으로 다양한 Storage Service를 통합하는데 이번 글에서는 Local Storage의 Storage Class와 Persistent Volume의 Volume을 사용하게 된다.
+> Raspberry Pi3로 구성된 K3S Cluster에 HDFS 운영을 위해 SSD를 연결하고 이를 K3S Cluster에 추가하고 이때 필요한 ```PersistentVolume``` 및 ```Local Storage```와 관련 간단한 내용을 정리하고자 한다. 참고로 현재 Cluster의 구성은 아래의 그림 처럼 Single Master Node (참고로 Kubernetes는 HA를 위하여 Multi Master를 지원함)와 각 512GB의 외장 Storage(SSD)를 연결한 2개의 Slave Node로 구성된 환경을 이용한다.
 
 ![rpi_overview](/assets/img/rpi_cluster_ls.png)
 
 ## Volumes in Kubernetes
 
-> 기존 Docker와 같은 Container Solution에서 제공되는 Volume의 경우 기본적으로 Ephemeral(휘발성)하기 때문에 Container의 Crash에 의해 File의 유실 등 Container들간에 File을 공유할 때에 많은 문제들을 발생시켰다. Kubernetes는 이러한 문제를 해결하기 위해 별도의 Volume 추상화를 제공한다. 주요 특징 들을 살펴 보면 아래와 같다.
+> 기존 Docker에서 제공되는 Volume의 경우 기본적으로 Ephemeral Volume 형태로 제공되며 Container와 lifecycle을 함께 한다. 이러한 특징 때문에 Container의 Crash와 같은 Container의 예기치 않은 중지 시에 File 의 유실 위험 등 다양한 문제들을 발생시켰다. Kubernetes는 이러한 문제를 해결하기 위해 별도의 Volume 추상화를 제공하여 필요한 경우 Volume에게 독립적인 life cycle을 부여할 수 있도록 허용한다. 요약하면...
 
-- Pods와 Volume의 Lifecycle을 분리
-- 다양한 형태의 Storage의 통합 (Cloud Storage Service, Network Storage...)
+- Pod와 독립적인 Volume의 life cycle 부여
+- 다양한 유형의 Storage를 Volume이란 일관된 Interface로 통합 (Storage의 추상화)
 
 ### Volume의 종류
 
 - Persistent Volume
-  > 말그대로 지속성을 지닌 Volume이다. 여기서 지속성이란 Pods의 Lifecycle과의 분리를 의미한다. 즉, Pods가 제거되더라도 Volume은 별도의 Life cycle을 통해 관리될 수 있다는 것이다. 이번 글을 통해서 설명하게 될 Local Volume 역시 Persistent Volume에 해당한다.
+  > 이름 그대로 지속성을 지닌 Volume이다. 여기서 지속성이란 Pods의 Lifecycle과의 분리를 의미한다. 즉, Pods가 제거되더라도 Volume은 별도의 life cycle을 통해 관리될 수 있다는 것이다. 이번 글을 통해서 설명하게 될 Local Volume 역시 Persistent Volume에 해당한다.
 - Projected Volume
   > Projected 즉, 투사된 Volume으로써 이미 존재하는 여러 Volume을 하나의 Directory로 mapping 시키는 형태의 Volume이다.
 - Ephemeral Volume
-  > Pesistent의 개념과 거의 반대되는 개념의 Volume으로써 주로 Content가 지속성을 가질 필요가 없는 가령 Cache Service의 Swap 영역 등과 같이 사용되는 경우를 예로 들 수 있다. Persistent Volume과 달리 Volume을 사용하는 Pod의 life cycle을 따른다.
+  > Pesistent Volume과 대응되는 개념의 유형으로 주로 Content가 지속성을 가질 필요가 없는, 가령 Cache Service의 Swap 영역 등과 같이 사용되는, 경우에 주로 사용되는 **임시 Volume**이다. **Persistent Volume과 달리 Pod의 life cycle을 따르며 별도로 관리해 줄 필요가 없기 때문에 관리상 수월**하다는 장점이 있다.
 
 ### Persistent Volume
 
-- 앞서 말한 것 처럼 Persistent Volume은 Pod와 별도의 Life Cycle을 갖으며 그렇기 때문에 이 Life Cycle(및 Provisioning)의 관리를 위한 별도의 APIs, ```PersistentVolume``` 그리고 ```PersistentVolumeClaim```을 제공한다.
+- 앞서 말한 것 처럼 Persistent Volume은 Pod와 별도의 life cycle을 지원하며 따라서 이러한 별도의 life cycle 관리를 위한 별도의 APIs, ```PersistentVolume``` 그리고 ```PersistentVolumeClaim```을 제공한다.
 - ```PersistentVolume```
   - 다양한 storage class를 사용하여 admin에 의하여 manual하게 혹은 dynamic하게 provision되는 Cluster 내의 개별 storage
   - pod과 같이 cluster 내의 resource
@@ -43,7 +43,7 @@ categories: kubernetes raspberrypi
 
 #### Life Cycle
 
-> PVs와 PVCs의 상호작용은 다음 Life Cycle에 의해 이루어 진다.
+> PVs와 PVCs의 상호작용은 아래의 life cycle에 따라 이루어 진다.
 
 - Provisioning
   > Provisioning은 방식에 따라 크게 2가지로 나뉜다. 이번 내용에서는 아래 static provisioning을 다루게 된다.
@@ -74,7 +74,9 @@ categories: kubernetes raspberrypi
     - ```PV```에 기본 스크럽 ```rm -rf /*```를 수행하고 새로운 ```PVC```에 할당될 수 있도록 한다.
     - 기본 스크럽 외 사용자 정의 재활용 스크럽 명령도 사용 가능
 
-> 위와 같이 Kubernetes에서 Volume, 특히 ```PersistentVolume```에 대하여 대략적인 내용들을 살펴 보았다. 우리는 위에서 살펴본 내용을 활용하여 아래와 같은 순서로 Local Storage를 Kubernetest Cluster에 추가할 예정이다.
+### Walk through - Local Persistent Volume 추가하기
+
+> 앞서 간단히 설명한 ```PersistentVolume``` 그리고 ```LocalStorage``` 등을 어떻게 생성하고 Pod에서 이렇게 생성된 Volume을 Pod에 mount하여 접근하는 것까지의 전체 과정을 간단한 Walk through를 통해 정리한다.
 
 #### 1. Storage Class (Local) 생성
 
@@ -89,15 +91,25 @@ provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
 
-> 이후 위 YAML file을 Kubernetes Cluster에 아래의 명령을 사용하여 적용해 준다.
+> 이후 위 YAML file을 Kubernetes Cluster에 아래의 명령을 사용하여 K3S cluster에 적용함으로써 Local Storage를 생성한다.
 
 ```sh
 kubectl apply -f {YAML_FILE}
 ```
 
+> 정상적으로 StorageClass가 추가되었는지 아래와 같이 확인한다.
+
+```sh
+$ kubectl get storageclass
+NAME                   PROVISIONER                    RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+...
+local-storage          kubernetes.io/no-provisioner   Delete          WaitForFirstConsumer   false                  8d
+
+```
+
 #### 2. Persistent Volume 생성 (Static Provisioning 방식)
 
-> 위에서 생성된 Storage Class를 참조하는 ```PersistentVolume```을 생성하기 위하여 아래와 같이 YAML file을 준비한다. ```nodeAffinity```는 local volume이 실제 물리적으로 인접한 Host를 설정할 수 있도록 해준다. 아래 예시에서는 hostname을 특정할 수 있도록 matchExpressions을 구성하였다. Storage를 물리적으로 설치한 host를 values에 추가해 준다. 아울러 spec.local.path에 설치된 Storage의 절대 경로를 지정하고 spec.capacity.storage에 용량을 지정한다.
+> 위에서 생성된 ```StorageClass```를 참조하는 ```PersistentVolume```을 생성하기 위한 YAML file을 아래와 같이 준비한다. ```nodeAffinity```는 local volume이 실제 물리적으로 인접한 Host를 설정할 수 있도록 해준다. 아래 예시에서는 hostname을 특정할 수 있도록 matchExpressions을 구성하였다. Storage를 물리적으로 설치한 host를 values에 추가해 준다. 아울러 spec.local.path에 설치된 Storage의 절대 경로를 지정하고 spec.capacity.storage에 용량을 지정한다.
 
 ```yaml
 apiVersion: v1
@@ -136,7 +148,7 @@ local-pv   400Gi      RWO            Retain           Available           local-
 
 #### 3. PVC 생성
 
-> 생성된 PersistentVolume의 Provisioning을 위해  아래와 같이 ```PersistentVolumeClaim```을 아래와 같이 생성한다. spec.accessMode 값을 ```ReadWriteOnce```로 설정한다. Local Storage는 ```nodeAffinity```를 가지고 있기 때문에 설정 가능한 [AccessMode 옵션](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)은 ```ReadWroteOnce``` 외에는 해당되지 않는다.
+> 생성된 PersistentVolume의 Provisioning을 위해  아래와 같이 ```PersistentVolumeClaim```을 위한 YAML file을 아래와 같이 생성한다. spec.accessMode 값을 ```ReadWriteOnce```로 설정한다. Local Storage는 ```nodeAffinity```를 가지고 있기 때문에 설정 가능한 [AccessMode 옵션](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)은 ```ReadWroteOnce``` 외에는 해당되지 않는다.
 
 ```yaml
 kind: PersistentVolumeClaim
@@ -174,16 +186,17 @@ metadata:
     name: test-local-pv
 spec:
   containers:
-  - name: app
-    image: busybox
-    command: ['sh', '-c', 'echo "Local Volume is touched" > /mnt/test.txt && sleep 3600']
-    volumeMounts:
-      - name: local-persistent-storage
-        mountPath: /mnt
+    - name: app
+      image: busybox
+      command: ['sh', '-c', 'echo "Local Volume" > /mnt/test.txt && sleep 3600']
+      volumeMounts:
+        - name: local-persistent-storage
+          mountPath: /mnt
   volumes:
     - name: local-persistent-storage
       persistentVolumeClaim:
         claimName: test-pvc
+
 
 ```
 
@@ -203,6 +216,14 @@ Events:
 ```
 
 > 해당 Node의 PV의 위치에 Text file이 정상적으로 생성된 것을 확인한다.
+
+```sh
+pi@raspberrypi-1:/mnt/ssd/data $ ls
+test.txt
+pi@raspberrypi-2:/mnt/ssd/data $ cat test.txt 
+Local Volume
+
+```
 
 ## What's Next
 
