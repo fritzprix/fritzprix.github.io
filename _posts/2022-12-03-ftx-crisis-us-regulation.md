@@ -95,6 +95,8 @@ categories: Blockchain Regulation
 
 ## 가상 자산 미국 규제 동향
 
+![sec_vs_cftc](https://media.shellypalmer.com/wp-content/images/2022/07/sec-cftc.jpg)
+
 ### [US SEC vs CFTC](https://www.klgates.com/CFTC-and-SEC-Perspectives-on-Cryptocurrency-and-Digital-Assets-Volume-I-A-Jurisdictional-Overview-5-6-2022)
 
 > Security냐? Commodity냐?
@@ -128,6 +130,8 @@ categories: Blockchain Regulation
 ---
 
 ### Crypto Lawsuit
+
+![sec_vs_ripple](https://en.cryptonomist.ch/wp-content/uploads/2022/02/ripple-sec-1.jpg)
 
 - Ripple
   - '20년 SEC가 XRP를 ```Unregistered Security```로 분류, 의무에 대한 이행 없이 XRP 판매를 통하여 약 130억 달러에 달하는 부당한 수익을 벌어들인 것으로 소송
@@ -168,6 +172,7 @@ categories: Blockchain Regulation
   - 단, 이는 Website 접속이 제한되는 것으로 Smart Contract를 통해 직접 참여 할 수 있음
 
 - 그 밖에...
+  ![kardashian_crypto](https://www.coindesk.com/resizer/fROLrVwCeBLdr9L0fJGoRHbq3zI=/567x425/filters:quality(80):format(jpg)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/2JEHCGPSX5DXJK4JOHOJDT2IQU.jpg)
   - Cryto 홍보로 여러 Celeb들이 Lawsuit에 휘말림
     - [Ethereum Max 관련 킴 카다시안, 메이웨더의 소송](https://www.investopedia.com/kardashian-wins-the-crypto-lawsuit-6826710)
     - [FTX 광고에 출연한 탐 브래디,  스티븐 커리, 지젤 번천 등 다수의 Celeb들에 대한 고소](https://sports.yahoo.com/tom-brady-stephen-curry-shaq-and-naomi-osaka-among-celebrities-sued-in-class-action-crypto-lawsuit-181117155.html)
