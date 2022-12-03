@@ -10,7 +10,7 @@ date:   2022-12-03 23:29:00 +0900
 categories: Blockchain Regulation
 
 ---
-
+![ftx_free_fall](https://img.koreatimes.co.kr/upload/newsV2/images/202211/6e6e48f465f24889a110c012997cc1a8.jpg/dims/resize/740/optimize)
 
 # FTX Crisis & Crypto Regulation
 
