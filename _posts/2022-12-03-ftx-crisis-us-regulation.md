@@ -80,6 +80,8 @@ categories: Blockchain Regulation
       - Crypto.com
       - Coinbase
 
+![gary_ftx_tie](https://cryptoast.fr/wp-content/uploads/2022/11/gary-gensler-president-sec-exprime-affaire-ftx.jpg)
+
 - 관련 비리 의혹 (카더라)
   > TL;DR; 현 SEC 의장 Gary Gensler가 FTX의 위법을 사전에 인지했으며 더 나아가 이를 해소하기 위한 탈법적 수단에 대한 조력을 하였다라는 의혹이 제기되고 있음, 이는 민주당의 연관 비리로 확대될 가능성이 있음 [[1](https://cryptobriefing.com/crypto-community-demands-investigation-into-gensler-ftx-ties/)]
   - SBF의 모친인 Barbara Fried는 [```Mind The Gap```](https://www.influencewatch.org/political-party/mind-the-gap/)이라는 단체의 리더이며 이 단체는 실리콘 벨리 Tech Company로 부터 Fund raisin을 통해 Democratic의 주요한 자금줄 역할을 해옴
