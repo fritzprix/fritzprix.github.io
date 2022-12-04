@@ -172,8 +172,8 @@ categories: Blockchain Regulation
   - 단, 이는 Website 접속이 제한되는 것으로 Smart Contract를 통해 직접 참여 할 수 있음
 
 - 그 밖에...
-  ![kardashian_crypto](https://www.coindesk.com/resizer/fROLrVwCeBLdr9L0fJGoRHbq3zI=/567x425/filters:quality(80):format(jpg)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/2JEHCGPSX5DXJK4JOHOJDT2IQU.jpg)
   - Cryto 홍보로 여러 Celeb들이 Lawsuit에 휘말림
+  ![kardashian_crypto](https://www.coindesk.com/resizer/fROLrVwCeBLdr9L0fJGoRHbq3zI=/567x425/filters:quality(80):format(jpg)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/2JEHCGPSX5DXJK4JOHOJDT2IQU.jpg)
     - [Ethereum Max 관련 킴 카다시안, 메이웨더의 소송](https://www.investopedia.com/kardashian-wins-the-crypto-lawsuit-6826710)
     - [FTX 광고에 출연한 탐 브래디,  스티븐 커리, 지젤 번천 등 다수의 Celeb들에 대한 고소](https://sports.yahoo.com/tom-brady-stephen-curry-shaq-and-naomi-osaka-among-celebrities-sued-in-class-action-crypto-lawsuit-181117155.html)
 
