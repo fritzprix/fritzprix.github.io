@@ -84,10 +84,10 @@ categories: Blockchain Regulation
 
 - 관련 비리 의혹 (카더라)
   > TL;DR; 현 SEC 의장 Gary Gensler가 FTX의 위법을 사전에 인지했으며 더 나아가 이를 해소하기 위한 탈법적 수단에 대한 조력을 하였다라는 의혹이 제기되고 있음, 이는 민주당의 연관 비리로 확대될 가능성이 있음 [[1](https://cryptobriefing.com/crypto-community-demands-investigation-into-gensler-ftx-ties/)]
-  - SBF의 모친인 Barbara Fried는 [```Mind The Gap```](https://www.influencewatch.org/political-party/mind-the-gap/)이라는 단체의 리더이며 이 단체는 주로 실리콘 벨리 Tech Company로 부터 Fund raising을 통해 Democratic의 주요한 자금줄 역할을 해옴
+  - SBF의 모친인 Barbara Fried는 [```Mind The Gap```](https://www.influencewatch.org/political-party/mind-the-gap/)이라는 단체의 리더이며 이 단체는 주로 실리콘 벨리 Tech Company로 부터 Fund raising을 통해 D**emocratic의 주요한 자금줄 역할**을 해옴
   - SBF의 부친인 Joseph Bankman은 Standford Law School의 Professor로 많은 영향력 있는 정치인과 연줄이 있음
-  - 현 SEC 의장인 Gary Gensler는 친 민주당 성향으로 이전 힐러리 캠프에서 제무 책임자를 역임한 이력이 있음
-  - Alameda Research의 CEO인 Caroline Ellison의 부친인 Glenn Ellison 현직 MIT교수로 현 SEC의장인 Gary Gensler가 MIT 교수로 재직 당시 친분이 있었던 것으로 알려져 있음
+  - 현 **SEC 의장인 Gary Gensler는 친 민주당 성향**으로 이전 힐러리 캠프에서 제무 책임자를 역임한 이력이 있음
+  - Alameda Research의 CEO인 **Caroline Ellison의 부친인 Glenn Ellison 현직 MIT교수**로 **현 SEC의장인 Gary Gensler가 MIT 교수로 재직 당시 친분**이 있었던 것으로 알려져 있음
   - Gary Gensler는 사건이 발생되기 전인 '22 3월 약 45분간의 화상 미팅을 FTX측과 가졌으며 당시 회의록에는 ```Conditional no-action relief```라는 문구가 있는데 이는 불법적인 상황에 대해 법적 조치를 취하지 않았음을 알려 시정하도록 경고하는 일종의 예외적 조치이다.
   - 다만, 이러한 예외 조치를 적용받았는지에 대한 명확한 증거는 불투명함
 
@@ -115,17 +115,17 @@ categories: Blockchain Regulation
 
 - '15 가상 화폐를 Commodity이며 Commodity Exchange Act의 규제 대상임을 밝힘
 - 이후 '19 의장이 개인적인 의견임을 강조하며 Ether가 Commodity에 해당한다고 언급
-- 이는 가상 자산의 규제에 Commodity를 적용함에 있어 다소 소극적 모습
-- 최근 뉴욕 재판에서 Tarbert는 Bitcoin, Ether, Litecoin 그리고 Tether를 Commodity로 규정하고 Commodity 거래 법으로 다룬 사례가 있음
-- 탈중앙화된 가상 화폐를 화폐가 아닌 원자재로 분류하고 있으며 화폐로써 규재 기준 요건을 충족할 수 없으며 시장에서 거래되는 재화로써 일반적인 원자재의 정의와 부합함을 주장
-- 최근 가상 자산의 선물 등 파생 상품의 등장과 Margin 거래 등에 대해 관련 규제를 준비 중이라 언급
+- 이는 가상 자산의 규제에 **Commodity를 적용함에 있어 다소 소극적** 모습
+- 최근 뉴욕 재판에서 Tarbert는 **Bitcoin, Ether, Litecoin 그리고 Tether를 Commodity로 규정**하고 Commodity 거래 법으로 다룬 사례가 있음
+- **탈중앙화된 가상 화폐**를 화폐가 아닌 원자재로 분류하고 있으며 화폐로써 규재 기준 요건을 충족할 수 없으며 시장에서 거래되는 재화로써 **일반적인 원자재의 정의와 부합함을 주장**
+- 최근 가상 자산의 선물 등 **파생 거래**의 등장으로 이들에 대한 관련 규제를 중점적으로 준비 중이라 언급
 
 #### Summary
 
-- SEC는 가상 자산의 규제에 대해 보다 적극적이고 확장적인 기조, Howey Test 기준에 부합하는 모든 자산을 잠재적 규제 대상으로 보고 있음
-- 상대적으로 CFTC는 일부 항목에 대한 규제로 한정하고 있으며 현재는 마진 거래 등 새로운 거래 유형에 대해 규제를 구체화 하는 추세
-- Ripple 등 소송 결과에 따라 Bitcoin, Ethereum을 제외한 가상 자산 중 소위 ERC20 Token이나 Layer-1 Token 등은 직접적으로 SEC의 규제 대상이 될 것으로 전망
-- CFTC는 관련 파생 거래 및 일부 제한적인 항목들에 (Bitcoin, Ethereum 등) 대해 집중적으로 규제할 가능성
+- **SEC는 가상 자산의 규제에 대해 보다 적극적이고 확장적**인 기조, **Howey Test 기준에 부합하는 모든 자산**을 잠재적 규제 대상으로 보고 있음
+- 상대적으로 CFTC는 일부 항목에 대한 규제로 한정하고 있으며 현재는 파생 거래 등 새로운 거래 유형에 대해 규제를 구체화 하는 추세
+- Ripple 등 소송 결과에 따라 Bitcoin, Ethereum을 제외한 가상 자산 중 소위 ERC20 Token이나 less decentralized Layer-1 Token ~~(소위 잡코인)~~ 등은 직접적으로 SEC의 규제 대상이 될 것으로 전망
+- **CFTC는 관련 파생 거래 및 일부 제한적인 항목**들에 (Bitcoin, Ethereum 등) 대해 집중적으로 규제할 가능성
 
 ---
 
@@ -134,15 +134,15 @@ categories: Blockchain Regulation
 ![sec_vs_ripple](https://en.cryptonomist.ch/wp-content/uploads/2022/02/ripple-sec-1.jpg)
 
 - Ripple
-  - '20년 SEC가 XRP를 ```Unregistered Security```로 분류, 의무에 대한 이행 없이 XRP 판매를 통하여 약 130억 달러에 달하는 부당한 수익을 벌어들인 것으로 소송
+  - '20년 SEC가 XRP를 ```Unregistered Security``` (미등록 증권)로 분류, 의무에 대한 이행 없이 XRP 판매를 통하여 약 130억 달러에 달하는 부당한 수익을 벌어들인 것으로 소송
   - 증권으로 등록하지 않았으며 관련 면제 신청도 하지 않음. 이는 Security Act 5 a,c 위반임을 주장
   - 반론
     - UK, Japan, Singapore 등에서 XRP가 증권 규제 비대상으로 규정
     - '15 DOJ 및 FinCEN에서 XRP를 가상화폐로써 다룬 바있음. 당시 SEC에서 이에 대한 문제 제기를 하지 않음
-  - Coinbase에서 리플 지지 문건 (아미쿠스 브리프) 제출
+  - [Coinbase에서 리플 지지 문건 (아미쿠스 브리프) 제출](https://finance.yahoo.com/news/coinbase-officially-enters-fray-xrp-091338375.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAALtumovVn69_4C2xXX7ib7z9gWVUVLL9gf4S4_azULP5n-wH9pGLJINbjZTapKYJKz2oFIXQedaPyRK6F5c3jqvZAnW9I8tmqCrSxKPCOYzMu71o0o0qHpp1K0qNmRPhj0efxWkcnO6F8YGTyEqWIedwyToNVapUPS4M4HBtZtJj) ('22. 11월 15일)
     - SEC에서 리플에 사전에 적절한 고지를 하지 않았음을 주장
     - 반면 11월 29일 코인베이스는 자체 Wallet에서 XRP, BCH, ETC, XLM 자산의 거래 지원을 내년 1월 부터 중단하겠다고 발표[[1](https://www.sedaily.com/NewsView/26DTRUYWWN)]
-    - 이를 통해 리플 소송건이 SEC쪽으로 기울었을 것이다라는 추측
+    - 이를 통해 리플 소송건이 **SEC쪽으로 기울었을 것이다라는 추측**
 
 - Solana
   - 불법적인 방식의 Unregistered Security를 거래에 대한 집단 소송
