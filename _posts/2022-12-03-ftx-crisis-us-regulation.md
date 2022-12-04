@@ -63,7 +63,7 @@ categories: Blockchain Regulation
   - Genesis
     - Digital Asset Broker인 Genesis에서 고객들의 자산 인출을 차단, FTX 사태로 인한 영향을 언급
     - Genesis의 모회사인 Digital Currency Group은 이러한 조치에 대하여 FTX로 인한 극단적인 시장 이탈과 업계 신뢰의 추락에 대응하기 위함으로 설명
-    - (22년 11월) 10일 트위커를 통해 Genesis의 파생상품 자산 중 175M USD가 FTX에 물려 있는 것으로 확인
+    - (22년 11월) 10일 Twitter를 통해 Genesis의 파생상품 자산 중 175M USD가 FTX에 물려 있는 것으로 확인
     - 참고로 바로 전날인 9일 FTX와의 연관성을 부인한 바 있음
   - BlockFI
     - 14일 FTX 사태로 인한 심각한 영향이 있음을 공식화
@@ -84,7 +84,7 @@ categories: Blockchain Regulation
 
 - 관련 비리 의혹 (카더라)
   > TL;DR; 현 SEC 의장 Gary Gensler가 FTX의 위법을 사전에 인지했으며 더 나아가 이를 해소하기 위한 탈법적 수단에 대한 조력을 하였다라는 의혹이 제기되고 있음, 이는 민주당의 연관 비리로 확대될 가능성이 있음 [[1](https://cryptobriefing.com/crypto-community-demands-investigation-into-gensler-ftx-ties/)]
-  - SBF의 모친인 Barbara Fried는 [```Mind The Gap```](https://www.influencewatch.org/political-party/mind-the-gap/)이라는 단체의 리더이며 이 단체는 실리콘 벨리 Tech Company로 부터 Fund raisin을 통해 Democratic의 주요한 자금줄 역할을 해옴
+  - SBF의 모친인 Barbara Fried는 [```Mind The Gap```](https://www.influencewatch.org/political-party/mind-the-gap/)이라는 단체의 리더이며 이 단체는 주로 실리콘 벨리 Tech Company로 부터 Fund raising을 통해 Democratic의 주요한 자금줄 역할을 해옴
   - SBF의 부친인 Joseph Bankman은 Standford Law School의 Professor로 많은 영향력 있는 정치인과 연줄이 있음
   - 현 SEC 의장인 Gary Gensler는 친 민주당 성향으로 이전 힐러리 캠프에서 제무 책임자를 역임한 이력이 있음
   - Alameda Research의 CEO인 Caroline Ellison의 부친인 Glenn Ellison 현직 MIT교수로 현 SEC의장인 Gary Gensler가 MIT 교수로 재직 당시 친분이 있었던 것으로 알려져 있음
