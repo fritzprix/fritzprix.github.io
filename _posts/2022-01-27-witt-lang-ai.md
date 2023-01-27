@@ -2,7 +2,7 @@
 layout: post
 title: "The Wittgenstein's Language Game and AI"
 date: 2023-01-26 18:22:46 +0900
-image: https://th.bing.com/th/id/OIP.cauWg6VrgSrmBjPb7YMr1AHaDf?pid=ImgDet
+image: /assets/img/Wittgenstein-Quote.png
 excerpt: "Exploring the connections between Ludwig Wittgenstein's theory of language games and the challenges faced by Artificial Intelligence"
 ---
 ![witt_quote w:100](/assets/img/Wittgenstein-Quote.png)
