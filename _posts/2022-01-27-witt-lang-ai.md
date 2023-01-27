@@ -6,13 +6,15 @@ image: https://th.bing.com/th/id/OIP.cauWg6VrgSrmBjPb7YMr1AHaDf?pid=ImgDet
 excerpt: "Exploring the connections between Ludwig Wittgenstein's theory of language games and the challenges faced by Artificial Intelligence"
 ---
 
+![witt_quote](https://th.bing.com/th/id/OIP.cauWg6VrgSrmBjPb7YMr1AHaDf?pid=ImgDet)
 
-Artificial Intelligence (AI) has made remarkable progress in recent years, but it still struggles with the "hallucination problem" - the tendency to output false statements by combining words in unexpected ways. This problem is not unique to AI, however; it is also a problem that humans face when we misuse language. 
+Artificial Intelligence (AI) has made remarkable progress in recent years, but it still struggles with the "hallucination problem" - the tendency to output false statements by combining words in unexpected ways. This problem is not unique to AI, however; it is also a problem that humans face when we misuse language.
 
 According to the philosophy of Ludwig Wittgenstein, the way we use language is closely tied to the way we understand the world. Wittgenstein believed that language is a "form of life" that is deeply rooted in our everyday activities, and that the meaning of words is determined by the way we use them in these activities. He also believed that the misuse of language is a common source of confusion and misunderstanding, both in philosophy and in everyday life.
 
 One famous quote by Wittgenstein illustrates this point: "Whereof one cannot speak, thereof one must be silent." This quote means that when we cannot find the right words to express a concept, we should not try to force it into language, but rather keep silent and reflect on our understanding of it.
 
+![AI](https://globaltechnologyupdate.com/wp-content/uploads/2020/10/GPT-3-The-Most-Powerful-AI-Language-Model-Ever-Built-1024x683.jpg)
 This quote also has a profound implication for the hallucination problem of AI. Just as humans must be mindful of the limitations of language and be silent when we cannot find the right words, AI should also be mindful of its own limitations and not output false statements.
 
 In conclusion, the hallucination problem of AI is not just a technical issue, but also a philosophical one. By reflecting on the philosophy of language, we can gain a deeper understanding of how AI works and how to improve it. 
