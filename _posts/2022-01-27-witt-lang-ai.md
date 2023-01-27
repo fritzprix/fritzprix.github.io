@@ -5,23 +5,23 @@ date: 2023-01-26 18:22:46 +0900
 image: https://th.bing.com/th/id/OIP.cauWg6VrgSrmBjPb7YMr1AHaDf?pid=ImgDet
 excerpt: "Exploring the connections between Ludwig Wittgenstein's theory of language games and the challenges faced by Artificial Intelligence"
 ---
-![witt_quote w:100%](https://th.bing.com/th/id/OIP.cauWg6VrgSrmBjPb7YMr1AHaDf?pid=ImgDet)
+![witt_quote w:100](/assets/img/Wittgenstein-Quote.png)
+Large Language Models (LLMs) have shown remarkable capability in tasks that require human-like intelligence. For example, GPT-3 can answer factual questions such as "When did humans first land on the moon?" with great accuracy and can also extract insightful information from a limited amount of data. However, LLMs also have limitations when it comes to tasks that require careful use of knowledge. This is where the analogy to ancient philosophers comes in.
 
-In his later philosophy, Ludwig Wittgenstein introduced the concept of "language games" to explain how human language and communication works. He argued that language is not a fixed set of rules, but rather a collection of practices that are constantly evolving and changing. These practices, or "language games," are deeply intertwined with the context and culture in which they are used.
-
-Wittgenstein's ideas about language games have important implications for understanding how AI learns to communicate with humans. Both human and machine are engaged in a process of learning and adapting to the language games of their respective communities.
-
-One of the key implications of Wittgenstein's philosophy is that language is inherently ambiguous and context-dependent. This is something that AI engineers must be mindful of when designing natural language processing systems. It is not enough to simply teach a machine a set of rules for understanding language; rather, the machine must also be able to adapt and learn the nuances of language use in different contexts.
-
-Another important aspect of Wittgenstein's philosophy is the idea of "private language." This refers to the idea that an individual can have their own personal language, which is not comprehensible to others. Wittgenstein argued that this is impossible, as language is essentially a social practice. Similarly, AI systems can also suffer from a problem of "hallucination," where they generate false statements by combining words in a way that is not comprehensible to humans. This is why it is crucial for AI engineers and users alike to have a mindfulness and reflection of Wittgenstein's language game to avoid this problem.
-
+Ancient philosophers, like Plato, made many misleading questions and arguments that have caused confusion in the intellectual history. They were limited by the language and knowledge available to them at the time, just as LLMs are limited by the text data they are trained on. However, this does not take away from the fact that ancient philosophers were great thinkers and made important contributions to the field of philosophy.
 
 ![AI](https://globaltechnologyupdate.com/wp-content/uploads/2020/10/GPT-3-The-Most-Powerful-AI-Language-Model-Ever-Built-1024x683.jpg)
 
-In conclusion, Wittgenstein's ideas about language games have important implications for understanding how AI and humans learn to communicate. By understanding the ambiguous and context-dependent nature of language, AI engineers can design systems that are better able to adapt and learn the nuances of language use in different contexts. And for AI users, it's important to be mindful of the common problem of hallucination, and how it can be fixed by reflecting the idea of language game of Wittgenstein.
+Wittgenstein's philosophy on language and the concept of "language games" is particularly relevant in understanding the limitations of LLMs. Wittgenstein argued that the meaning of words and concepts can only be understood within a specific context or "language game." This means that words and concepts can have different meanings depending on the context in which they are used. The same can be said for LLMs, which can generate plausible statements based on the text data they were trained on, but may not have a deep understanding of the concepts they are using.
+
+The evolution of philosophy, from ancient philosophers to modern philosophers like Kant, Karl Popper, and Wittgenstein, can be seen as an analogy to the evolution of LLMs. Just as philosophy has evolved to better understand the limitations and capabilities of human knowledge, LLMs are also evolving to better understand the limitations and capabilities of their knowledge. The development of Reinforcement Learning for Human-in-the-loop Feedback (RLHF) is one example of how LLMs are becoming more capable in knowledge-based tasks. RLHF allows LLMs to learn and adapt to new information in a more human-like way, by incorporating feedback from human users.
+
+Despite their limitations, LLMs hold great promise for the future. They have the ability to analyze vast amounts of data and generate insights that would be impossible for humans to uncover alone. However, it is important to understand their limitations and use them with caution. Playing with language and words is not the same as gaining knowledge. As AI technology advances, the development of multimodal AI, which incorporates sensing capabilities, may help to overcome this limitation by allowing AI to learn and understand the world in a more empirical manner, similar to how human's learn through their five senses. We should be optimistic about the future of LLMs and be prepared to embrace them for their powerful capabilities, while also understanding their limitations and using them responsibly.
+
+
+
 
 **Note: This article is generated by OpenAI's GPT-3, please take this as a reference only and not a substitute for professional knowledge.**
-
 
 
 <div id="disqus_thread"></div>
