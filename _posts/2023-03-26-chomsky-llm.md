@@ -6,7 +6,7 @@ image: /assets/img/noam.jpg
 excerpt: "세계 최고 권위의 언어 학자 촘스키가 최근 NYTimes 등 주요 매체를 통해 근래 대규모 언어 모델의 성과를 비하하는데 열을 올리고 있다."
 categories: AI
 tags: 인공지능 언어모델, 촘스키, 자연어 처리
-permalink: /ai/language-games-and-ai-models/
+permalink: /ai/chomsky-chatgpt/
 ---
 
 ![noam w:100](/assets/img/noam.jpg)
