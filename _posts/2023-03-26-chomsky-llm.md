@@ -18,15 +18,15 @@ permalink: /ai/language-games-and-ai-models/
 ## 언어에 대한 구조적 해석에 대한 그의 연구 노력
 
 ![chomsky_hierarchy W:100](/assets/img/Comsky-1.png)
-촘스키는 1956년 Chomsky Hierarchy를 제안하고 언어를 복잡도에 따라 Type-0 ~ Type-3로 유형화 하여 각 유형에 대응되는 복잡도를 다루기 위한 Automata를 정의하였다. 이는 인간의 언어를 기계가 다루는 데 있어 핵심적인 이론적 틀을 제공하였다.
+촘스키는 1956년 **Chomsky Hierarchy**를 제안하고 언어를 복잡도에 따라 Type-0 ~ Type-3로 유형화 하여 **각 유형에 대응되는 복잡도를 다루기 위한 Automata**를 정의하였다. 이는 인간의 언어를 기계가 다루는 데 있어 핵심적인 이론적 틀을 제공하였다.
 
 ## 안타까운 실패와 그 이후
 
 하지만 이러한 이론적 기반이 자연어 처리나 인공지능과 같은 분야에서 실제적인 적용을 얻기에는 한계가 있었다. 가장 중요한 이유는 Chomsky Hierarchy가 인간의 언어의 복잡성과 다양성을 충분히 반영하지 못했기 때문이다.
 
-그래서 이후 그는 1957년 Syntactic structure를 발표하면서 Transformational Grammar라는 새로운 이론을 도입하며 자연어의 문장 구조를 생성하는 규칙과 변형하는 규칙을 구분하고, 언어의 의미와 표현의 관계를 설명하려고 하였다. 그는 이러한 과정에서 선험적 지식의 필요성을 주장하였다. 촘스키는 언어 습득 능력이 생물학적으로 내재되어 있으며, 언어 구조에 대한 선험적 지식이 언어 경험과 학습에 영향을 미친다고 생각하였다.
+그래서 이후 그는 1957년 Syntactic structure를 발표하면서 [Transformational Grammar](https://en.wikipedia.org/wiki/Transformational_grammar)라는 새로운 이론을 도입하며 자연어의 문장 구조를 생성하는 규칙과 변형하는 규칙을 구분하고, 언어의 의미와 표현의 관계를 설명하려고 하였다. 그는 이러한 과정에서 [선험적 지식](https://en.wikipedia.org/wiki/Transformational_grammar#Innate_linguistic_knowledge)의 필요성을 주장하였다. 촘스키는 언어 습득 능력이 생물학적으로 내재되어 있으며, 언어 구조에 대한 선험적 지식이 언어 경험과 학습에 영향을 미친다고 생각하였다.
 
-## 불편한 타인의 성과 - GPT3
+## 불편한 타인의 성과 - [GPT-3](https://github.com/openai/gpt-3)
 
 그러나 최근에는 인공지능 기술의 발전으로 대규모 언어 모델이 등장하였다. 대규모 언어 모델은 인터넷에서 수많은 텍스트 데이터를 학습하여 다양한 언어 작업을 수행할 수 있다. 이러한 언어 모델은 촘스키가 제안한 언어 이론에 기반하여 설계된 것이 아닌 무수히 많은 텍스트 데이터로부터 통계적으로 패턴을 학습하는 방식이다. 대규모 언어 모델은 촘스키 계층에 따른 언어의 복잡도를 구분하지 않고, 몇 가지 프롬프트를 통해 다양한 언어를 이해하고 생성할 수 있다. 예를 들어, GPT-3은 1750억 개의 파라미터를 가진 언어 모델로, 텍스트 생성, 번역, 요약, 질의응답 등 다양한 작업을 할 수 있다. GPT-3은 촘스키가 간과하거나 비판했던 언어의 의미와 맥락, 화자의 체험과 의도 등을 고려하여 자연스러운 텍스트를 생성할 수 있다.
 
@@ -41,7 +41,7 @@ permalink: /ai/language-games-and-ai-models/
 ## Transformer & Turing Complete
 
 ![turing w:100](/assets/img/turing_m.webp)
-Chomsky Hierarchy에 따르면 Type-0에 해당하는 무제한 문법은 모든 문자열을 생성하는 가장 상위(다루기 어려운 문법)의 언어 형식 유형이다. 이러한 언어를 다루기 위해서는 Turing Machine이 필요하다고 그는 주장한다. 그리고 이러한 Turing Machine의 여부를 판별하는 주요한 기준이 바로 Turing 완결성(Completeness)이다. 그리고 최근 연구를 통해 GPT의 근간 Architecture인 Transformer가 Turing 완결성을 갖추고 있음을 연구자들이 밝힌바 있다. 따라서 초기에 Chomsky가 정의한 Hierarchy에 따라서도 GPT는 인간의 언어를 다루는데 문제가 없다. 물론 이후 인간의 선천적 언어 능력 등 기계가 언어를 다루는데 존재하는 한계를 주장하고 있으나 최소 그의 초기 이론에 대입하여 이를 다시 해석해 볼 여지는 그에게 충분히 존재한다.
+Chomsky Hierarchy에 따르면 Type-0에 해당하는 무제한 문법은 모든 문자열을 생성하는 가장 상위(다루기 어려운 문법)의 언어 형식 유형이다. 이러한 언어를 다루기 위해서는 Turing Machine이 필요하다고 그는 주장한다. 그리고 이러한 Turing Machine의 여부를 판별하는 주요한 기준이 바로 Turing 완결성(Completeness)이다. 그리고 최근 연구를 통해 GPT의 근간 Architecture인 [Transformer가 Turing 완결성](https://arxiv.org/pdf/1901.03429.pdf)을 갖추고 있음을 연구자들이 밝힌바 있다. 따라서 초기에 Chomsky가 정의한 Hierarchy에 따라서도 GPT는 인간의 언어를 다루는데 문제가 없다. 물론 이후 인간의 선천적 언어 능력 등 기계가 언어를 다루는데 존재하는 한계를 주장하고 있으나 최소 그의 초기 이론에 대입하여 이를 다시 해석해 볼 여지는 그에게 충분히 존재한다.
 
 ## 단순한 비판? 그 어두운 이면
 
