@@ -19,7 +19,7 @@ permalink: /ai/language-games-and-ai-models/
 
 ![chomsky_hierarchy W:100](/assets/img/Comsky-1.png)
 
-촘스키는 1956년 **Chomsky Hierarchy**를 제안하고 언어를 복잡도에 따라 Type-0 ~ Type-3로 유형화 하여 **각 유형에 대응되는 복잡도를 다루기 위한 Automata**를 정의하였다. 이는 인간의 언어를 기계가 다루는 데 있어 핵심적인 이론적 틀을 제공하였다.
+촘스키는 1956년 **Chomsky Hierarchy**를 제안하고 언어를 복잡도에 따라 Type-0 ~ Type-3로 유형화 하여 **각 유형에 대응되는 복잡도를 다루기 위한 Automata**를 정의하였다. Type-3에서 Type-0로 갈 수록 복잡해 지며 Type-0의 무제한 문법의 경우 이를 다루기 위해서는 Turing Machine과 같이 자유로운 연산이 가능한 Automata가 필요하다고 주장한다.
 
 ## 안타까운 실패와 그 이후
 
