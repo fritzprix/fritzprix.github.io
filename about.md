@@ -3,11 +3,10 @@ layout: page
 title: About
 permalink: /about/
 ---
+Greetings!
 
-Hi, there! :smile:
+My name is David, and I am a passionate engineer with a keen interest in various aspects of technology - from hardware to software. With a strong enthusiasm for learning, I invest my free time in executing personal projects, always seeking out intriguing new challenges to tackle.
 
-I'm David, a passionate engineer interested in various technologies from hardware to software. I enjoy spending spare time to learn something intriguing by executing personal projects of my own. this blog is to be used as archive for records of humble lesson from my projects.
+Through this blog, I aim to archive my projects and share the valuable lessons I've learned along the way. I hope that this platform will not only serve as a record of my progress but also provide insight and inspiration for other technology enthusiasts.
 
-I hope you can find some usefulness from this blog.
-
-[jekyll-organization]: https://github.com/jekyll
+Thank you for visiting, and I hope you find something useful within these pages.
