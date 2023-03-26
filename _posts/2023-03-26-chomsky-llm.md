@@ -18,6 +18,7 @@ permalink: /ai/language-games-and-ai-models/
 ## 언어에 대한 구조적 해석에 대한 그의 연구 노력
 
 ![chomsky_hierarchy W:100](/assets/img/Comsky-1.png)
+
 촘스키는 1956년 **Chomsky Hierarchy**를 제안하고 언어를 복잡도에 따라 Type-0 ~ Type-3로 유형화 하여 **각 유형에 대응되는 복잡도를 다루기 위한 Automata**를 정의하였다. 이는 인간의 언어를 기계가 다루는 데 있어 핵심적인 이론적 틀을 제공하였다.
 
 ## 안타까운 실패와 그 이후
