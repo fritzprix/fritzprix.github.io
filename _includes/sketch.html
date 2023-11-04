@@ -62,8 +62,8 @@
         }
 
         const balls = []
-        const width = 800;
-        const height = 800;
+        const width = 400;
+        const height = 400;
         const pointCount = 500;
         const impactInterval = 5;
 
@@ -101,7 +101,9 @@
 
 
         function setup() {
-            createCanvas(width, height);
+            const canvas = createCanvas(width, height);
+            canvas.parent('p5-sketch');
+
 
             startButton = createButton('Start');
             startButton.position(160, 10);

@@ -10,6 +10,8 @@ categories: digital art, visualization
 categories: AI LLM
 ---
 
+## dancing particles
+<div id="p5-sketch"></div>
 {% include sketch.html %}
 
 
