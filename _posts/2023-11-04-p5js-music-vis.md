@@ -18,18 +18,20 @@ categories: [digital art, creative coding, music visualization, AI LLM]
 ## 여정
 > 음악을 시각화하는 것부터 시작해, `Cellular Automata`의 단순함 속에 숨겨진 복잡한 아름다움을 발견하는 여정까지, p5.js와 함께 할 이 모험을 이 포스트를 통해 살짝씩 풀어나갈 거예요. 마치 이야기를 엮어가는 실처럼, 여러분을 이 흥미진진한 창작의 세계로 초대합니다!
 
-## License
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://fritzprix.github.io/ai/llm/2023/11/03/p5js-music-vis.html">p5j projects</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fritzprix.github.io/about/">David Lee</a> is marked with <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC0 1.0 Universal<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"></a></p>
 
 
 ## Dancing particles
 {% include dancing_particles.html %}
 
 
+## License
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://fritzprix.github.io/ai/llm/2023/11/03/p5js-music-vis.html">p5j projects</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://fritzprix.github.io/about/">David Lee</a> is marked with <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC0 1.0 Universal<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"></a></p>
+
+
 <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
-        this.page.url = 'https://fritzprix.github.io/ai/llm/2023/11/03/p5js-music-vis.html'; // Replace with your page's canonical URL variable
+        this.page.url = 'https://fritzprix.github.io/digital%20art/creative%20coding/music%20visualization/ai%20llm/2023/11/03/p5js-music-vis.html'; // Replace with your page's canonical URL variable
         this.page.identifier = 'p5js-music-vis'; // Replace with your page's unique identifier variable
     };
 
