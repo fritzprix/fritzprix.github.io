@@ -11,11 +11,6 @@ categories: AI LLM
 ---
 
 ## dancing particles
-<div id="p5-sketch">
-    <select id="music-selector"/>
-    <input type="checkbox" id="bgsync-checkbox"/>
-    <button id="play-button">Start</button>
-</div>
 {% include sketch.html %}
 
 

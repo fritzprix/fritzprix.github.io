@@ -1,8 +1,9 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.8.0/lib/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"></script>
-    
+
 </head>
+
 <body>
     <script>
         function makeSin(size, offset) {
@@ -102,10 +103,10 @@
 
         function setup() {
             const canvas = createCanvas(width, height);
-            canvas.parent('p5-sketch');
+            canvas.parent('p5-container');
 
-
-            startButton = select('play-button');
+            startButton = select('#start-button');
+            startButton.elt.innerHTML = 'Start';
             startButton.mousePressed(togglePlay);
             startButton.elt.disabled = true;
 
@@ -119,7 +120,6 @@
 
             bgSyncCheckbox = select('#bgsync-checkbox');
             bgSyncCheckbox.elt.checked = bgSync;
-            bgSyncCheckbox.position(80, 10);
             bgSyncCheckbox.changed(bgSyncCheckedEvent);
 
 
@@ -215,5 +215,12 @@
 
     </script>
     <main>
+        <div>
+            <select id="music-selector" />
+            <input type="checkbox" id="bgsync-checkbox">bg-sync</input>
+            <button id="start-button" />
+        </div>
+        <div id="p5-container">
+        </div>
     </main>
 </body>
