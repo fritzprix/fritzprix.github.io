@@ -81,7 +81,7 @@
             }
             startButton.elt.innerHTML = 'Loading...';  // Update button label to "Loading..."
             startButton.elt.disabled = true;  // Disable the start button
-            sound = loadSound(`assets/${music}.mp3`, soundLoaded);  // Load the new sound and set a callback for when it's loaded
+            sound = loadSound(`/assets/${music}.mp3`, soundLoaded);  // Load the new sound and set a callback for when it's loaded
         }
 
         function soundLoaded() {
