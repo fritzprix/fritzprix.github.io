@@ -177,7 +177,7 @@
             fcount++;
             if (!sound.isPlaying() && (fcount > 120)) {
                 const total_entropy = balls.map(b => b.getMovement().mag()).reduce((a, b) => a + b);
-                if (total_entropy < (pointCount * 1.2)) {
+                if (total_entropy < (pointCount * 1.4)) {
                     startButton.elt.disabled = false;
                 }
             }
