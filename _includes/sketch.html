@@ -2,9 +2,218 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.8.0/lib/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"></script>
-    <script src="./sketch.js"></script>
+    
 </head>
 <body>
+    <script>
+        function makeSin(size, offset) {
+            return Array(size).fill(0).map((v, index) => {
+                return sin(TWO_PI / size * (index + offset)) / 2 + 0.5;
+            })
+        }
+
+        let Ball = function (x, y, mov, gravity, damping, center, keepout) {
+            const pos = createVector(x, y);
+            const paint = color(255, 255, 255);
+
+            const setColor = function (r, g, b) {
+                paint.setRed(r);
+                paint.setGreen(g);
+                paint.setBlue(b);
+            }
+
+            const getMovement = function () {
+                return mov.copy();
+            }
+
+            const draw = function () {
+                stroke(paint);
+                strokeWeight(5);
+                point(pos);
+                pos.add(mov);
+                let force = pos.copy();
+
+
+                if (pos.dist(center) < keepout) {
+                    force.sub(center);
+                    force.normalize();
+                    force.mult(gravity);
+                    mov.add(force);
+                } else {
+                    force.sub(center);
+                    force.normalize();
+                    force.mult(gravity);
+                    mov.sub(force);
+                }
+                mov.mult(damping);
+            };
+
+            const impact = function (force) {
+                let curPos = pos.copy();
+                let impactForceV = curPos.sub(center).normalize().mult(force);
+                mov.add(impactForceV);
+            }
+
+            return {
+                draw,
+                impact,
+                setColor,
+                getMovement
+            };
+        }
+
+        const balls = []
+        const width = 800;
+        const height = 800;
+        const pointCount = 500;
+        const impactInterval = 5;
+
+
+        let musicSelection;
+        let bgSyncCheckbox;
+        let music = 'brazil';
+        let bgSync = false;
+
+        function musicSelectEvent() {
+            music = musicSelection.value();
+            if (sound.isPlaying()) {
+                sound.pause();
+            }
+            startButton.elt.innerHTML = 'Loading...';  // Update button label to "Loading..."
+            startButton.elt.disabled = true;  // Disable the start button
+            sound = loadSound(`assets/${music}.mp3`, soundLoaded);  // Load the new sound and set a callback for when it's loaded
+        }
+
+        function soundLoaded() {
+            startButton.elt.innerHTML = 'Start';  // Update button label to "Start" once the sound is loaded
+            startButton.elt.disabled = false;  // Re-enable the start button
+        }
+
+        function bgSyncCheckedEvent() {
+            bgSync = bgSyncCheckbox.checked();
+        }
+
+
+        function preload() {
+            sound = loadSound('assets/brazil.mp3');
+        }
+
+
+
+
+        function setup() {
+            createCanvas(width, height);
+
+            startButton = createButton('Start');
+            startButton.position(160, 10);
+            startButton.mousePressed(togglePlay);
+            startButton.elt.disabled = true;
+
+            musicSelection = createSelect();
+            musicSelection.position(10, 10);
+            musicSelection.option(music);
+            musicSelection.option('1812');
+            musicSelection.option('river');
+            musicSelection.option('strobe');
+            musicSelection.option('eddie');
+            musicSelection.changed(musicSelectEvent);
+
+            bgSyncCheckbox = createCheckbox('BgSync', bgSync);
+            bgSyncCheckbox.position(80, 10);
+            bgSyncCheckbox.changed(bgSyncCheckedEvent);
+
+
+            fcount = 0;
+            impactCount = 0;
+            fft = new p5.FFT();
+            const spectrum = fft.analyze();
+            R_SAMPLE_MAP = makeSin(pointCount, 0);
+            G_SAMPLE_MAP = makeSin(pointCount, pointCount / 4);
+            B_SAMPLE_MAP = makeSin(pointCount, pointCount / 2);
+            spectrumBuffer = new Array(spectrum.length).fill(0);
+            ballCountToImpact = pointCount / impactInterval;
+            stride = Math.floor(spectrum.length / pointCount);
+            impactStart = 0;
+            const anchor = createVector(width / 2, height / 2);
+
+            for (let i = 0; i < pointCount; i++) {
+                let x = i;
+                let y = i;
+                switch (i % 4) {
+                    case 0:
+                        x = pointCount
+                        break;
+                    case 1:
+                        x = 0;
+                        break;
+                    case 2:
+                        y = pointCount
+                        break;
+                    case 3:
+                        y = 0;
+                        break;
+                }
+                balls.push(Ball(x * width / pointCount,
+                    y * height / pointCount,
+                    createVector((random() - 0.5) * 2, (random() - 0.5) * 2),
+                    2.5,
+                    0.6,
+                    anchor, 100));
+            }
+        }
+
+        function draw() {
+            if (bgSync) {
+                const rEnergy = fft.getEnergy("bass");
+                const gEnergy = fft.getEnergy("mid");
+                const bEnergy = fft.getEnergy("treble");
+
+                background(color(rEnergy, gEnergy, bEnergy));
+            } else {
+                background(80);
+            }
+
+            const spectrum = fft.analyze();
+            fcount++;
+            if (!sound.isPlaying() && (fcount > 120)) {
+                const total_entropy = balls.map(b => b.getMovement().mag()).reduce((a, b) => a + b);
+                if (total_entropy < (pointCount * 1.2)) {
+                    startButton.elt.disabled = false;
+                }
+            }
+            if ((fcount % impactInterval) === 0) {
+                impactCount++;
+                const startIndex = impactCount % impactInterval;
+                for (let i = startIndex; i < pointCount; i += impactInterval) {
+                    let force = (spectrumBuffer[i * stride] / impactInterval) / 5;
+                    balls[i].setColor(255 * R_SAMPLE_MAP[i], 255 * G_SAMPLE_MAP[i], 255 * B_SAMPLE_MAP[i]);
+                    balls[i].impact(force);
+                }
+                spectrumBuffer.fill(0);
+            } else {
+                for (let i = 0; i < spectrum.length; i++) {
+                    spectrumBuffer[i] += spectrum[i];
+                }
+            }
+
+            impactStart += ballCountToImpact;
+            impactStart = impactStart % balls.length;
+            for (let ball in balls) {
+                balls[ball].draw();
+            }
+        }
+
+        function togglePlay() {
+            if (sound.isPlaying()) {
+                sound.pause();
+                startButton.elt.innerHTML = 'Start';  // Update button label to "Start" when music is paused
+            } else {
+                sound.loop();
+                startButton.elt.innerHTML = 'Stop';  // Update button label to "Stop" when music is playing
+            }
+        }
+
+    </script>
     <main>
     </main>
 </body>
