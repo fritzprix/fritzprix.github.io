@@ -1,4 +1,13 @@
-# AI research paper - daily digest (Oct. 28. '23)
+---
+layout: post
+author: Doowoong(David) Lee
+locale: ko_KR
+tags: LLM AI 
+comments: true
+title:  "AI research paper - daily digest (Oct. 28. '23)"
+date:   2023-11-01 19:09:00 +0900
+categories: AI LLM
+---
 
 ## [ConvNets Match Vision Transformers at Scale](https://arxiv.org/pdf/2310.16764.pdf)
 - ConvNet => ViT
