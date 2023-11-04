@@ -25,6 +25,10 @@ categories: [digital art, creative coding, music visualization, AI LLM]
 - Start버튼을 누르면 시작
 - 음악을 바꿀 수 있음
 - 체크박스 설정하면 배경 색상이 음의 특징에 따라 색상을 바꿈
+- 기본적으로 FFT를 활용, particle들을 주파수 대역별로 할당하고 그에 따라 공간적으로 배치, 또한 할당된 주파수에 따라 색상을 지정
+- 저주파(yellow) -> 고주파(cyan)
+- sweep 음원을 이용하여 particle이 어떻게 주파수가 할당되어 공간적으로 배치되었는지 확인할 수 있음
+- Royalty-free 음원 이용
 
 {% include dancing_particles.html %}
 

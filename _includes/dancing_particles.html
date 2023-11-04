@@ -28,21 +28,15 @@
 
             const draw = function () {
                 stroke(paint);
-                strokeWeight(5);
                 point(pos);
                 pos.add(mov);
                 let force = pos.copy();
-
-
+                force.sub(center);
+                force.normalize();
+                force.mult(gravity);
                 if (pos.dist(center) < keepout) {
-                    force.sub(center);
-                    force.normalize();
-                    force.mult(gravity);
                     mov.add(force);
                 } else {
-                    force.sub(center);
-                    force.normalize();
-                    force.mult(gravity);
                     mov.sub(force);
                 }
                 mov.mult(damping);
@@ -76,6 +70,8 @@
         let loading = true;
         let music = 'spectrum';
         let bgSync = false;
+        let ballSizeSlider;
+
 
         function musicSelectEvent() {
             music = musicSelection.value();
@@ -128,6 +124,7 @@
             bgSyncCheckbox.elt.checked = bgSync;
             bgSyncCheckbox.changed(bgSyncCheckedEvent);
 
+            ballSizeSlider = select('#ball-size-slider');
 
             fcount = 0;
             impactCount = 0;
@@ -176,7 +173,7 @@
 
                 background(color(rEnergy, gEnergy, bEnergy));
             } else {
-                background(80);
+                background(250);
             }
 
             const spectrum = fft.analyze();
@@ -206,6 +203,10 @@
 
             impactStart += ballCountToImpact;
             impactStart = impactStart % balls.length;
+            if(ballSizeSlider) {
+                const ballSize = ballSizeSlider.value();
+                strokeWeight(ballSize);
+            }
             for (let ball in balls) {
                 balls[ball].draw();
             }
@@ -224,9 +225,10 @@
     </script>
     <main>
         <div>
-            <select id="music-selector" />
-            <input type="checkbox" id="bgsync-checkbox" /> bgColor-sync
-            <button id="start-button" />
+            <select id="music-selector"/>
+            <input type="range" id="ball-size-slider" min="3" max="15", value="5"/>
+            <input type="checkbox" id="bgsync-checkbox"/> bgColor-sync
+            <button id="start-button"/>
         </div>
         <div id="p5-container">
         </div>
