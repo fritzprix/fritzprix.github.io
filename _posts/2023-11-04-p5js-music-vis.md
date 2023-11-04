@@ -8,6 +8,7 @@ comments: true
 tags: [p5js, creative coding, music visualization, interactive art, javascript]
 categories: [digital art, creative coding, music visualization, AI LLM]
 ---
+![p5js w:100](/assets/img/p5js.png)
 
 ## 이야기
 > `p5.js`는 마치 마법사의 지팡이와도 같은 자바스크립트 라이브러리입니다. 이 오픈 소스 프로젝트는 UX 실험을 마치 어린 아이의 상상 놀이처럼 쉽고 재미있게 만들어줍니다. 2000년에 태어난 Java의 대장 `Processing`은 이미 예술가와 UX 디자이너, 그리고 창의적인 마음을 가진 사람들 사이에서 사랑받는 존재였죠. 하지만 p5.js는 브라우저 내의 자바스크립트 런타임만으로 활약, Processing의 배포 제약을 가볍게 뛰어넘어 누구나 웹을 통해 자신의 아이디어를 마음껏 펼칠 수 있는 무대를 제공했습니다.
