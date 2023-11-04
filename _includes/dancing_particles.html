@@ -67,10 +67,13 @@
         const height = 400;
         const pointCount = 500;
         const impactInterval = 5;
+        const impactAtten = 5;
 
 
         let musicSelection;
         let bgSyncCheckbox;
+        let startButton;
+        let loading = true;
         let music = 'brazil';
         let bgSync = false;
 
@@ -79,14 +82,21 @@
             if (sound.isPlaying()) {
                 sound.pause();
             }
-            startButton.elt.innerHTML = 'Loading...';  // Update button label to "Loading..."
-            startButton.elt.disabled = true;  // Disable the start button
+
+            if (startButton) {
+                startButton.elt.innerHTML = 'Loading...';  // Update button label to "Loading..."
+                startButton.elt.disabled = true;
+                loading = true;
+            }
+
             sound = loadSound(`/assets/${music}.mp3`, soundLoaded);  // Load the new sound and set a callback for when it's loaded
         }
 
         function soundLoaded() {
-            startButton.elt.innerHTML = 'Start';  // Update button label to "Start" once the sound is loaded
-            startButton.elt.disabled = false;  // Re-enable the start button
+            if (startButton) {
+                startButton.elt.innerHTML = 'Start';  // Update button label to "Start" once the sound is loaded
+            }
+            loading = false;
         }
 
         function bgSyncCheckedEvent() {
@@ -175,14 +185,16 @@
             if (!sound.isPlaying() && (fcount > 120)) {
                 const total_entropy = balls.map(b => b.getMovement().mag()).reduce((a, b) => a + b);
                 if (total_entropy < (pointCount * 1.4)) {
-                    startButton.elt.disabled = false;
+                    if(!loading) {
+                        startButton.elt.disabled = false;
+                    }
                 }
             }
             if ((fcount % impactInterval) === 0) {
                 impactCount++;
                 const startIndex = impactCount % impactInterval;
                 for (let i = startIndex; i < pointCount; i += impactInterval) {
-                    let force = (spectrumBuffer[i * stride] / impactInterval) / 5;
+                    let force = (spectrumBuffer[i * stride] / impactInterval) / impactAtten;
                     balls[i].setColor(255 * R_SAMPLE_MAP[i], 255 * G_SAMPLE_MAP[i], 255 * B_SAMPLE_MAP[i]);
                     balls[i].impact(force);
                 }
@@ -214,7 +226,7 @@
     <main>
         <div>
             <select id="music-selector" />
-            <input type="checkbox" id="bgsync-checkbox"/> bgColor-sync
+            <input type="checkbox" id="bgsync-checkbox" /> bgColor-sync
             <button id="start-button" />
         </div>
         <div id="p5-container">

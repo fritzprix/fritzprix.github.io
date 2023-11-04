@@ -19,8 +19,11 @@ categories: [digital art, creative coding, music visualization, AI LLM]
 > 음악을 시각화하는 것부터 시작해, `Cellular Automata`의 단순함 속에 숨겨진 복잡한 아름다움을 발견하는 여정까지, p5.js와 함께 할 이 모험을 이 포스트를 통해 살짝씩 풀어나갈 거예요. 마치 이야기를 엮어가는 실처럼, 여러분을 이 흥미진진한 창작의 세계로 초대합니다!
 
 
-
 ## Dancing particles
+- Start버튼을 누르면 시작
+- 음악을 바꿀 수 있음
+- 체크박스 설정하면 배경 색상이 음의 특징에 따라 색상을 바꿈
+
 {% include dancing_particles.html %}
 
 
