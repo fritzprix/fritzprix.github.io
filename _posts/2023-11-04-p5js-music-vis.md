@@ -4,6 +4,7 @@ locale: ko_KR
 author: Doowoong(David) Lee
 title:  "p5.js로 창작하는 디지털 아트: 시각화 프로젝트들"
 date:   2023-11-03 16:00:00
+image: /assets/img/p5js.png
 comments: true
 tags: [p5js, creative coding, music visualization, interactive art, javascript]
 categories: [digital art, creative coding, music visualization, AI LLM]
