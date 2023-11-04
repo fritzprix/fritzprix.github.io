@@ -74,7 +74,7 @@
         let bgSyncCheckbox;
         let startButton;
         let loading = true;
-        let music = 'brazil';
+        let music = 'spectrum';
         let bgSync = false;
 
         function musicSelectEvent() {
@@ -105,7 +105,7 @@
 
 
         function preload() {
-            sound = loadSound('/assets/brazil.mp3', soundLoaded);
+            sound = loadSound(`/assets/${music}.mp3`, soundLoaded);
         }
 
         function setup() {
@@ -119,10 +119,9 @@
 
             musicSelection = select("#music-selector");
             musicSelection.option(music);
-            musicSelection.option('1812');
-            musicSelection.option('river');
-            musicSelection.option('strobe');
-            musicSelection.option('eddie');
+            musicSelection.option('dubstep_1');
+            musicSelection.option('dubstep_2');
+            musicSelection.option('sweep');
             musicSelection.changed(musicSelectEvent);
 
             bgSyncCheckbox = select('#bgsync-checkbox');
