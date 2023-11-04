@@ -105,13 +105,11 @@
             canvas.parent('p5-sketch');
 
 
-            startButton = createButton('Start');
-            startButton.position(160, 10);
+            startButton = select('play-button');
             startButton.mousePressed(togglePlay);
             startButton.elt.disabled = true;
 
-            musicSelection = createSelect();
-            musicSelection.position(10, 10);
+            musicSelection = select("#music-selector");
             musicSelection.option(music);
             musicSelection.option('1812');
             musicSelection.option('river');
@@ -119,7 +117,8 @@
             musicSelection.option('eddie');
             musicSelection.changed(musicSelectEvent);
 
-            bgSyncCheckbox = createCheckbox('BgSync', bgSync);
+            bgSyncCheckbox = select('#bgsync-checkbox');
+            bgSyncCheckbox.elt.checked = bgSync;
             bgSyncCheckbox.position(80, 10);
             bgSyncCheckbox.changed(bgSyncCheckedEvent);
 
