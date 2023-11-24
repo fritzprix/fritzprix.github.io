@@ -64,11 +64,29 @@ categories: AI LLM
 - Hessian Matrix를 통해 W의 변화에 따른 Output의 민감도를 구하고 이를 기반으로 quantization을 수행하여 accuracy의 손실을 최소화
 ---
 
-## [Detecting Pretraining Data from Large Language Models](https://swj0419.github.io/detect-pretrain.github.io/)
+
+## [Directly Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290)
+
+- 모델의 규모와 학습 데이터의 증가로 Pre-trained Language Model은 학습된 언어의 의미 관계에 대한 Induction bias를 가지고 있으며 이에 의해 언어의 관계에 의해 나타나는 다시말해 언어의 Composition 규칙에 의해 드러나는 지식과 논리적 추론의 과정에 대한 Induction bias (귀납적으로 유도된 경향)
+- LLM의 Alignment를 위한 방법으로 RLHF(RLAIF)가 널리 사용되어 왔음
+- 하지만 많은 노동력을 필요로하며 Preference dataset과 이를 이용한 Reward Model을 학습시키고 다시 이를 활용하여 RL을 해야하는 등 복잡하며 비용 집약적이다.
+
+### New Approach
+![dpo](/assets/img/dpo.png)
+- DPO는 Bradley-Terry Model이라는 Preference 모델을 도입
+- Preference의 비교를 Binary Classification으로 단순화 시킴
+  - 기존 Ranking을 부여하는 기존 RLHF 방식보다 단순한 Annotation, 결과적으로 일관성을 얻기도 유리
+  - Preference의 통계적 Representation을 위한 Reward Model을 없애고
+  - Target Model의 Completion을 직접 Loss 함수에 활용할 수 있음
+- DPO는 Fully Differentiable, 즉, RL이 아니라 Fine-tuning 방식임 (RL은 개별 Trial의 명확한 Loss가 불분명한 경우 다수의 Trial의 결과의 전체 평가를 기준으로 Loss를 구하는 방식)
 
 ---
 
-## [Directly Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290)
+## [Zephyr: Direct Distillation of LM Alignment](https://huggingface.co/papers/2310.16944)
+
+---
+
+## [Detecting Pretraining Data from Large Language Models](https://swj0419.github.io/detect-pretrain.github.io/)
 
 ---
 
@@ -89,6 +107,3 @@ categories: AI LLM
 
 ## [How deep is the brain? The shallow brain hypothesis](https://www.nature.com/articles/s41583-023-00756-z)
 
----
-
-## [Zephyr: Direct Distillation of LM Alignment](https://huggingface.co/papers/2310.16944)
