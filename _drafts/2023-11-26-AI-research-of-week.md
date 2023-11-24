@@ -1,6 +1,10 @@
 
 ---
 
+## [Exponentially Faster Language Modelling](https://huggingface.co/papers/2311.10770#655e4dd5c6b7c3ab7ef6df09)
+
+---
+
 ## [Detecting Pretraining Data from Large Language Models](https://swj0419.github.io/detect-pretrain.github.io/)
 
 ---
