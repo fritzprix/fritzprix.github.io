@@ -76,7 +76,7 @@ categories: AI LLM
 ![dpo](/assets/img/dpo.png)
 - DPO는 Bradley-Terry Model이라는 Preference 모델을 도입
 - Preference의 비교를 Binary Classification으로 단순화 시킴
-  - 기존 Ranking을 부여하는 기존 RLHF 방식보다 단순한 Annotation, 결과적으로 일관성을 얻기도 유리
+  - Ranking을 부여하는 기존 RLHF 방식보다 단순한 Annotation, 결과적으로 일관성을 얻기도 유리
   - Preference의 통계적 Representation을 위한 Reward Model을 없애고
   - Target Model의 Completion을 직접 Loss 함수에 활용할 수 있음
 - DPO는 Fully Differentiable, 즉, RL이 아니라 Fine-tuning 방식임 (RL은 개별 Trial의 명확한 Loss가 불분명한 경우 다수의 Trial의 결과의 전체 평가를 기준으로 Loss를 구하는 방식)
