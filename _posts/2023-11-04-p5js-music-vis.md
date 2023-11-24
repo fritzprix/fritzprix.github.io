@@ -41,12 +41,11 @@ categories: [digital art, creative coding, music visualization, AI LLM]
 <script>
     var disqus_config = function () {
         this.page.url = 'https://fritzprix.github.io/digital%20art/creative%20coding/music%20visualization/ai%20llm/2023/11/03/p5js-music-vis.html'; // Replace with your page's canonical URL variable
-        this.page.identifier = 'p5js-music-vis'; // Replace with your page's unique identifier variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
-
-    (function() { // DON'T EDIT BELOW THIS LINE
+    (function() {
         var d = document, s = d.createElement('script');
-        s.src = 'https://disqus_pItUjCuJmX.disqus.com/embed.js'; // Replace 'YOUR_DISQUS_SHORTNAME' with your Disqus shortname
+        s.src = 'https://fritzprix.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
