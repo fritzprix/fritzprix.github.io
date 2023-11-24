@@ -62,6 +62,7 @@ categories: AI LLM
 - 하지만 대규모 모델의 경우 이러한 Ordering의 효과가 크지 않음을 확인하였음
 - Layer-wise quantization은 memory lazy-batch update를 가능하게 하여 memory 요구량을 감소시킴
 - Hessian Matrix를 통해 W의 변화에 따른 Output의 민감도를 구하고 이를 기반으로 quantization을 수행하여 accuracy의 손실을 최소화
+
 ---
 
 
@@ -83,6 +84,9 @@ categories: AI LLM
 ---
 
 ## [Zephyr: Direct Distillation of LM Alignment](https://huggingface.co/papers/2310.16944)
+
+- 위에서 다룬 DPO를 이용 한단계 진일보한 테스트를 수행한 연구
+- 
 
 ---
 
