@@ -40,7 +40,7 @@ categories: [digital art, creative coding, music visualization, AI LLM]
 <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
-        this.page.url = 'https://fritzprix.github.io/digital%20art/creative%20coding/music%20visualization/ai%20llm/2023/11/03/p5js-music-vis.html'; // Replace with your page's canonical URL variable
+        this.page.url = PAGE_URL; // Replace with your page's canonical URL variable
         this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {

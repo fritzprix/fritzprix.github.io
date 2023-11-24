@@ -65,7 +65,6 @@ Chomsky Hierarchy에 따르면 Type-0에 해당하는 무제한 문법은 모든
     this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
-
     (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
     s.src = 'https://fritzprix.disqus.com/embed.js';
