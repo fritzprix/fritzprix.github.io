@@ -56,7 +56,7 @@ categories: AI LLM
 - 이러한 압축에도 정확도의 손실이 거의 없으며, 더 심한 압축에도 어느정도의 정확도를 보임을 확인
 - 이렇게 얻은 압축된 모델은 3 ~ 4배의 비용 효율성을 보임
 
-### Key Exploitations
+### Approach
 
 - Accuracy의 손실 없이 Quantzation을 하기 위해 이를 최소화 하기 위한 Quantization ordering이 있었음 (OBQ 등)
 - 하지만 대규모 모델의 경우 이러한 Ordering의 효과가 크지 않음을 확인하였음
@@ -72,7 +72,7 @@ categories: AI LLM
 - LLM의 Alignment를 위한 방법으로 RLHF(RLAIF)가 널리 사용되어 왔음
 - 하지만 많은 노동력을 필요로하며 Preference dataset과 이를 이용한 Reward Model을 학습시키고 다시 이를 활용하여 RL을 해야하는 등 복잡하며 비용 집약적이다.
 
-### New Approach
+### Approach
 ![dpo](/assets/img/dpo.png)
 - DPO는 Bradley-Terry Model이라는 Preference 모델을 도입
 - Preference의 비교를 Binary Classification으로 단순화 시킴
@@ -86,28 +86,57 @@ categories: AI LLM
 ## [Zephyr: Direct Distillation of LM Alignment](https://huggingface.co/papers/2310.16944)
 
 - 위에서 다룬 DPO를 이용 한단계 진일보한 테스트를 수행한 연구
-- 
+- 이 Zephyr는 Mistral-7B를 기반으로 Fine-tuning과 Alignment까지 모두 Distillation에 의해 수행한 시도로써 의미가 있다.
 
----
+### Approach
 
-## [Detecting Pretraining Data from Large Language Models](https://swj0419.github.io/detect-pretrain.github.io/)
+#### dSFT (distlled Supervised Fine-tuning)
 
----
+- GPT-3.5-turbo의 multi-turn 데이터로 구성된 UltraChat Dataset을 활용
+- 각종 오류와 낮은 품질의 데이터를 제거하고 200K샘플을 확보
+- 이를 이용하여 SFT을 적용
 
-## [A Picture is Worth a Thousand Words: Principled Recaptioning Improves Image Generation](https://huggingface.co/papers/2310.16656)
+#### dDPO (distilled DPO)
 
----
+- 4종의 LLM의 답변으로 구성된 UltraFeedback 데이터를 활용
+- GPT-4에게 평가하도록 하여 Preference DPO를 위한 데이터를 구축 (GPT-4가 고른 최상의 답변을 Chosen으로, 그리고 나머지 3중 랜덤으로 Reject로 선택 구성)
+- 이를 활용 DPO를 수행
 
-## [Prometheus: Inducing Fine-grained Evaluation Capability in Language Models](https://huggingface.co/papers/2310.08491)
+### Result
+![zp_bm](/assets/img/zephyr_1.png)
 
----
-## [Who's Harry Potter? Approximate Unlearning in LLMs](https://arxiv.org/abs/2310.02238)
+- Parameter가 더 큰 규모의 모델인 Falcon-Instruct (40B)나 Llama2 (70B) 대비 동등 혹은 우세
 
----
 
-## [A Picture is Worth a Thousand Words: Principled Recaptioning Improves Image Generation](https://huggingface.co/papers/2310.16656)
+### Ablation study
+![zp_abl](/assets/img/zp_ablation.png)
 
----
+- dSFT만 하였을 때 보다 dDPO를 함께 한 경우가 더 성능이 좋았음
+- 추가적으로 dDPO의 Training Epoch을 증가시키면 Overfitting 하는 현상을 보임 (Perfect Match)
+- 하지만 이러한 Overfitting이 MT-Bench 등을 볼 때 딱히 문제가 되지는 않았음 (MT-Bench가 오히려 증가함)
+- 하지만 dSFT의 Epoch이 1보다 큰 경우 (오래 훈련 시킨 경우) 특이하게도 이러한 Overfitting이 문제가 되기 시작함
 
-## [How deep is the brain? The shallow brain hypothesis](https://www.nature.com/articles/s41583-023-00756-z)
+### Implication
 
+- distillation은 Open Source 모델의 성능을 개선하는데 매우 효과적인 방식일 수 있음
+- 생성 데이터와 이 생성데이터의 AI Feedback만으로도 AI의 Alignment가 가능함 (학습에 사람의 필요가 거의 없어짐, 이미 사람의 가치관을 학습한 LLM이 존재하므로)
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    var disqus_config = function () {
+    this.page.url = "https://fritzprix.github.io/ai/llm/2023/11/01/AI-research-of-week.html";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://fritzprix.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
