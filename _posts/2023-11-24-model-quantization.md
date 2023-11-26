@@ -10,24 +10,42 @@ tags: [ai, quantization, efficiency, sllm, edge]
 categories: [ai, ai, llm]
 ---
 
+![quant](/assets/img/quant_concept.png)
+
 ## Quantization이란?
 
-- Quantized라는 것은 연속된 대상을 일정한 방법을 이용하여 불연속의 다루기 쉬운 형태로 바꾸는 것을 말한다. 연속의 대상은 정보의 양이 무한하며 이는 우리가 사용하는 유한한 연산 체계에서는 다룰 수 없다. 따라서 자연계의 정보를 Quantization하는 것은 어떠한 대상을 유한한 연산 체계에서 다루기 위해 필수적인 과정이며 따라서 이 Quantization은 필연적으로 일정 수준의 정보의 손실 혹은 오차(quantization error)를 발생시킨다.
+Quantization은 연속적인 값을 불연속적인 값으로 변환하는 과정이다. 이 과정은 연산의 복잡도를 줄이고, 메모리의 효율성을 높이고, 전송의 속도를 증가시키는 등의 장점을 가진다. 하지만 Quantization은 원래의 값과 변환된 값 사이에 차이가 발생하므로, 정보의 손실이나 오차가 불가피하게 발생한다. 이러한 오차는 모델의 성능에 영향을 줄 수 있다.
+
+### Analogy to Digital Image
+
+Quantization의 개념을 이해하기 위해, 디지털 이미지의 색상 표현과 압축 방식을 예로 들 수 있습니다. 32비트 풀 컬러 이미지는 매우 높은 색상 해상도를 가지고 있어 수백만 가지 색상을 표현할 수 있지만, 이는 각 픽셀마다 많은 데이터가 필요하며, 결과적으로 이미지 파일의 크기가 커지고 처리 속도가 느려집니다. 반면에, 256 컬러 이미지는 색상을 훨씬 적은 범위로 제한하여, 각 픽셀당 필요한 데이터 양을 줄이고, 파일 크기를 줄이며 처리 속도를 빠르게 만듭니다. 하지만, 이 과정에서 색상의 세밀함과 이미지 품질이 손실될 수 있습니다.
+
+이러한 색상의 압축에서는 사람의 체감 품질 열화를 최소화하는 기술이 중요합니다. 예를 들어, JPEG 압축 방식은 인간의 시각적 민감도를 고려하여 덜 중요한 색상 정보를 감소시키고, 중요한 정보를 보존합니다. 이 방식은 데이터 양을 줄이면서도 시각적 품질을 유지하는 데 중요합니다.
+
+DNN에서의 Quantization도 유사한 방식으로 작동합니다. DNN의 파라미터들은 고정밀도로 표현되지만, 이를 낮은 비트로 줄여 연산을 단순화하고 메모리 사용량을 줄입니다. 이 과정에서 모델의 크기가 줄어들고 추론 속도가 증가하지만, 정확도에는 약간의 손실이 발생할 수 있습니다. 이와 같이 DNN에서의 Quantization은 중요한 파라미터를 보다 높은 정밀도로 유지하고, 덜 중요한 파라미터는 더 낮은 정밀도로 줄여나가는 방식으로 진행됩니다.
 
 ### Quantization in DNN
 
-- DNN의 Parameter는 어떠한 값의 범위를 갖게 될지 Training에 앞서 알수 없다.
+DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도를 높일 수 있다. 하지만 DNN의 파라미터는 학습 과정에서 결정되므로, Quantization을 적용하기 전에는 어떤 값의 범위를 가질지 알 수 없다. 또한 낮은 정밀도로 학습하는 것은 아직 잘 연구되지 않은 분야이다. 따라서 현재는 이미 학습된 모델에 Quantization을 적용하는 후처리 방식(Post-training Quantization)이 많이 사용된다.
 
 ## [LLM.int8()](https://arxiv.org/abs/2208.07339)
 
-- LLM의 Quantization 가능성을 제시한 초기의 연구로 [bitsandbytes](https://github.com/TimDettmers/bitsandbytes)로 pytorch의 drop-in replacement로 대체하여 적용할 수 있음
+[Github - bitsandbytes](https://github.com/TimDettmers/bitsandbytes)
+
+### TL;DR
+
+- MatMul을 독립적 Vector Inner Product로 분해하여 각각을 Normalize하여 full scale int8으로 sampling
+- 하지만 이 방법을 적용하는 과정에서 6B Parameters 이상의 규모에서 parameter에 outlier의 분포가 증가함 (6.7B에는 거의 모든 Transformer Layer와 전체 중 75%의 layer에 이러한 것들이 생김)
+- 그런데 이러한 Outlier는 전체 Parameter의 약 0.1%이지만 성능에 매우 큰 영향을 줌
+- 따라서 이러한 outlier는 그대로 남겨두고 (fp16) 나머지만 vector-wise quantization을 적용하니 성능에 별차이 없이 모델의 크기를 크게 줄일 수 있었음
 
 ### Vector-wise Quantization
 
 - Matrix Multiplication은 서로 독립적인 Column과 Row의 Inner Product (dot product)로 볼 수 있음.
-- 각각의 inner product에 독립적인 normalization constant를 적용
-- 이러한 방법에서 MatMul의 결과를 다음 계산 이전에 normalization 값들과 outer product하여 구할 수 있음
+- 각각의 inner product쌍에 독립적인 normalization constant를 적용 전체 Matrix에 대한 각 행과 열의 normalization constant vector를 얻을 수 있음
+- 이러한 방법으로 int8 MatMul과 normalization constant vector의 outer product를 이용 원래의 output을 구할 수 있음
 - 이러한 방법으로 2.7B의 Scale까지 심각한 성능 열화 없이 모델의 사이즈를 줄일 수 있음
+- 단, Scale이 커지게 되면서 Outlier가 증가하며 이때문에 Quantization error가 커지게 됨
 
 ### Beyond 6.7B parameters
 
@@ -39,13 +57,32 @@ categories: [ai, ai, llm]
 - 이들 outlier는 전체 입력 Feature의 약 0.1%를 차지하지만 이들 Outlier를 제거할 경우 심각한 성능 열화가 발생함을 확인 (600 ~ 1000% Perplexity degradation)
   - 이는 2.7B에서 보았던 0.1%의 perplexity degradation과 너무나 큰 차이임
 
+### Mixed-precision decomposition (Solution for Outlier)
 
-- 기존의 Quantization 방식은 Dynamic Range에 상관 없이 일괄적으로 Quantization 했음
-- 대규모 모델의 Parameter를 분석해보니 Hidden Layer에서 Outlier가 존재함
-- 따라서 기존의 방식은 이러한 Outlier에 취약
-- 그래서 Mixed Precision decomposition (결국 Outlier를 따로 분리하여 나머지만 Quantization하고 Outlier는 부동소수점으로 그대로 처리하는 것) 방식을 도입하여 처리하니 품질 열화가 거의 없이 Model 사이즈를 줄일 수 있었음
-- 그리고 이러한 과정에서 Outlier가 기하급수적으로 증가하는 임계점 약 6.7B parameter 근처에 존재함을 실험적으로 확인
-- 그리고 이러한 Outlier의 LLM의 일반화 성능과 연관된것으로 보임
+- 0.1%의 outlier에 대해서 FP16으로 처리하고 99.9%에 대해 8-bit matmul로 처리
+- 이렇게 Mixed Precision Decomposition과 Vector wise quantization의 2가지 요소를 결합한 것을 LLM.int8()이라 함
+
+### LLM.int8() Key Concept
+
+![llm_int8](/assets/img/llm_int8.png)
+
+- FP16의 X와 W가 주어졌을 때 feature와 weight은 outlier와 regular values로 나뉘어진다.
+- outlier의 sub-matrices는 fp16 그대로 두고 처리
+- regular values의 sub-matrices는 vector-wise normalization constant를 구하여 이를 통해 full-scale int8으로 sampling함
+
+### limitation
+
+#### 1. Int8 데이터 형식만을 대상으로 연구하였다는 점, 이는 현재 GPU에서 지원되는 유일한 8bit 형식이기 때문임
+
+#### 2. 175B 규모의 모델까지만 테스트 되었다는 점, 이러한 방법이 더 큰 규모의 모델에서 어떠한 영향이 있을지 알 수 없음
+
+#### 3. Attention의 경우 8bit matmul을 적용하지 않았으며 이는
+
+- Attention function 자체는 parameter가 개입되지 않는다.  
+  `Softmax(Q@K.T/sqrt(d))@V`
+- Memory footprint를 줄이는 것에 주력
+
+#### 4. Inference에만 초점을 맞춘 연구임. Int8 training에 대한 초기 분석을 별첨에 제공하나 int8 training을 대규모로 진행하는 것은 아직은 매우 어려운 문제임
 
 ---
 
