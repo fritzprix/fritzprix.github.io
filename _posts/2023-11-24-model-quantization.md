@@ -24,9 +24,9 @@ Quantization의 개념을 이해하기 위해, 디지털 이미지의 색상 표
 
 DNN에서의 Quantization도 유사한 방식으로 작동한다. DNN의 파라미터들은 고정밀도로 표현되지만, 이를 낮은 비트로 줄여 연산을 단순화하고 메모리 사용량을 줄인다. 이 과정에서 모델의 크기가 줄어들고 추론 속도가 증가하지만, 정확도에는 약간의 손실이 발생할 수 있다. 이와 같이 DNN에서의 Quantization은 중요한 파라미터를 보다 높은 정밀도로 유지하고, 덜 중요한 파라미터는 더 낮은 정밀도로 줄여나가는 방식으로 진행된다.
 
-### PTQ (**P**ost-**Q**uantization **T**raining)
+### PTQ (**P**ost-**T**raining **Q**uantization)
 
-DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도를 높일 수 있다. 하지만 DNN의 파라미터는 학습 과정에서 결정되므로, Quantization을 적용하기 전에는 어떤 값의 범위를 가질지 알 수 없다. 또한 낮은 정밀도로 학습하는 것은 아직 잘 연구되지 않은 분야이다. 따라서 현재는 이미 학습된 모델에 Quantization을 적용하는 후처리 방식(Post-training Quantization)이 많이 사용된다.
+DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도를 높일 수 있다. 하지만 DNN의 파라미터는 학습 과정에서 결정되며 Training에 앞서 이들 파라미터가 어떠한 범위를 가질 지 알 수 없다. 또한 낮은 정밀도로 학습하는 것은 아직 잘 연구되지 않은 분야이다. 따라서 현재는 이미 학습된 모델에 Quantization을 적용하는 후처리 방식(Post-training Quantization)이 많이 사용된다.
 
 ## [LLM.int8()](https://arxiv.org/abs/2208.07339)
 
@@ -150,7 +150,7 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 ![awq_generalize](/assets/img/awq_general.png)
 
 - Calibration 데이터 의존도가 낮음 (적은 데이터만으로도 적용가능)
-- Calibration 데이터에 따른 성능 열화의 차이가 작음
+- Calibration 데이터 차이에 따른 (PubMed vs Enron) 성능 편차가 적음 (예 Wikitext로 Cal하면 Wikitext에는 성능이 유지되나 다른 데이터에 대한 성능은 열화되는...)
 - 일반 GPU (4090)에서도 x3.3배의 성능 향상을 보임
 
 ### Wrap-up

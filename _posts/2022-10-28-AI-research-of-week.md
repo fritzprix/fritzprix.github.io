@@ -48,7 +48,7 @@ categories: AI LLM
   - 실질적으로 Inference 시점에 활성화 되는 Network 중 일부만이 압축된 것과 같으므로 Error를 최소화할 수 있을 것 (MoE는 주어진 입력에 따라 일정 Expert Network만 활성화)
   - MoE는 Pre-training / Finetuning 시 Token Dropping이라는 방식을 이용해 Regularization을 함, 따라서 Noise에 더 Robust함, 그래서 Quantization에도 더 Robust할 것임
 
-### Brief procedural description 
+### Brief procedural description
 
 - Calibration data를 이용하여 activation에 대한 통계 정보를 수집, 
 - 수집된 정보를 이용 Experts를 quantization using GPTQ
