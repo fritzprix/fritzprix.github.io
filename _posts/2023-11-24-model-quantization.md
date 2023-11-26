@@ -147,14 +147,19 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 - RTN, GPTQ, GPTQ-R (앞의 설명에서 GPTQ의 weight 최적화 ordering을 적용한 것) 대비 전체 모델 사이즈에서 우수한 성능을 보임
 
-![Alt text](image.png)
+![awq_generalize](/assets/img/awq_general.png)
 
 - Calibration 데이터 의존도가 낮음 (적은 데이터만으로도 적용가능)
 - Calibration 데이터에 따른 성능 열화의 차이가 작음
 - 일반 GPU (4090)에서도 x3.3배의 성능 향상을 보임
 
----
+### Wrap-up
 
+- RTN이나 GPTQ 모두 사실상 Reference 대비 큰차이를 보였던 7B ~ 13B의 구간에서 다소 개선된 느낌
+- Single Precision으로 CPU에서 제공되는 AVX나 SIMD 등을 통한 가속에 있어서 유리할 것으로 보임
+- 아직 GGML에서 지원되지 않고 있음.
+
+---
 
 ### Comparison (LLM.int8() vs GPTQ vs AWQ)
 
@@ -163,8 +168,6 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 | precision        | Mixed-Precision (int8 + fp16) | Mixed-Precision (int4,int3 + fp16) | Single Precision (int4, int3)                             |
 | calibration data | No                            | Yes                                | Yes                                                       |
 | implementation   | bitsandbytes                  | AutoGPTQ                           | FasterTransformer, HuggingFaceTGI,vLLM, Neural Compressor |
-
-### Wrap-up
 
 
 
