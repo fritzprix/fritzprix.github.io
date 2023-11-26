@@ -90,18 +90,51 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 ### TL;DR
 
-- layer별로 quantization을 적용하고 원래의 full precision layer의 출력과 sqaured error를 최소화할 수 있는 quantized weight을 구하는 방식
-- 최근에 제안된 OBQ(Optimal Brain Qauntization) 방식에 기반, 하지만 OBQ는 Quantization error가 최소화가 되도록 개별 weight의 quantization 우선순위를 greedy하게 적용하고 있었음
-- 하지만 대규모 모델에서 테스트를 해보니 이러한 Ordering이 주는 이점이 미미함
+- layer 단위로 quantization을 수행, 이론적 기반으로 기존의 LeCun 등이 연구한 OBS(1990)방식을 계승, 
 
----
+### Layer-wise Quantization and OBC(Optimal Brain Compression)
 
-## [GGML]()
+- 저자들은 과거 Yann Lecun 등이 제안하여 다양한 xNN에 널리 사용된 [OBD(Optimal Brain Damage)](https://proceedings.neurips.cc/paper/1989/file/6c9882bbac1c7093bd25041881277658-Paper.pdf)를 개선한 OBC라는 자신들이 고안한 방식을 활용
+- Layer 단위로 최적화를 적용, loss에 대한 2차 편미분인 Hessian matrix를 구하고이 값을 기준으로 weight의 Quantization을 우선순위화
+- 각 weight을 위 우선순위에 따라 quantization하고 이에 따라 나머지 Quantize 되지 않은 weight를 update하여 quantization을 보상
+
+### Additional Insights
+
+- 위 OBC 기반의 방식은 Hessian에 따라 순서대로 Weight를 Update하였지만 LLM에서 이러한 순서의 영향이 크지 않음을 발견
+- 아울러 이와 같이 Weight를 개별적으로 Iteration하면서 Quantizatino하고 이를 보상하기 위해 다른 모든 Weight를 업데이트 하는 방식이 비효율적이며 다행히 이를 보다 효율적으로 처리할 수 있는 Patch로 나누고 이 Patch에 대한 처리 결과를 전체 Matrix에 한번에 반영하는 형태로 효율화 할 수 있음
+- Hessian 값은 매우 작은 값을 갖기도 하기 때문에 수치 연산의 안정성을 크게 떨어뜨리고 오차가 커지게됨. 이를 Cholesky Reformulation을 통해 방지함
+
+### Result
+
+![gptq_result](/assets/img/gptq_bm.png)
+
+- RTN(Round To Nearest) 방식 대비 우수한 성능을 보임
+- Parameter 규모가 클 수록 full precision 성능과 Gap이 크지 않음 (Large 모델일 수록 유리)
+
+### Limitation
+
+#### 1. Activation Quantization은 고려되지 않음
+
+#### 2. 연구의 성능 및 효과는 Generative Tasks에 한정 (Classification, NER 등 기타 NLP의 검증 필요)
+
+#### 3. Memory Bottleneck을 해소하여 속도를 개선하긴 하였으나 연산 복잡도를 줄인 것은 아님
+
+### Wrap-up
+
+- 앞서 소개한 LLM.int8() 대비 높은 압축률의 sub 8bit quantization 이지만
+- Calibration을 위한 Input data가 필요하고 더 복잡함
+- 그리고 Larger Scale로 갈수록 생각보다 RTN랑 별차이가 나지 않음
 
 ---
 
 ## [AWQ](https://arxiv.org/abs/2306.00978)
 
+- 기본적으로 LLM.int8()과 매우 유사한 아이디어
+- LLM.int8()는 magnitude를 기준으로 outlier를 선정하였다.
+- 하지만 AWQ에서는 Activation에 가장 큰 영향을 주는 즉, 대응되는 Activation 값이 가장 큰 것을 선정하여 FP16으로 두고 
+- 이를 제외한 나머지를 4 ~ 3 bit quantization 적용
+
+---
 
 <div id="disqus_thread"></div>
 <script>
