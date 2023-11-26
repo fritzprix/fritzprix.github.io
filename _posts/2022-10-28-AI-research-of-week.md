@@ -2,7 +2,7 @@
 layout: post
 author: Doowoong(David) Lee
 locale: ko_KR
-tags: LLM AI 
+tags: LLM AI ConvNets ViT GPTQ Quantization QMoE DOP dDOP
 comments: true
 title:  "AI research paper - daily digest (Oct. 28. '23)"
 date:   2023-11-01 19:09:00 +0900
@@ -64,7 +64,6 @@ categories: AI LLM
 - Hessian Matrix를 통해 W의 변화에 따른 Output의 민감도를 구하고 이를 기반으로 quantization을 수행하여 accuracy의 손실을 최소화
 
 ---
-
 
 ## [Directly Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290)
 
