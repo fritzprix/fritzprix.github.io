@@ -2,12 +2,12 @@
 layout: post
 locale: ko_KR
 author: Doowoong(David) Lee
-title:  "Research in model quantization"
+title:  "LLM Quantization? GPTQ vs AWQ"
 date:   2023-11-24 10:43:00
 image: /assets/img/quant_concept.png
 comments: true
-tags: [ai, quantization, efficiency, sllm, edge]
-categories: [ai, ai, llm]
+tags: [ai, quantization, efficiency, sllm, edge, llm, awq, gptq, int8]
+categories: [ai, llm, quantization]
 ---
 
 ![quant](/assets/img/quant_concept.png)
@@ -36,7 +36,7 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 - MatMul을 독립적 Vector Inner Product로 분해하여 각각을 Normalize하여 full scale int8으로 sampling
 - 하지만 이 방법을 적용하는 과정에서 6B Parameters 이상의 규모에서 parameter에 outlier의 분포가 증가함 (6.7B에는 거의 모든 Transformer Layer와 전체 중 75%의 layer에 이러한 것들이 생김)
-- 그런데 이러한 Outlier는 전체 Parameter의 약 0.1%이지만 성능에 매우 큰 영향을 줌
+- 그런데 이러한 outlier는 전체 Parameter의 약 0.1%이지만 성능에 매우 큰 영향을 줌
 - 따라서 이러한 outlier는 그대로 남겨두고 (fp16) 나머지만 vector-wise quantization을 적용하니 성능에 별차이 없이 모델의 크기를 크게 줄일 수 있었음
 
 ### Vector-wise Quantization
@@ -127,14 +127,46 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 ---
 
-## [AWQ](https://arxiv.org/abs/2306.00978)
+## [AWQ](https://arxiv.org/abs/2306.00978) [[slide](https://www.dropbox.com/scl/fi/dtnp6h6y1mnp7g036axu6/AWQ-slide.pdf?rlkey=ffgh50hxhx8dmsnjiu8kef0ou&dl=0)]
 
-- 기본적으로 LLM.int8()과 매우 유사한 아이디어
-- LLM.int8()는 magnitude를 기준으로 outlier를 선정하였다.
-- 하지만 AWQ에서는 Activation에 가장 큰 영향을 주는 즉, 대응되는 Activation 값이 가장 큰 것을 선정하여 FP16으로 두고 
-- 이를 제외한 나머지를 4 ~ 3 bit quantization 적용
+- 기본적으로 LLM.int8()과 유사한 관찰에서 접근
+  - 전체 weight 중 0.1 ~ 1%의 salient weight가 존재하며 이들의 값의 error 혹은 정밀도 손실은 다른 weight보다 더 큰 영향을 줌
+- 단, LLM.int8()는 `weight의 magnitude를 기준으로 outlier를 선정`하였다면  `AWQ에서는 weight에 대응한 Activation output의 magnitude를 기준으로 사용`
+- Quantization function을 Q(w)로 아래와 같이 정의
+![sampling](/assets/img/awq_sampling.png)
+- 위 Qauntization에서 임의 scale factor s를 추가하여 weight과 입력 x에 적용할 경우 Quantization Error는 s term에 반비례함을 보임 (위 이미지의 Err' = A' * RoundErr * 1 / s)에 의해..
+- RoundErr가 크게 변하지 않는 선에서 s를 1보다 큰 값 범위에서 증가 시킬 경우 전체 Quantiztaion Error가 감소해야 함
+- optimal scale factor를 얻기 위한 loss 함수는 아래와 같이 나타낼 수 있는데,
+![awq_loss](/assets/img/awq_loss.png)
+- 여기서 quantization함수는 미분가능하지 않다. 따라서 Gradient Descent에 의한 방법은 적용이 불가하며
+- scale을 1부터 activation의 크기 값까지 fast grid search를 수행하여 최적의 값을 찾음
+
+### Result
+
+![awq_result](/assets/img/awq_result.png)
+
+- RTN, GPTQ, GPTQ-R (앞의 설명에서 GPTQ의 weight 최적화 ordering을 적용한 것) 대비 전체 모델 사이즈에서 우수한 성능을 보임
+
+![Alt text](image.png)
+
+- Calibration 데이터 의존도가 낮음 (적은 데이터만으로도 적용가능)
+- Calibration 데이터에 따른 성능 열화의 차이가 작음
+- 일반 GPU (4090)에서도 x3.3배의 성능 향상을 보임
 
 ---
+
+
+### Comparison (LLM.int8() vs GPTQ vs AWQ)
+
+|                  | LLM.int8()                    | GPTQ                               | AWQ                                                       |
+| ---------------- | ----------------------------- | ---------------------------------- | --------------------------------------------------------- |
+| precision        | Mixed-Precision (int8 + fp16) | Mixed-Precision (int4,int3 + fp16) | Single Precision (int4, int3)                             |
+| calibration data | No                            | Yes                                | Yes                                                       |
+| implementation   | bitsandbytes                  | AutoGPTQ                           | FasterTransformer, HuggingFaceTGI,vLLM, Neural Compressor |
+
+### Wrap-up
+
+
 
 <div id="disqus_thread"></div>
 <script>
