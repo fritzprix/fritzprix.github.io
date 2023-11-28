@@ -6,7 +6,7 @@ title:  "LLM Quantization? GPTQ vs AWQ"
 date:   2023-11-24 10:43:00
 image: /assets/img/quant_concept.png
 comments: true
-tags: [ai, quantization, efficiency, sllm, edge, llm, awq, gptq, int8]
+tags: [AI, LLM Quantization, Efficiency, SLLM, Edge Computing, Deep Learning, GPTQ, AWQ, INT8]
 categories: [ai, llm, quantization]
 ---
 
@@ -155,7 +155,7 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 ### Wrap-up
 
-- RTN이나 GPTQ 모두 사실상 Reference 대비 큰차이를 보였던 7B ~ 13B의 구간에서 다소 개선된 느낌
+- 7B ~ 13B 모델에서 Original과 다소 차이를 보였던 RTN이나 GPTQ 대비 전반적인 성능 개선 기대
 - Single Precision으로 CPU에서 제공되는 AVX나 SIMD 등을 통한 가속에 있어서 유리할 것으로 보임
 - 아직 GGML에서 지원되지 않고 있음.
 
