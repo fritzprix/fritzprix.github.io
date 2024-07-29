@@ -160,7 +160,7 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 - 아직 GGML에서 지원되지 않고 있음.
 
 ---
-
+[test](/assets/chromium-pack.tar)
 ### Comparison (LLM.int8() vs GPTQ vs AWQ)
 
 |                  | LLM.int8()                    | GPTQ                               | AWQ                                                       |
