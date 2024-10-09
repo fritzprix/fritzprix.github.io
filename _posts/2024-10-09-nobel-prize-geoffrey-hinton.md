@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: multilingual_post
 author: Doowoong(David) Lee
 locale: ko_KR
 tags: AI ANN Nobel-Prize Geoffrey-Hinton John-Hopfield Inductive-Reasoning Deductive-Reasoning Pure-Science
