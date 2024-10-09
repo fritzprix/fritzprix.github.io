@@ -36,3 +36,17 @@ disqus: true
 
 ANN은 단순히 하나의 컴퓨터 기술이 아니다. 그것은 인간의 고유한 지적 추론을 사실상 Computer가 완전히 대체할 수 있게된 전환점이며 따라서 앞으로 순수과학의 역할에 대한 의문을 던진 중요한 사건이라고 생각한다. 충분한 데이터와 복잡도 (Paramter 갯수) 그리고 이를 처리할 수 있는 고성능의 컴퓨터만 있다면 존재하는 모든 자연 현상을 높은 정확도로 예측할 수 있는 수단이 존재하는 상황에서 기존의 순수 과학의 역할은 어떻게 될 것인가? 이러한 질문에 순수과학분야는 적절한 답을 찾아야 될 시점이라고 생각한다.
 
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = PAGE_URL; // Replace with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://fritzprix.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
