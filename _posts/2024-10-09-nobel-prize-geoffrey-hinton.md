@@ -5,7 +5,7 @@ locale: ko_KR
 tags: AI ANN Nobel-Prize Geoffrey-Hinton John-Hopfield Inductive-Reasoning Deductive-Reasoning Pure-Science
 comments: true
 title: "Geoffrey Hinton의 노벨 물리학상 수상과 ANN의 의미"
-date: 2023-11-01 19:09:00 +0900
+date: 2024-10-09 10:00:00 +0900
 categories: AI Science Philosophy
 disqus: true
 ---
