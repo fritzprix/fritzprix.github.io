@@ -4,10 +4,10 @@ author: Doowoong(David) Lee
 locale: ko_KR
 tags: AI ANN Nobel-Prize Geoffrey-Hinton John-Hopfield Inductive-Reasoning Deductive-Reasoning Pure-Science
 comments: true
-title: "Geoffrey Hinton의 노벨 물리학상 수상과 ANN의 의미"
+title: "Geoffrey Hinton's Nobel Prize and the Future of Pure Science"
 date: 2024-10-09 10:00:00 +0900
 categories: AI Science Philosophy
-lang: ko
+lang: en
 disqus: true
 ---
 

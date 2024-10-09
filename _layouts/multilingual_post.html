@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="post-header">
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.author -%}
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+      {%- endif -%}
+    </p>
+    
+    {% if page.lang == "en" %}
+      {% assign other_lang = "ko" %}
+      {% assign other_lang_name = "한국어" %}
+    {% else %}
+      {% assign other_lang = "en" %}
+      {% assign other_lang_name = "English" %}
+    {% endif %}
+
+    {% assign other_lang_page = site.posts | where:"lang", other_lang | where:"date", page.date | first %}
+    {% if other_lang_page %}
+      <a href="{{ other_lang_page.url | relative_url }}" class="language-switch">{{ other_lang_name }}</a>
+    {% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>
