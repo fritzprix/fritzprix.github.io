@@ -3,6 +3,7 @@ layout: post
 title: "언어와 AI의 경계에서: 우리는 진정 이해하고 있는가?"
 date: 2024-10-13
 categories: [철학, 인공지능, 인지과학]
+image: "/assets/img/neurallink.png"
 tags: [언어, AI, 이해, 지식, 의식]
 author: Doowoong(David) Lee
 excerpt: 언어의 한계, AI의 도전, 그리고 지식의 미래에 대한 도발적인 탐구. 우리의 이해는 과연 진실에 다가서고 있는가, 아니면 그저 환상에 불과한가?
