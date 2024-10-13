@@ -12,7 +12,7 @@ The intellectual journey of humanity has been a continuous series of challenges 
 
 ## 1. The Prison of Language: A Net that Cannot Capture Reality
 
-![alt text](../assets/img/witt.png)
+![alt text](/assets/img/witt.png)
 
 From birth, we view the world through the lens of language. This lens provides us with a framework for understanding the world, but it also limits our perception. Like the prisoners in Plato's cave, are we perhaps mistaking the shadows of language for the whole of reality?
 
@@ -34,7 +34,7 @@ Furthermore, the way AI operates raises questions about our own thought processe
 
 ## 3. The Horizon of the Future: The Fusion of Brain and Machine, the Birth of a New Consciousness
 
-![alt text](../assets/img/neurallink.png)
+![alt text](/assets/img/neurallink.png)
 
 Faced with these challenges, we must explore new possibilities. One of the most intriguing is the direct connection between brain and machine. This is not just a science fiction idea. Brain-Computer Interface (BCI) technology is already rapidly advancing, and in the future, it may be possible to directly connect brain to brain, or brain to AI.
 
