@@ -2,6 +2,7 @@
 layout: post
 title: "At the Boundary of Language and AI: Are We Truly Understanding?"
 date: 2024-10-13
+image: "/assets/img/neurallink.png"
 categories: [Philosophy, Artificial Intelligence, Cognitive Science]
 tags: [Language, AI, Understanding, Knowledge, Consciousness]
 author: Doowoong(David) Lee
