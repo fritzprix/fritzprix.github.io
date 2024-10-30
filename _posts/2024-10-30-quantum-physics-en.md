@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "현대 물리학과 검증가능성: 포퍼의 관점에서 본 이론물리학의 현주소"
+title: "Modern Physics and Verifiability: Theoretical Physics Through Popper's Lens"
 date: 2024-10-30 10:00:00 +0900
-categories: [물리학, 철학, 과학철학]
+categories: [Physics, Philosophy, Philosophy of Science]
 image: "/assets/img/falsifiability.png"
-tags: [검증가능성, 포퍼, 과학철학, 이론물리학, 반증주의]
+tags: [Falsifiability, Popper, Philosophy of Science, Theoretical Physics, Critical Rationalism]
 author: Doowoong(David) Lee
 excerpt: 현대 이론물리학의 검증가능성 문제를 포퍼의 반증주의 관점에서 분석하고, 실증 가능한 과학으로 나아가기 위한 방향을 모색한다.
 ---
