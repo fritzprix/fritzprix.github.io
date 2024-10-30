@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "현대 물리학과 검증가능성: 포퍼의 관점에서 본 이론물리학의 현주소"
-date: 2024-10-31
+date: 2024-10-30 10:00:00 +0900
 categories: [물리학, 철학, 과학철학]
 image: "/assets/img/falsifiability.png"
 tags: [검증가능성, 포퍼, 과학철학, 이론물리학, 반증주의]
