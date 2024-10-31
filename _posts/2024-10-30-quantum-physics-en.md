@@ -4,24 +4,19 @@ title: "Modern Physics and Verifiability: Theoretical Physics Through Popper's L
 date: 2024-10-30 10:00:00 +0900
 categories: [Physics, Philosophy, Philosophy of Science]
 image: "/assets/img/falsifiability.png"
-tags: [Falsifiability, Popper, Philosophy of Science, Theoretical Physics, Critical Rationalism]
+tags:
+  [
+    Falsifiability,
+    Popper,
+    Philosophy of Science,
+    Theoretical Physics,
+    Critical Rationalism,
+  ]
 author: Doowoong(David) Lee
 excerpt: Analyzes the verifiability problem in modern theoretical physics from Popper's falsificationist perspective, exploring paths toward empirically testable science.
 ---
 
-## ![popper](/assets/img/falsifiability.png)
-
-layout: post
-title: "Modern Physics and Falsifiability: Contemporary Theoretical Physics from Popper's Perspective"
-date: 2024-10-31
-categories: [Physics, Philosophy, Philosophy of Science]
-image: "/assets/img/falsifiability.png"
-tags: [falsifiability, Popper, philosophy of science, theoretical physics, falsificationism]
-author: David Lee
-excerpt: This article analyzes the falsifiability problem in modern theoretical physics from Popper's falsificationist perspective and explores directions toward empirically verifiable science.
-
----
-
+![popper](/assets/img/falsifiability.png)
 Modern theoretical physics has constructed an impressive mathematical framework to explain quantum phenomena and cosmic structure. However, from the perspective of falsifiability—the key scientific criterion emphasized by Karl Popper—many theories in modern physics face serious challenges. Moreover, modern theoretical physics is moving toward areas where empirical verification is impossible, similar to metaphysics in philosophy.
 
 ## The Evasive Turn of Early 20th Century Physics
