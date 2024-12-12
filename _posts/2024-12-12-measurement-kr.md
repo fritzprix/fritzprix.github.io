@@ -9,6 +9,8 @@ excerpt: 비트겐슈타인의 언어철학과 '언어게임' 개념이 양자 �
 toc: true
 ---
 
+![measurement](/assets/img/measurement.png)
+
 ## 서론: 언어와 실재성의 경계에서
 
 비트겐슈타인의 철학적 여정은 현대 물리학, 특히 양자역학이 직면한 근본적 난제들을 새로운 관점에서 조명할 수 있는 독특한 통찰을 제공한다. 버트란드 러셀과의 초기 협업에서 후기의 급진적 철학으로 이어지는 그의 사상적 전환은, 실재성에 대한 우리의 이해가 언어에 의해 어떻게 형성되고 제한되는지를 명확히 보여준다.
@@ -62,3 +64,19 @@ toc: true
 칼 포퍼가 강조했던 것처럼, 과학적 이론의 반증가능성은 중요하다. 형이상학과 합리주의는 가치 있지만, 때로는 경험적 관찰에 근거하지 않은 투기적 구성물로 이어질 수 있다. 비트겐슈타인이 언어의 오용에 대해 경고했듯이, 포퍼는 형이상학적 주장의 무비판적 수용을 경계했다.
 
 이러한 철학적 통찰들은 인간 경험의 한계와 우리의 인지적 도구의 본질적 한계성 안에서 이해를 구축해야 한다는 것을 상기시킨다. 이는 특히 양자역학과 같이 우리의 일상적 직관을 넘어서는 영역을 탐구할 때 더욱 중요해진다.
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = PAGE_URL; // Replace with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://fritzprix.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
