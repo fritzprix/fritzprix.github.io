@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Lost in Translation: Wittgenstein, Russell, and the Linguistic Roots of Quantum Weirdness
+title:  "Lost in Translation: Wittgenstein, Russell, and the Linguistic Roots of Quantum Weirdness"
 date:   2024-12-12 22:58:19 +0900
 categories: philosophy quantum-mechanics
 author: Doowoong(David) Lee
