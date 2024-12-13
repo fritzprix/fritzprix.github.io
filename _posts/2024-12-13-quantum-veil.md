@@ -8,7 +8,7 @@ image: "/assets/img/heisenb.png"
 tags: [quantum-physics, philosophy, science, measurement, uncertainty-principle]
 excerpt: An exploration of the fundamental limitations in quantum measurement and the philosophical implications of our observational constraints. This post examines how measurement intrusion and technological limitations affect our understanding of quantum reality.
 ---
-
+![heisenberg](/assets/img/heisenb.png)
 ## The Quantum Veil: Unveiling the Limits of Knowledge and Measurement
 
 Quantum physics (QP) has lifted the veil on a reality so bizarre and counterintuitive that it challenges the very foundations of our understanding. While its technological triumphs are undeniable, the interpretation of QP remains a battleground of competing ideas, forcing us to confront the unsettling dance of measurement, where observer and observed are inextricably intertwined. At the heart of this struggle lies not only the limitations of our "middle-world" intuition but also the inherent intrusiveness of measurement itself.
