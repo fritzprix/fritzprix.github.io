@@ -1,0 +1,24 @@
+{
+    "name": "Doowoong Lee",
+    "email": "72ave2@gmail.com",
+    "address": "Seoul, South Korea",
+    "website": "https://fritzprix.github.io",
+    "profileImageUrl": "/img/profile.png",
+    "social": [
+        {
+            "name": "X",
+            "url": "https://x.com/DwidLee",
+            "icon": "x"
+        },
+        {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/dawid-lee/",
+            "icon": "linkedin"
+        },
+        {
+            "name": "GitHub",
+            "url": "https://github.com/fritzprix",
+            "icon": "github"
+        }
+    ]
+}
