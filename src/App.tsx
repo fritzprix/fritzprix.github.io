@@ -1,7 +1,8 @@
 import matter from 'gray-matter';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import './App.css';
+import WebGLBackground from './components/WebGLBackground';
+import { ThemeProvider } from './components/theme-provider';
 import HomePage from './pages/HomePage';
 import PostDetailPage from './pages/PostDetailPage';
 
@@ -42,8 +43,8 @@ function App() {
   const [aboutMeContent, setAboutMeContent] = useState<string>(""); // State for aboutme.md content
 
   useEffect(() => {
-    const modules = import.meta.glob('../posts/*.md', { 
-      eager: true, 
+    const modules = import.meta.glob('../posts/*.md', {
+      eager: true,
       query: '?raw',
       import: 'default'
     });
@@ -65,26 +66,26 @@ function App() {
       // --- Generate excerpt if missing, cleaning content first --- 
       let excerpt: string;
       if (data.excerpt) {
-          excerpt = data.excerpt;
+        excerpt = data.excerpt;
       } else {
-          // Remove markdown images and headings for cleaner auto-excerpt
-          const cleanedContent = content
-              .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images ![]()
-              .replace(/^#+\s+/gm, '') // Remove heading hashes #, ## etc.
-              .replace(/\*\*|__/g, '') // Remove bold markers
-              .replace(/\*|_/g, '') // Remove italic markers
-              .replace(/\r\n|\n|\r/g, ' ') // Replace newlines with spaces
-              .trim();
-          excerpt = cleanedContent.substring(0, 150) + (cleanedContent.length > 150 ? '...' : ''); // Increase length slightly
+        // Remove markdown images and headings for cleaner auto-excerpt
+        const cleanedContent = content
+          .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images ![]()
+          .replace(/^#+\s+/gm, '') // Remove heading hashes #, ## etc.
+          .replace(/\*\*|__/g, '') // Remove bold markers
+          .replace(/\*|_/g, '') // Remove italic markers
+          .replace(/\r\n|\n|\r/g, ' ') // Replace newlines with spaces
+          .trim();
+        excerpt = cleanedContent.substring(0, 150) + (cleanedContent.length > 150 ? '...' : ''); // Increase length slightly
       }
       // --- End excerpt generation ---
 
       const postData: PostData = {
-          title: data.title ?? 'Untitled',
-          date: dateString, // Assign the formatted string date
-          author: data.author ?? 'Unknown Author',
-          tags: Array.isArray(data.tags) ? data.tags : [],
-          excerpt: excerpt, // Assign the cleaned or provided excerpt
+        title: data.title ?? 'Untitled',
+        date: dateString, // Assign the formatted string date
+        author: data.author ?? 'Unknown Author',
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        excerpt: excerpt, // Assign the cleaned or provided excerpt
       };
       return { slug, data: postData, content };
     });
@@ -120,41 +121,44 @@ function App() {
   const initials = name.split(' ').map(n => n?.[0] ?? '').join('');
 
   if (!profileData || aboutMeContent === "") {
-      return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
+    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
   }
 
   return (
-    <BrowserRouter>
-      <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen">
-        <header className="mb-8">
-          <nav className="flex justify-end">
-            <ul className="flex space-x-6">
-              <li><Link to="/" className="text-lg hover:text-primary">Home</Link></li>
-              <li><a href="#projects" className="text-lg hover:text-primary">Projects</a></li>
-              <li><a href="#portfolio" className="text-lg hover:text-primary">Portfolio</a></li>
-            </ul>
-          </nav>
-        </header>
-        <Routes>
-          <Route 
-            path="/" 
-            element={<HomePage 
-              posts={posts} 
-              profileData={profileData}
-              aboutMeContent={aboutMeContent}
-              initials={initials} 
-            />} 
-          />
-          <Route 
-            path="/posts/:slug"
-            element={<PostDetailPage posts={posts} />}
-          />
-        </Routes>
-        <footer className="mt-12 pt-4 border-t text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} {profileData.name}</p>
-        </footer>
-      </div>
-    </BrowserRouter>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <BrowserRouter>
+        <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen relative">
+          <WebGLBackground />
+          <header className="mb-8 z-10">
+            <nav className="flex justify-between items-center">
+              <ul className="flex space-x-6">
+                <li><Link to="/" className="text-lg hover:text-primary">Home</Link></li>
+                <li><a href="#projects" className="text-lg hover:text-primary">Projects</a></li>
+                <li><a href="#portfolio" className="text-lg hover:text-primary">Portfolio</a></li>
+              </ul>
+            </nav>
+          </header>
+          <Routes>
+            <Route
+              path="/"
+              element={<HomePage
+                posts={posts}
+                profileData={profileData}
+                aboutMeContent={aboutMeContent}
+                initials={initials}
+              />}
+            />
+            <Route
+              path="/posts/:slug"
+              element={<PostDetailPage posts={posts} />}
+            />
+          </Routes>
+          <footer className="mt-12 pt-4 border-t text-center text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} {profileData.name}</p>
+          </footer>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
