@@ -17,13 +17,6 @@ interface HomePageProps {
     // Removed name prop, it's inside profileData
 }
 
-const icons: Record<string, React.ReactNode> = {
-    'github': <div className='w-6 h-6 bg-red-500'/>,
-    'linkedin': <SocialIcon network='linkedin' className='w-6 h-6' />,
-    'twitter': <SocialIcon network='X' className='w-6 h-6' />,
-    'facebook': <SocialIcon network='facebook' className='w-6 h-6' />,
-    'instagram': <SocialIcon network='instagram' className='w-6 h-6' />,
-}
 
 // --- Removed Fake Data Generation for profile/social ---
 // const profileImageUrl = faker.image.avatar();
