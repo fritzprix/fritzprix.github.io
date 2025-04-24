@@ -18,47 +18,41 @@ interface HomePageProps {
 }
 
 
-// --- Removed Fake Data Generation for profile/social ---
-// const profileImageUrl = faker.image.avatar();
-// const socialLinks = [
-//   { name: faker.company.name().split(' ')[0], url: '#' },
-//   { name: faker.company.name().split(' ')[0], url: '#' },
-//   { name: faker.company.name().split(' ')[0], url: '#' },
-// ];
-// --- End Removed Fake Data ---
+function ProfileSection({ profileData, initials, disable }: { profileData: ProfileData, initials: string, disable: boolean }) {
+    const profileImageUrl = profileData.profileImageUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.name)}&background=random`; // Example fallback
 
+    return (
+        <section className={`profile-section flex flex-col items-center mb-12 ${disable ? 'hidden' : ''}`}>
+            <Avatar className="w-32 h-32 mb-4">
+                <AvatarImage src={profileImageUrl} alt={profileData.name} /> {/* Use real name for alt */}
+                <AvatarFallback>{initials}</AvatarFallback>
+            </Avatar>
+            {/* Render social links from profileData */}
+            <div className="social-badges flex space-x-4">
+                {profileData.social.map((link) => (
+                    <SocialIcon key={link.name} network={link.icon} className='w-6 h-6' url={link.url} />
+                ))}
+            </div>
+        </section>
+    )
+}
 
 const HomePage: React.FC<HomePageProps> = ({ posts, profileData, aboutMeContent, initials }) => {
     // Use a placeholder image or get from profileData if available
-    const profileImageUrl = profileData.profileImageUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.name)}&background=random`; // Example fallback
 
     return (
         <>
             {/* Header can remain in App.tsx or move here depending on preference */}
             <main className="flex-grow">
-                <section className="profile-section flex flex-col items-center mb-12">
-                    <Avatar className="w-32 h-32 mb-4">
-                        <AvatarImage src={profileImageUrl} alt={profileData.name} /> {/* Use real name for alt */}
-                        <AvatarFallback>{initials}</AvatarFallback>
-                    </Avatar>
-                    {/* Render social links from profileData */}
-                    <div className="social-badges flex space-x-4">
-                        {profileData.social.map((link) => (
-                            <SocialIcon key={link.name} network={link.icon} className='w-6 h-6' url={link.url} />
-                        ))}
-                    </div>
-                </section>
-
+                <ProfileSection profileData={profileData} initials={initials} disable={true} />
                 <section className="about-me mb-12">
                     <Card>
                         <CardHeader>
-                            {/* Use real name for title */}
-                            <CardTitle>About {profileData.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             {/* Remove prose classes, pass custom components */}
                             <div className="text-justify"> {/* Keep max-w-none if needed, remove prose */}
-                                <ReactMarkdown 
+                                <ReactMarkdown
                                     remarkPlugins={[remarkGfm, remarkBreaks]}
                                     components={MarkdownComponents} // Pass the custom components
                                 >
