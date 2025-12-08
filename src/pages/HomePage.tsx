@@ -1,6 +1,6 @@
 import { Post, ProfileData } from '@/App'; // Import ProfileData type
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 // import { faker } from '@faker-js/faker'; // No longer needed here
 import React from 'react';
 import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
