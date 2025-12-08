@@ -20,10 +20,10 @@ const calculateTagFrequencies = (posts: Post[]) => {
 };
 
 // --- Post List Item Component (Using Link) ---
-const PostListItem: React.FC<{ post: Post }> = ({ post }) => ( 
+const PostListItem: React.FC<{ post: Post }> = ({ post }) => (
   <Link to={`/posts/${post.slug}`} className="block hover:no-underline">
-    <Card 
-      key={post.slug} 
+    <Card
+      key={post.slug}
       className="h-full hover:shadow-md transition-shadow duration-200"
     >
       <CardHeader>
@@ -39,6 +39,22 @@ const PostListItem: React.FC<{ post: Post }> = ({ post }) => (
 
 const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
   const tagData = useMemo(() => calculateTagFrequencies(posts), [posts]);
+  const [containerWidth, setContainerWidth] = React.useState(300);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const fontSizeMapper = useCallback((word: { text: string; value: number }) => 12 + word.value * 6, []);
   const rotate = useCallback(() => (Math.random() > 0.5 ? 0 : 90), []);
@@ -66,11 +82,11 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
           <Card>
             <CardContent className="pt-6">
               {tagData.length > 0 ? (
-                <div style={{ height: 300, width: '100%' }}>
-                  {typeof window !== 'undefined' && (
+                <div ref={containerRef} style={{ height: 300, width: '100%' }}>
+                  {typeof window !== 'undefined' && containerWidth > 0 && (
                     <WordCloud
                       data={tagData}
-                      width={300}
+                      width={containerWidth}
                       height={300}
                       font="sans-serif"
                       fontSize={fontSizeMapper}
@@ -90,4 +106,4 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
   );
 };
 
-export default PostsSection; 
+export default PostsSection;

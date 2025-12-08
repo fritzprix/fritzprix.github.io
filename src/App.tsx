@@ -1,4 +1,5 @@
 import matter from 'gray-matter';
+import { Github, Mail } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import WebGLBackground from './components/WebGLBackground';
@@ -132,10 +133,26 @@ function App() {
           <header className="mb-8 z-10">
             <nav className="flex justify-between items-center">
               <ul className="flex space-x-6">
-                <li><Link to="/" className="text-lg hover:text-primary">Home</Link></li>
-                <li><a href="#projects" className="text-lg hover:text-primary">Projects</a></li>
-                <li><a href="#portfolio" className="text-lg hover:text-primary">Portfolio</a></li>
+                <li><Link to="/" className="text-lg hover:text-primary transition-colors">Home</Link></li>
               </ul>
+              <div className="flex items-center space-x-4">
+                <a
+                  href="mailto:72ave2@gmail.com"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Email"
+                >
+                  <Mail className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://github.com/fritzprix"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="GitHub Profile"
+                >
+                  <Github className="w-6 h-6" />
+                </a>
+              </div>
             </nav>
           </header>
           <Routes>

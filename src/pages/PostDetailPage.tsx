@@ -5,8 +5,11 @@ import { ArrowLeft } from 'lucide-react'; // Icon for back button
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router-dom';
+import rehypeRaw from 'rehype-raw';
 import remarkBreaks from 'remark-breaks';
+import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
+import remarkDirectiveRehype from '../lib/remark-directive-rehype';
 // import { DiscussionEmbed } from 'disqus-react'; // Removed Disqus import
 
 interface PostDetailPageProps {
@@ -24,8 +27,8 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts }) => {
     return (
       <div className="text-center py-10">
         <h2 className="text-2xl mb-4">Post not found!</h2>
-        <Button onClick={() => navigate(-1)}> 
-            <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
+        <Button onClick={() => navigate(-1)}>
+          <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
         </Button>
       </div>
     );
@@ -34,25 +37,26 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts }) => {
 
   return (
     <article className="w-full max-w-4xl mx-auto py-8"> {/* Centered content */}
-       <Button onClick={() => navigate(-1)} className="mb-6">
-         <ArrowLeft className="mr-2 h-4 w-4" /> Back to posts
-       </Button>
-       <header className="mb-8 border-b pb-4">
-         <h1 className="text-4xl font-bold mb-2">{post.data.title}</h1>
-         <p className="text-muted-foreground">
-           {post.data.date} - {post.data.author} | Tags: {post.data.tags.join(', ')}
-         </p>
-         {/* Add image here if needed, maybe from frontmatter */}
-       </header>
-       <div className="max-w-none text-justify"> 
-         <ReactMarkdown 
-           remarkPlugins={[remarkGfm, remarkBreaks]} 
-           components={MarkdownComponents} // Pass the custom components
-           skipHtml={false} // Keep skipHtml if needed, otherwise remove
-         >
-            {post.content}
+      <Button onClick={() => navigate(-1)} className="mb-6">
+        <ArrowLeft className="mr-2 h-4 w-4" /> Back to posts
+      </Button>
+      <header className="mb-8 border-b pb-4">
+        <h1 className="text-4xl font-bold mb-2">{post.data.title}</h1>
+        <p className="text-muted-foreground">
+          {post.data.date} - {post.data.author} | Tags: {post.data.tags.join(', ')}
+        </p>
+        {/* Add image here if needed, maybe from frontmatter */}
+      </header>
+      <div className="max-w-none text-justify">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm, remarkBreaks, remarkDirective, remarkDirectiveRehype]}
+          rehypePlugins={[rehypeRaw]}
+          components={MarkdownComponents} // Pass the custom components
+          skipHtml={false} // Keep skipHtml if needed, otherwise remove
+        >
+          {post.content}
         </ReactMarkdown>
-       </div>
+      </div>
     </article>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import { cn } from "@/lib/utils"; // Assuming you have this utility from shadcn setup
+import Counter from './Counter';
 // import { ComponentPropsWithoutRef } from 'react'; // No longer needed for basic overrides
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MarkdownComponentProps = { node?: any; [key: string]: any }; // Basic type for props
+type MarkdownComponentProps = { node?: any;[key: string]: any }; // Basic type for props
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MarkdownComponentsMap = { [key: string]: React.FC<MarkdownComponentProps> }; // Use the basic type
@@ -67,7 +68,7 @@ export const MarkdownComponents: MarkdownComponentsMap = {
   // Table Elements (using Tailwind for styling)
   table: ({ node, className, ...props }) => (
     <div className="my-6 w-full overflow-y-auto">
-        <table className={cn("w-full", className)} {...props} />
+      <table className={cn("w-full", className)} {...props} />
     </div>
   ),
   thead: ({ node, className, ...props }) => (
@@ -102,9 +103,9 @@ export const MarkdownComponents: MarkdownComponentsMap = {
   code: ({ node, className, inline, ...props }) => (
     <code
       className={cn(
-          // Different styling for inline vs block code can be added here if needed based on `inline` prop
-          "relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm", 
-          className
+        // Different styling for inline vs block code can be added here if needed based on `inline` prop
+        "relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm",
+        className
       )}
       {...props}
     />
@@ -118,5 +119,7 @@ export const MarkdownComponents: MarkdownComponentsMap = {
     />
   ),
 
-  // You can add more component overrides here if needed
-}; 
+  // Custom Components
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  counter: Counter as any,
+};

@@ -22,6 +22,7 @@
     "@react-three/fiber": "^9.1.2",
     "@tailwindcss/vite": "^4.1.4",
     "@types/three": "^0.175.0",
+    "@types/unist": "^3.0.3",
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -33,12 +34,15 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.5.1",
     "react-social-icons": "^6.24.0",
+    "rehype-raw": "^7.0.0",
     "remark-breaks": "^4.0.0",
+    "remark-directive": "^4.0.0",
     "remark-gfm": "^4.0.1",
     "remark-rehype": "^11.1.2",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.4",
-    "three": "^0.175.0"
+    "three": "^0.175.0",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
