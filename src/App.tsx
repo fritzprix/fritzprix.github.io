@@ -1,12 +1,15 @@
 import matter from 'gray-matter';
-import { Github, Mail } from 'lucide-react';
+import { Github, Mail, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import WebGLBackground from './components/WebGLBackground';
 import { ThemeProvider } from './components/theme-provider';
 import { ModeToggle } from './components/ModeToggle';
 import HomePage from './pages/HomePage';
 import PostDetailPage from './pages/PostDetailPage';
+import SearchOverlay from './components/SearchOverlay';
+import { SkeletonProfile, SkeletonCard } from './components/SkeletonLoader';
 
 // --- Moved Post Data Type Definitions --- 
 export interface PostData {
@@ -27,7 +30,7 @@ export interface Post {
 export interface SocialLink {
   name: string;
   url: string;
-  icon: string; // Keep icon field if you plan to use it later
+  icon: string;
 }
 
 export interface ProfileData {
@@ -36,13 +39,16 @@ export interface ProfileData {
   address: string;
   website: string;
   social: SocialLink[];
-  profileImageUrl?: string; // Make optional if not always present
+  profileImageUrl?: string;
 }
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [profileData, setProfileData] = useState<ProfileData | null>(null); // State for profile data
-  const [aboutMeContent, setAboutMeContent] = useState<string>(""); // State for aboutme.md content
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [aboutMeContent, setAboutMeContent] = useState<string>("");
+
+  // Search state
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const modules = import.meta.glob('../posts/*.md', {
@@ -54,40 +60,35 @@ function App() {
       const slug = filepath.split('/').pop()?.replace('.md', '') ?? 'unknown-slug';
       const { data, content } = matter(rawContent as string);
 
-      // --- Ensure date is a string --- 
       let dateString: string;
       if (data.date instanceof Date) {
-        dateString = data.date.toISOString().split('T')[0]; // Format Date object
+        dateString = data.date.toISOString().split('T')[0];
       } else if (typeof data.date === 'string') {
-        dateString = data.date; // Use existing string
+        dateString = data.date;
       } else {
-        dateString = new Date().toISOString().split('T')[0]; // Default to today
+        dateString = new Date().toISOString().split('T')[0];
       }
-      // --- End date formatting ---
 
-      // --- Generate excerpt if missing, cleaning content first --- 
       let excerpt: string;
       if (data.excerpt) {
         excerpt = data.excerpt;
       } else {
-        // Remove markdown images and headings for cleaner auto-excerpt
         const cleanedContent = content
-          .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images ![]()
-          .replace(/^#+\s+/gm, '') // Remove heading hashes #, ## etc.
-          .replace(/\*\*|__/g, '') // Remove bold markers
-          .replace(/\*|_/g, '') // Remove italic markers
-          .replace(/\r\n|\n|\r/g, ' ') // Replace newlines with spaces
+          .replace(/!\[.*?\]\(.*?\)/g, '')
+          .replace(/^#+\s+/gm, '')
+          .replace(/\*\*|__/g, '')
+          .replace(/\*|_/g, '')
+          .replace(/\r\n|\n|\r/g, ' ')
           .trim();
-        excerpt = cleanedContent.substring(0, 150) + (cleanedContent.length > 150 ? '...' : ''); // Increase length slightly
+        excerpt = cleanedContent.substring(0, 150) + (cleanedContent.length > 150 ? '...' : '');
       }
-      // --- End excerpt generation ---
 
       const postData: PostData = {
         title: data.title ?? 'Untitled',
-        date: dateString, // Assign the formatted string date
+        date: dateString,
         author: data.author ?? 'Unknown Author',
         tags: Array.isArray(data.tags) ? data.tags : [],
-        excerpt: excerpt, // Assign the cleaned or provided excerpt
+        excerpt: excerpt,
       };
       return { slug, data: postData, content };
     });
@@ -96,20 +97,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('/about.json') // Fetch from public directory
+    fetch('/about.json')
       .then(response => response.ok ? response.json() : Promise.reject(`HTTP error! status: ${response.status}`))
       .then((data: ProfileData) => {
         setProfileData(data);
       })
       .catch(error => {
         console.error("Error fetching profile data:", error);
-        // Handle error appropriately, maybe set default data or show an error message
       });
-  }, []); // Empty dependency array, runs once on mount
+  }, []);
 
-  // Effect for loading aboutme.md content
   useEffect(() => {
-    fetch('/aboutme.md') // Fetch raw markdown text
+    fetch('/aboutme.md')
       .then(response => response.ok ? response.text() : Promise.reject(`HTTP error! status: ${response.status}`))
       .then(text => {
         setAboutMeContent(text);
@@ -119,65 +118,108 @@ function App() {
       });
   }, []);
 
+  // Keyboard shortcut for search
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
   const name = profileData?.name ?? "";
   const initials = name.split(' ').map(n => n?.[0] ?? '').join('');
 
-  if (!profileData || aboutMeContent === "") {
-    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
-  }
+  const isLoading = !profileData || aboutMeContent === "";
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <BrowserRouter>
-        <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen relative">
-          <WebGLBackground />
-          <header className="mb-8 z-10">
-            <nav className="flex justify-between items-center">
-              <ul className="flex space-x-6">
-                <li><Link to="/" className="text-lg hover:text-primary transition-colors">Home</Link></li>
-              </ul>
-              <div className="flex items-center space-x-4">
-                <ModeToggle />
-                <a
-                  href={`mailto:${profileData.email}`}
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Email"
-                >
-                  <Mail className="w-6 h-6" />
-                </a>
-                <a
-                  href={profileData.social?.find(s => s.icon === 'github')?.url || 'https://github.com/fritzprix'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="GitHub Profile"
-                >
-                  <Github className="w-6 h-6" />
-                </a>
-              </div>
-            </nav>
-          </header>
-          <Routes>
-            <Route
-              path="/"
-              element={<HomePage
-                posts={posts}
-                profileData={profileData}
-                aboutMeContent={aboutMeContent}
-                initials={initials}
-              />}
-            />
-            <Route
-              path="/posts/:slug"
-              element={<PostDetailPage posts={posts} />}
-            />
-          </Routes>
-          <footer className="mt-12 pt-4 border-t text-center text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} {profileData.name}</p>
-          </footer>
-        </div>
-      </BrowserRouter>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <BrowserRouter>
+          <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen relative">
+            <WebGLBackground />
+            <header className="mb-8 z-10">
+              <nav className="flex justify-between items-center">
+                <ul className="flex space-x-6">
+                  <li><Link to="/" className="text-lg hover:text-primary transition-colors">Home</Link></li>
+                </ul>
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => setSearchOpen(true)}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                    aria-label="Search"
+                  >
+                    <Search className="w-4 h-4" />
+                    <span className="hidden sm:inline">검색</span>
+                    <kbd className="ml-2 px-1.5 py-0.5 bg-muted border rounded text-[10px] text-muted-foreground">⌘K</kbd>
+                  </button>
+                  <ModeToggle />
+                  <a
+                    href={`mailto:${profileData?.email ?? ''}`}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="Email"
+                  >
+                    <Mail className="w-6 h-6" />
+                  </a>
+                  <a
+                    href={profileData?.social?.find(s => s.icon === 'github')?.url || 'https://github.com/fritzprix'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="GitHub Profile"
+                  >
+                    <Github className="w-6 h-6" />
+                  </a>
+                </div>
+              </nav>
+            </header>
+
+            {isLoading ? (
+              <main className="flex-grow">
+                <SkeletonProfile />
+                <div className="mb-12">
+                  <SkeletonCard />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="md:col-span-2 space-y-6">
+                    <SkeletonCard />
+                    <SkeletonCard />
+                  </div>
+                  <div className="md:col-span-1">
+                    <SkeletonCard />
+                  </div>
+                </div>
+              </main>
+            ) : (
+              <>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<HomePage
+                      posts={posts}
+                      profileData={profileData}
+                      aboutMeContent={aboutMeContent}
+                      initials={initials}
+                    />}
+                  />
+                  <Route
+                    path="/posts/:slug"
+                    element={<PostDetailPage posts={posts} profileData={profileData} />}
+                  />
+                </Routes>
+                <footer className="mt-12 pt-4 border-t text-center text-muted-foreground">
+                  <p>&copy; {new Date().getFullYear()} {profileData.name}</p>
+                </footer>
+              </>
+            )}
+          </div>
+          <SearchOverlay posts={posts} isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+        </BrowserRouter>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

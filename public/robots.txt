@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fritzprix.github.io/sitemap.xml

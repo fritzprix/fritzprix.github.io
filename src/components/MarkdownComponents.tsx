@@ -1,30 +1,49 @@
 import React from 'react';
 import { cn } from "@/lib/utils";
 
-type MarkdownComponentProps = { className?: string; alt?: string; [key: string]: unknown };
+type MarkdownComponentProps = { className?: string; alt?: string; children?: React.ReactNode; [key: string]: unknown };
 
 type MarkdownComponentsMap = { [key: string]: React.FC<MarkdownComponentProps> };
 
+function getHeadingId(children: React.ReactNode): string {
+  const text = React.Children.toArray(children)
+    .map(child => (typeof child === 'string' || typeof child === 'number' ? child : ''))
+    .join('')
+    .replace(/[*_`#]/g, '')
+    .trim();
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .substring(0, 60);
+}
+
 export const MarkdownComponents: MarkdownComponentsMap = {
   // Headings
-  h1: ({ className, ...props }) => (
-    <h1 className={cn("mt-2 scroll-m-20 text-4xl font-bold tracking-tight", className)} {...props} />
-  ),
-  h2: ({ className, ...props }) => (
-    <h2 className={cn("mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0", className)} {...props} />
-  ),
-  h3: ({ className, ...props }) => (
-    <h3 className={cn("mt-8 scroll-m-20 text-2xl font-semibold tracking-tight", className)} {...props} />
-  ),
-  h4: ({ className, ...props }) => (
-    <h4 className={cn("mt-8 scroll-m-20 text-xl font-semibold tracking-tight", className)} {...props} />
-  ),
-  h5: ({ className, ...props }) => (
-    <h5 className={cn("mt-8 scroll-m-20 text-lg font-semibold tracking-tight", className)} {...props} />
-  ),
-  h6: ({ className, ...props }) => (
-    <h6 className={cn("mt-8 scroll-m-20 text-base font-semibold tracking-tight", className)} {...props} />
-  ),
+  h1: ({ className, children, ...props }) => {
+    const id = getHeadingId(children);
+    return <h1 id={id} className={cn("mt-2 scroll-m-20 text-4xl font-bold tracking-tight", className)} {...props}>{children}</h1>;
+  },
+  h2: ({ className, children, ...props }) => {
+    const id = getHeadingId(children);
+    return <h2 id={id} className={cn("mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0", className)} {...props}>{children}</h2>;
+  },
+  h3: ({ className, children, ...props }) => {
+    const id = getHeadingId(children);
+    return <h3 id={id} className={cn("mt-8 scroll-m-20 text-2xl font-semibold tracking-tight", className)} {...props}>{children}</h3>;
+  },
+  h4: ({ className, children, ...props }) => {
+    const id = getHeadingId(children);
+    return <h4 id={id} className={cn("mt-8 scroll-m-20 text-xl font-semibold tracking-tight", className)} {...props}>{children}</h4>;
+  },
+  h5: ({ className, children, ...props }) => {
+    const id = getHeadingId(children);
+    return <h5 id={id} className={cn("mt-8 scroll-m-20 text-lg font-semibold tracking-tight", className)} {...props}>{children}</h5>;
+  },
+  h6: ({ className, children, ...props }) => {
+    const id = getHeadingId(children);
+    return <h6 id={id} className={cn("mt-8 scroll-m-20 text-base font-semibold tracking-tight", className)} {...props}>{children}</h6>;
+  },
 
   // Paragraph
   p: ({ className, ...props }) => (
