@@ -1,7 +1,7 @@
 import { Post, ProfileData } from '@/App';
 import { Button } from '@/components/ui/button';
 import { MarkdownComponents } from '../components/MarkdownComponents';
-import { ArrowLeft, Clock } from 'lucide-react';
+import { ArrowLeft, Clock, Globe } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import Giscus from '@giscus/react';
 import ReactMarkdown from 'react-markdown';
@@ -53,6 +53,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
   }, [profileData]);
 
   const post = posts.find(p => p.slug === slug);
+  const alternatePost = post ? posts.find(p => p.data.baseSlug === post.data.baseSlug && p.slug !== post.slug) : null;
 
   if (!post) {
     return (
@@ -95,14 +96,28 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
 
         {/* Header */}
         <header className="mb-8 pb-4 border-b">
-          <div className="flex items-center gap-2 mb-3">
-            <span className={`text-[11px] uppercase font-mono px-2.5 py-0.5 rounded-full font-bold ${
-              post.data.lang === 'ko'
-                ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30'
-                : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
-            }`}>
-              {post.data.lang === 'ko' ? '한국어' : 'English'}
-            </span>
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-2">
+              <span className={`text-[11px] uppercase font-mono px-2.5 py-0.5 rounded-full font-bold ${
+                post.data.lang === 'ko'
+                  ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30'
+                  : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+              }`}>
+                {post.data.lang === 'ko' ? '한국어' : 'English'}
+              </span>
+            </div>
+
+            {alternatePost && (
+              <button
+                onClick={() => navigate(`/posts/${alternatePost.slug}`)}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-border/80 bg-muted/50 hover:bg-muted hover:border-primary/50 text-foreground transition-all cursor-pointer shadow-xs"
+              >
+                <Globe className="w-3.5 h-3.5 text-primary" />
+                <span>
+                  {alternatePost.data.lang === 'ko' ? '🇰🇷 한국어로 읽기' : '🇺🇸 Read in English'}
+                </span>
+              </button>
+            )}
           </div>
           <h1 className="text-4xl font-bold mb-4 leading-tight">{post.data.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-muted-foreground">

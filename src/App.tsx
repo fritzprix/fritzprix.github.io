@@ -21,6 +21,7 @@ export interface PostData {
   tags: string[];
   excerpt: string;
   lang: 'ko' | 'en';
+  baseSlug: string;
 }
 
 export interface Post {
@@ -97,6 +98,8 @@ function AppContent() {
         postLang = /[\uac00-\ud7a3]/.test(data.title + ' ' + content) ? 'ko' : 'en';
       }
 
+      const baseSlug = slug.replace(/-(en|ko)$/, '');
+
       const postData: PostData = {
         title: data.title ?? 'Untitled',
         date: dateString,
@@ -104,6 +107,7 @@ function AppContent() {
         tags: Array.isArray(data.tags) ? data.tags : [],
         excerpt: excerpt,
         lang: postLang,
+        baseSlug: baseSlug,
       };
       return { slug, data: postData, content };
     });

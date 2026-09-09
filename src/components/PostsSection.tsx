@@ -50,8 +50,13 @@ const PostListItem: React.FC<{ post: Post }> = ({ post }) => (
 );
 
 const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
-  const { t } = useLanguage();
-  const [activeFilter, setActiveFilter] = useState<'all' | 'ko' | 'en'>('all');
+  const { lang, t } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState<'all' | 'ko' | 'en'>(() => lang);
+
+  // Sync active filter with site language
+  React.useEffect(() => {
+    setActiveFilter(lang);
+  }, [lang]);
 
   const filteredPosts = useMemo(() => {
     if (activeFilter === 'all') return posts;
