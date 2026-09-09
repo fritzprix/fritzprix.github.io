@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import WebGLBackground from './components/WebGLBackground';
 import { ThemeProvider } from './components/theme-provider';
+import { ModeToggle } from './components/ModeToggle';
 import HomePage from './pages/HomePage';
 import PostDetailPage from './pages/PostDetailPage';
 
@@ -136,15 +137,16 @@ function App() {
                 <li><Link to="/" className="text-lg hover:text-primary transition-colors">Home</Link></li>
               </ul>
               <div className="flex items-center space-x-4">
+                <ModeToggle />
                 <a
-                  href="mailto:72ave2@gmail.com"
+                  href={`mailto:${profileData.email}`}
                   className="text-muted-foreground hover:text-primary transition-colors"
                   aria-label="Email"
                 >
                   <Mail className="w-6 h-6" />
                 </a>
                 <a
-                  href="https://github.com/fritzprix"
+                  href={profileData.social?.find(s => s.icon === 'github')?.url || 'https://github.com/fritzprix'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"

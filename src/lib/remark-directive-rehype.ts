@@ -1,17 +1,26 @@
+import type { Node } from 'unist';
 import { visit } from 'unist-util-visit';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface DirectiveNode extends Node {
+    name: string;
+    attributes?: Record<string, unknown>;
+    data?: Record<string, unknown> & {
+        hName?: string;
+        hProperties?: Record<string, unknown>;
+    };
+}
+
 export default function remarkDirectiveRehype() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (tree: any) => {
+    return (tree: Node) => {
         visit(tree, (node) => {
             if (
                 node.type === 'textDirective' ||
                 node.type === 'leafDirective' ||
                 node.type === 'containerDirective'
             ) {
-                const data = node.data || (node.data = {});
-                const hast = h(node.name, node.attributes);
+                const directiveNode = node as unknown as DirectiveNode;
+                const data = directiveNode.data || (directiveNode.data = {});
+                const hast = h(directiveNode.name, directiveNode.attributes);
 
                 data.hName = hast.tagName;
                 data.hProperties = hast.properties;
@@ -21,10 +30,10 @@ export default function remarkDirectiveRehype() {
 }
 
 // Helper function to create HAST nodes
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function h(name: string, attributes: any) {
+function h(name: string, attributes?: Record<string, unknown>) {
     return {
         tagName: name,
-        properties: attributes,
+        properties: attributes ?? {},
     };
 }
+
