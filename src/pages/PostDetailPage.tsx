@@ -19,6 +19,9 @@ import AuthorCard from '../components/AuthorCard';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { SiteHelmet } from '../components/SEO';
 import Newsletter from '../components/Newsletter';
+import { giscusConfig } from '../config/giscus';
+import { decodeEmail } from '../lib/emailUtils';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PostDetailPageProps {
   posts: Post[];
@@ -26,6 +29,7 @@ interface PostDetailPageProps {
 }
 
 const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) => {
+  const { lang, t } = useLanguage();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -36,7 +40,14 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
     } else {
       fetch('/about.json')
         .then(r => r.ok ? r.json() : null)
-        .then(setProfile)
+        .then((data: ProfileData | null) => {
+          if (data) {
+            setProfile({
+              ...data,
+              email: decodeEmail(data.email),
+            });
+          }
+        })
         .catch(() => null);
     }
   }, [profileData]);
@@ -46,9 +57,9 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
   if (!post) {
     return (
       <div className="text-center py-10">
-        <h2 className="text-2xl mb-4">Post not found!</h2>
+        <h2 className="text-2xl mb-4">{t('postNotFound')}</h2>
         <Button onClick={() => navigate(-1)}>
-          <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
+          <ArrowLeft className="mr-2 h-4 w-4" /> {t('goBack')}
         </Button>
       </div>
     );
@@ -70,30 +81,39 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
         publishedTime={post.data.date}
       />
 
-      <article className="w-full max-w-7xl mx-auto py-8">
+      <article className="w-full max-w-7xl mx-auto py-8 relative z-10">
         {/* Breadcrumbs */}
         <Breadcrumbs items={[
-          { label: 'Posts', href: '/' },
+          { label: t('postsTitle'), href: '/' },
           { label: post.data.title }
         ]} />
 
         {/* Back Button */}
         <Button onClick={() => navigate(-1)} className="mb-6">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Back to posts
+          <ArrowLeft className="mr-2 h-4 w-4" /> {t('backToPosts')}
         </Button>
 
         {/* Header */}
         <header className="mb-8 pb-4 border-b">
+          <div className="flex items-center gap-2 mb-3">
+            <span className={`text-[11px] uppercase font-mono px-2.5 py-0.5 rounded-full font-bold ${
+              post.data.lang === 'ko'
+                ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30'
+                : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+            }`}>
+              {post.data.lang === 'ko' ? '한국어' : 'English'}
+            </span>
+          </div>
           <h1 className="text-4xl font-bold mb-4 leading-tight">{post.data.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
             <time>{post.data.date}</time>
             <span>·</span>
             <span className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5" />
-              {readingTime} 읽기
+              {readingTime} {t('readTime')}
             </span>
             <span>·</span>
-            <span>{wordCount.toLocaleString()} words</span>
+            <span>{wordCount.toLocaleString()} {t('words')}</span>
             <span>·</span>
             <span>{post.data.author}</span>
           </div>
@@ -147,7 +167,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
                 name={profile.name}
                 email={profile.email}
                 location={profile.address}
-                bio="An anonymous seeker, navigating the complexities of our world through persistent curiosity and unwavering determination."
+                bio={t('authorBio')}
                 social={profile.social}
               />
             )}
@@ -159,20 +179,20 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
 
             {/* Comments (giscus) */}
             <div className="mt-16 pt-8 border-t">
-              <h2 className="text-2xl font-bold mb-6">Comments</h2>
+              <h2 className="text-2xl font-bold mb-6">{t('comments')}</h2>
               <Giscus
                 id="comments"
-                repo="fritzprix/fritzprix.github.io"
-                repoId="R_kgDOOdG2bw"
-                category="General"
-                categoryId="DIC_kwDOOdG2b84DFObu"
-                mapping="pathname"
-                reactionsEnabled="1"
-                emitMetadata="0"
-                inputPosition="bottom"
-                theme="preferred_color_scheme"
-                lang="en"
-                loading="lazy"
+                repo={giscusConfig.repo}
+                repoId={giscusConfig.repoId}
+                category={giscusConfig.category}
+                categoryId={giscusConfig.categoryId}
+                mapping={giscusConfig.mapping}
+                reactionsEnabled={giscusConfig.reactionsEnabled}
+                emitMetadata={giscusConfig.emitMetadata}
+                inputPosition={giscusConfig.inputPosition}
+                theme={giscusConfig.theme}
+                lang={lang === 'ko' ? 'ko' : 'en'}
+                loading={giscusConfig.loading}
               />
             </div>
           </div>

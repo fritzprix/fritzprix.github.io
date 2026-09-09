@@ -8,6 +8,7 @@ import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import { MarkdownComponents } from '../components/MarkdownComponents';
 import PostsSection from '../components/PostsSection';
+import WebGLBackground from '../components/WebGLBackground';
 
 interface HomePageProps {
     posts: Post[];
@@ -39,7 +40,8 @@ function ProfileSection({ profileData, initials }: { profileData: ProfileData, i
 const HomePage: React.FC<HomePageProps> = ({ posts, profileData, aboutMeContent, initials }) => {
     return (
         <>
-            <main className="flex-grow">
+            <WebGLBackground />
+            <main className="flex-grow relative z-10">
                 <ProfileSection profileData={profileData} initials={initials} />
                 <section className="about-me mb-12">
                     <Card>

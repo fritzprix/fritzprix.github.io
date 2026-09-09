@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from "@/lib/utils";
+import { slugifyHeading } from "@/lib/blogUtils";
 
 type MarkdownComponentProps = { className?: string; alt?: string; children?: React.ReactNode; [key: string]: unknown };
 
@@ -8,46 +9,40 @@ type MarkdownComponentsMap = { [key: string]: React.FC<MarkdownComponentProps> }
 function getHeadingId(children: React.ReactNode): string {
   const text = React.Children.toArray(children)
     .map(child => (typeof child === 'string' || typeof child === 'number' ? child : ''))
-    .join('')
-    .replace(/[*_`#]/g, '')
-    .trim();
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .substring(0, 60);
+    .join('');
+  return slugifyHeading(text);
 }
 
 export const MarkdownComponents: MarkdownComponentsMap = {
   // Headings
   h1: ({ className, children, ...props }) => {
     const id = getHeadingId(children);
-    return <h1 id={id} className={cn("mt-2 scroll-m-20 text-4xl font-bold tracking-tight", className)} {...props}>{children}</h1>;
+    return <h1 id={id} className={cn("mt-2 scroll-m-20 text-4xl font-bold tracking-tight text-foreground", className)} {...props}>{children}</h1>;
   },
   h2: ({ className, children, ...props }) => {
     const id = getHeadingId(children);
-    return <h2 id={id} className={cn("mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0", className)} {...props}>{children}</h2>;
+    return <h2 id={id} className={cn("mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0 text-foreground", className)} {...props}>{children}</h2>;
   },
   h3: ({ className, children, ...props }) => {
     const id = getHeadingId(children);
-    return <h3 id={id} className={cn("mt-8 scroll-m-20 text-2xl font-semibold tracking-tight", className)} {...props}>{children}</h3>;
+    return <h3 id={id} className={cn("mt-8 scroll-m-20 text-2xl font-semibold tracking-tight text-foreground", className)} {...props}>{children}</h3>;
   },
   h4: ({ className, children, ...props }) => {
     const id = getHeadingId(children);
-    return <h4 id={id} className={cn("mt-8 scroll-m-20 text-xl font-semibold tracking-tight", className)} {...props}>{children}</h4>;
+    return <h4 id={id} className={cn("mt-8 scroll-m-20 text-xl font-semibold tracking-tight text-foreground", className)} {...props}>{children}</h4>;
   },
   h5: ({ className, children, ...props }) => {
     const id = getHeadingId(children);
-    return <h5 id={id} className={cn("mt-8 scroll-m-20 text-lg font-semibold tracking-tight", className)} {...props}>{children}</h5>;
+    return <h5 id={id} className={cn("mt-8 scroll-m-20 text-lg font-semibold tracking-tight text-foreground", className)} {...props}>{children}</h5>;
   },
   h6: ({ className, children, ...props }) => {
     const id = getHeadingId(children);
-    return <h6 id={id} className={cn("mt-8 scroll-m-20 text-base font-semibold tracking-tight", className)} {...props}>{children}</h6>;
+    return <h6 id={id} className={cn("mt-8 scroll-m-20 text-base font-semibold tracking-tight text-foreground", className)} {...props}>{children}</h6>;
   },
 
   // Paragraph
   p: ({ className, ...props }) => (
-    <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
+    <p className={cn("leading-7 [&:not(:first-child)]:mt-6 text-foreground", className)} {...props} />
   ),
 
   // Link
@@ -57,13 +52,13 @@ export const MarkdownComponents: MarkdownComponentsMap = {
 
   // Lists
   ul: ({ className, ...props }) => (
-    <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
+    <ul className={cn("my-6 ml-6 list-disc text-foreground", className)} {...props} />
   ),
   ol: ({ className, ...props }) => (
-    <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
+    <ol className={cn("my-6 ml-6 list-decimal text-foreground", className)} {...props} />
   ),
   li: ({ className, ...props }) => (
-    <li className={cn("mt-2", className)} {...props} />
+    <li className={cn("mt-2 text-foreground", className)} {...props} />
   ),
 
   // Blockquote
@@ -73,7 +68,7 @@ export const MarkdownComponents: MarkdownComponentsMap = {
 
   // Image
   img: ({ className, alt, ...props }) => (
-    <img className={cn("rounded-md border my-6", className)} {...props} alt={alt || ''} />
+    <img className={cn("rounded-lg border my-6 max-h-[520px] mx-auto object-contain shadow-sm", className)} {...props} alt={alt || ''} />
   ),
 
   // Horizontal Rule

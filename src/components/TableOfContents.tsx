@@ -34,16 +34,16 @@ export default function TableOfContents({ content, className = '' }: TableOfCont
   if (headings.length === 0) return null;
 
   return (
-    <nav className={`sticky top-24 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto text-sm ${className}`}>
+    <nav className={`sticky top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto text-sm ${className}`}>
       <div className="font-semibold mb-3 text-xs uppercase tracking-wider text-muted-foreground">
         목차
       </div>
-      <ul className="space-y-1 border-l-2 border-border">
+      <ul className="relative space-y-1.5 border-l-2 border-border">
         {headings.map(h => {
-          const indent = h.level - 2; // h2 = base, h3 = +1, etc.
+          const indent = Math.max(0, h.level - 2); // h2 = 0, h3 = 1, etc.
           const isActive = activeId === h.id;
           return (
-            <li key={h.id} style={{ paddingLeft: `${indent * 12 + 12}px` }}>
+            <li key={h.id}>
               <a
                 href={`#${h.id}`}
                 onClick={e => {
@@ -52,9 +52,10 @@ export default function TableOfContents({ content, className = '' }: TableOfCont
                   el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   setActiveId(h.id);
                 }}
-                className={`block py-1 pr-3 border-l-2 -ml-[2px] transition-all ${
+                style={{ paddingLeft: `${indent * 12 + 12}px` }}
+                className={`block py-1 pr-3 -ml-[2px] border-l-2 transition-all break-keep leading-snug text-xs sm:text-sm ${
                   isActive
-                    ? 'border-primary text-primary font-medium'
+                    ? 'border-primary text-primary font-semibold'
                     : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
                 }`}
               >

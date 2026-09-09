@@ -3,6 +3,7 @@ import { Search, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import { Post } from '@/App';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SearchOverlayProps {
   posts: Post[];
@@ -11,6 +12,7 @@ interface SearchOverlayProps {
 }
 
 export default function SearchOverlay({ posts, isOpen, onClose }: SearchOverlayProps) {
+  const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Post[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -80,12 +82,12 @@ export default function SearchOverlay({ posts, isOpen, onClose }: SearchOverlayP
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="포스트 검색 (제목, 내용, 태그)..."
+            placeholder={t('searchPlaceholder')}
             className="flex-1 py-4 bg-transparent text-lg outline-none placeholder:text-muted-foreground"
           />
           <button
             onClick={onClose}
-            className="p-1 hover:bg-muted rounded transition-colors"
+            className="p-1 hover:bg-muted rounded transition-colors cursor-pointer"
             aria-label="Close search"
           >
             <X className="w-5 h-5" />
@@ -96,7 +98,7 @@ export default function SearchOverlay({ posts, isOpen, onClose }: SearchOverlayP
         <div className="max-h-[60vh] overflow-y-auto">
           {query.trim().length >= 2 && results.length === 0 && (
             <div className="py-8 text-center text-muted-foreground">
-              "{query}"에 대한 결과가 없습니다.
+              "{query}" {t('noResults')}
             </div>
           )}
 
@@ -104,9 +106,18 @@ export default function SearchOverlay({ posts, isOpen, onClose }: SearchOverlayP
             <button
               key={post.slug}
               onClick={() => handleSelect(post)}
-              className="w-full text-left px-4 py-3 hover:bg-muted transition-colors border-b last:border-b-0"
+              className="w-full text-left px-4 py-3 hover:bg-muted transition-colors border-b last:border-b-0 cursor-pointer"
             >
-              <div className="font-medium">{post.data.title}</div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-medium">{post.data.title}</span>
+                <span className={`text-[9px] uppercase font-mono px-1.5 py-0.5 rounded font-bold ${
+                  post.data.lang === 'ko'
+                    ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400'
+                    : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                }`}>
+                  {post.data.lang.toUpperCase()}
+                </span>
+              </div>
               <div className="text-sm text-muted-foreground mt-0.5">
                 {post.data.date}
                 {post.data.tags.length > 0 && (
@@ -120,7 +131,7 @@ export default function SearchOverlay({ posts, isOpen, onClose }: SearchOverlayP
 
           {query.trim().length < 2 && (
             <div className="py-6 text-center text-muted-foreground text-sm">
-              검색어를 입력해주세요 (2자 이상)
+              {t('searchPrompt')}
             </div>
           )}
         </div>
@@ -128,10 +139,10 @@ export default function SearchOverlay({ posts, isOpen, onClose }: SearchOverlayP
         {/* Footer hint */}
         <div className="px-4 py-2 border-t bg-muted/30 flex items-center gap-3 text-xs text-muted-foreground">
           <kbd className="px-1.5 py-0.5 bg-muted border rounded text-[10px]">ESC</kbd>
-          <span>닫기</span>
+          <span>{t('searchHintEsc')}</span>
           <span className="mx-1">·</span>
           <kbd className="px-1.5 py-0.5 bg-muted border rounded text-[10px]">↵</kbd>
-          <span>선택</span>
+          <span>{t('searchHintSelect')}</span>
         </div>
       </div>
     </div>

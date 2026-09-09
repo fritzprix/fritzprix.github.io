@@ -3,21 +3,24 @@ import { Github, Mail, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import WebGLBackground from './components/WebGLBackground';
 import { ThemeProvider } from './components/theme-provider';
 import { ModeToggle } from './components/ModeToggle';
+import { LanguageToggle } from './components/LanguageToggle';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import HomePage from './pages/HomePage';
 import PostDetailPage from './pages/PostDetailPage';
 import SearchOverlay from './components/SearchOverlay';
 import { SkeletonProfile, SkeletonCard } from './components/SkeletonLoader';
+import { decodeEmail } from './lib/emailUtils';
 
-// --- Moved Post Data Type Definitions --- 
+// --- Post Data Type Definitions --- 
 export interface PostData {
   title: string;
   date: string;
   author: string;
   tags: string[];
   excerpt: string;
+  lang: 'ko' | 'en';
 }
 
 export interface Post {
@@ -42,7 +45,8 @@ export interface ProfileData {
   profileImageUrl?: string;
 }
 
-function App() {
+function AppContent() {
+  const { lang, t } = useLanguage();
   const [posts, setPosts] = useState<Post[]>([]);
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [aboutMeContent, setAboutMeContent] = useState<string>("");
@@ -83,12 +87,23 @@ function App() {
         excerpt = cleanedContent.substring(0, 150) + (cleanedContent.length > 150 ? '...' : '');
       }
 
+      // Detect post language: check frontmatter locale/lang first, then Hangul characters
+      let postLang: 'ko' | 'en' = 'en';
+      if (data.locale && typeof data.locale === 'string') {
+        postLang = data.locale.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+      } else if (data.lang && typeof data.lang === 'string') {
+        postLang = data.lang.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+      } else {
+        postLang = /[\uac00-\ud7a3]/.test(data.title + ' ' + content) ? 'ko' : 'en';
+      }
+
       const postData: PostData = {
         title: data.title ?? 'Untitled',
         date: dateString,
         author: data.author ?? 'Unknown Author',
         tags: Array.isArray(data.tags) ? data.tags : [],
         excerpt: excerpt,
+        lang: postLang,
       };
       return { slug, data: postData, content };
     });
@@ -100,7 +115,10 @@ function App() {
     fetch('/about.json')
       .then(response => response.ok ? response.json() : Promise.reject(`HTTP error! status: ${response.status}`))
       .then((data: ProfileData) => {
-        setProfileData(data);
+        setProfileData({
+          ...data,
+          email: decodeEmail(data.email),
+        });
       })
       .catch(error => {
         console.error("Error fetching profile data:", error);
@@ -108,15 +126,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('/aboutme.md')
-      .then(response => response.ok ? response.text() : Promise.reject(`HTTP error! status: ${response.status}`))
+    // Attempt localized aboutme file first, then fallback to default
+    fetch(`/aboutme_${lang}.md`)
+      .then(r => r.ok ? r.text() : fetch('/aboutme.md').then(r2 => r2.text()))
       .then(text => {
         setAboutMeContent(text);
       })
       .catch(error => {
         console.error("Error fetching about me content:", error);
       });
-  }, []);
+  }, [lang]);
 
   // Keyboard shortcut for search
   useEffect(() => {
@@ -136,89 +155,101 @@ function App() {
   const isLoading = !profileData || aboutMeContent === "";
 
   return (
-    <HelmetProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <BrowserRouter>
-          <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen relative">
-            <WebGLBackground />
-            <header className="mb-8 z-10">
-              <nav className="flex justify-between items-center">
-                <ul className="flex space-x-6">
-                  <li><Link to="/" className="text-lg hover:text-primary transition-colors">Home</Link></li>
-                </ul>
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setSearchOpen(true)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
-                    aria-label="Search"
-                  >
-                    <Search className="w-4 h-4" />
-                    <span className="hidden sm:inline">검색</span>
-                    <kbd className="ml-2 px-1.5 py-0.5 bg-muted border rounded text-[10px] text-muted-foreground">⌘K</kbd>
-                  </button>
-                  <ModeToggle />
-                  <a
-                    href={`mailto:${profileData?.email ?? ''}`}
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                    aria-label="Email"
-                  >
-                    <Mail className="w-6 h-6" />
-                  </a>
-                  <a
-                    href={profileData?.social?.find(s => s.icon === 'github')?.url || 'https://github.com/fritzprix'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                    aria-label="GitHub Profile"
-                  >
-                    <Github className="w-6 h-6" />
-                  </a>
-                </div>
-              </nav>
-            </header>
+    <BrowserRouter>
+      <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen relative">
+        <header className="mb-8 z-10">
+          <nav className="flex justify-between items-center">
+            <Link
+              to="/"
+              className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity flex items-center"
+            >
+              <span className="text-foreground font-semibold">fritzprix</span>
+              <span className="text-primary font-mono text-base font-normal">.dev</span>
+            </Link>
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                aria-label={t('search')}
+              >
+                <Search className="w-4 h-4" />
+                <span className="hidden sm:inline">{t('search')}</span>
+                <kbd className="ml-2 px-1.5 py-0.5 bg-muted border rounded text-[10px] text-muted-foreground">{t('searchShortcut')}</kbd>
+              </button>
+              <LanguageToggle />
+              <ModeToggle />
+              <a
+                href={profileData?.email ? `mailto:${profileData.email}` : undefined}
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label={t('email')}
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+              <a
+                href={profileData?.social?.find(s => s.icon === 'github')?.url || 'https://github.com/fritzprix'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label={t('github')}
+              >
+                <Github className="w-5 h-5" />
+              </a>
+            </div>
+          </nav>
+        </header>
 
-            {isLoading ? (
-              <main className="flex-grow">
-                <SkeletonProfile />
-                <div className="mb-12">
-                  <SkeletonCard />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="md:col-span-2 space-y-6">
-                    <SkeletonCard />
-                    <SkeletonCard />
-                  </div>
-                  <div className="md:col-span-1">
-                    <SkeletonCard />
-                  </div>
-                </div>
-              </main>
-            ) : (
-              <>
-                <Routes>
-                  <Route
-                    path="/"
-                    element={<HomePage
-                      posts={posts}
-                      profileData={profileData}
-                      aboutMeContent={aboutMeContent}
-                      initials={initials}
-                    />}
-                  />
-                  <Route
-                    path="/posts/:slug"
-                    element={<PostDetailPage posts={posts} profileData={profileData} />}
-                  />
-                </Routes>
-                <footer className="mt-12 pt-4 border-t text-center text-muted-foreground">
-                  <p>&copy; {new Date().getFullYear()} {profileData.name}</p>
-                </footer>
-              </>
-            )}
-          </div>
-          <SearchOverlay posts={posts} isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-        </BrowserRouter>
-      </ThemeProvider>
+        {isLoading ? (
+          <main className="flex-grow">
+            <SkeletonProfile />
+            <div className="mb-12">
+              <SkeletonCard />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="md:col-span-2 space-y-6">
+                <SkeletonCard />
+                <SkeletonCard />
+              </div>
+              <div className="md:col-span-1">
+                <SkeletonCard />
+              </div>
+            </div>
+          </main>
+        ) : (
+          <>
+            <Routes>
+              <Route
+                path="/"
+                element={<HomePage
+                  posts={posts}
+                  profileData={profileData}
+                  aboutMeContent={aboutMeContent}
+                  initials={initials}
+                />}
+              />
+              <Route
+                path="/posts/:slug"
+                element={<PostDetailPage posts={posts} profileData={profileData} />}
+              />
+            </Routes>
+            <footer className="mt-12 pt-4 border-t text-center text-muted-foreground relative z-10">
+              <p>&copy; {new Date().getFullYear()} {profileData.name}. {t('allRightsReserved')}</p>
+            </footer>
+          </>
+        )}
+      </div>
+      <SearchOverlay posts={posts} isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    </BrowserRouter>
+  );
+}
+
+function App() {
+  return (
+    <HelmetProvider>
+      <LanguageProvider>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <AppContent />
+        </ThemeProvider>
+      </LanguageProvider>
     </HelmetProvider>
   );
 }

@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useTheme } from './theme-provider';
 
-// 테마별 색상 팔레트 정의 (다크모드에서 흰색으로 타지 않도록 채도 있는 톤 구성)
+// 테마별 색상 팔레트 정의 (선명한 가시성 및 테마 대비 확보)
 interface ColorPalette {
   primary: THREE.Color;
   secondary: THREE.Color;
@@ -14,24 +14,24 @@ interface ColorPalette {
 }
 
 const DARK_PALETTE: ColorPalette = {
-  primary: new THREE.Color('#0284c7'),   // Deep Sky Blue
-  secondary: new THREE.Color('#6366f1'), // Rich Indigo
-  accent: new THREE.Color('#9333ea'),    // Deep Violet
+  primary: new THREE.Color('#38bdf8'),   // Light Sky Blue
+  secondary: new THREE.Color('#818cf8'), // Light Indigo
+  accent: new THREE.Color('#c084fc'),    // Light Violet
   blending: THREE.AdditiveBlending,
-  opacity: 0.6,
-  particleSize: 0.024,
+  opacity: 0.75,
+  particleSize: 0.045,
 };
 
 const LIGHT_PALETTE: ColorPalette = {
-  primary: new THREE.Color('#1e40af'),   // Deep Ink Blue
-  secondary: new THREE.Color('#3730a3'), // Deep Indigo
-  accent: new THREE.Color('#0369a1'),    // Deep Cyan
+  primary: new THREE.Color('#2563eb'),   // Vibrant Royal Blue
+  secondary: new THREE.Color('#4f46e5'), // Rich Indigo
+  accent: new THREE.Color('#0284c7'),    // Vivid Cyan
   blending: THREE.NormalBlending,
-  opacity: 0.4,
-  particleSize: 0.022,
+  opacity: 0.75,
+  particleSize: 0.055,
 };
 
-// 원형 소프트 글로우 텍스처 (사각형 점 아티팩트 제거)
+// 원형 소프트 글로우 텍스처 (사각형 점 아티팩트 제거 및 또렷한 중심부)
 function createCircleTexture(): THREE.Texture | null {
   if (typeof document === 'undefined') return null;
   const canvas = document.createElement('canvas');
@@ -42,8 +42,8 @@ function createCircleTexture(): THREE.Texture | null {
 
   const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
   gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-  gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.7)');
-  gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.15)');
+  gradient.addColorStop(0.35, 'rgba(255, 255, 255, 0.9)');
+  gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.35)');
   gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
   ctx.fillStyle = gradient;
@@ -63,8 +63,8 @@ function LatentSpaceManifold({ isDark }: LatentSpaceProps) {
 
   // 모바일 여부에 따른 파티클 수 조정
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const gridResolution = isMobile ? 26 : 38; // 격자 크기 (모바일 약 676개, 데스크탑 약 1444개)
-  const clusterCount = isMobile ? 120 : 260; // 부유 클러스터 노드 수
+  const gridResolution = isMobile ? 30 : 44; // 격자 크기 (모바일 약 900개, 데스크탑 약 1936개)
+  const clusterCount = isMobile ? 150 : 320; // 부유 클러스터 노드 수
   const totalCount = gridResolution * gridResolution + clusterCount;
 
   // 원형 텍스처 생성 (메모이제이션)
@@ -80,8 +80,8 @@ function LatentSpaceManifold({ isDark }: LatentSpaceProps) {
 
     let idx = 0;
 
-    // 1. 위상 매니폴드 곡면 격자 (카메라와 충분한 안전거리를 둔 깊이 배치)
-    const span = 8.0;
+    // 1. 위상 매니폴드 곡면 격자 (카메라 시야에 안정적으로 안착)
+    const span = 8.5;
     for (let i = 0; i < gridResolution; i++) {
       for (let j = 0; j < gridResolution; j++) {
         const u = (i / (gridResolution - 1) - 0.5) * span;
@@ -89,7 +89,7 @@ function LatentSpaceManifold({ isDark }: LatentSpaceProps) {
 
         pos[idx * 3] = u;
         pos[idx * 3 + 1] = 0;
-        pos[idx * 3 + 2] = v - 1.5; // Z축을 화면 뒤쪽으로 밀어 카메라 클리핑 방지
+        pos[idx * 3 + 2] = v - 0.8; // Z축 배치 최적화
 
         const uVal = i / (gridResolution - 1);
         const vVal = j / (gridResolution - 1);
@@ -221,7 +221,7 @@ function LatentSpaceManifold({ isDark }: LatentSpaceProps) {
   const palette = isDark ? DARK_PALETTE : LIGHT_PALETTE;
 
   return (
-    <points ref={pointsRef} position={[0, -0.6, -1.0]}>
+    <points ref={pointsRef} position={[0, -0.2, 0]}>
       <bufferGeometry attach="geometry">
         <bufferAttribute
           attach="attributes-position"
@@ -290,7 +290,7 @@ const WebGLBackground: React.FC = () => {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: -1,
+        zIndex: 0,
         pointerEvents: 'none',
       }}
     >

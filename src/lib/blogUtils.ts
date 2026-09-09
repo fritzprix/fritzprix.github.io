@@ -10,6 +10,17 @@ export function countWords(content: string): number {
   return content.trim().split(/\s+/).filter(Boolean).length;
 }
 
+// --- Slugify utility for consistent heading IDs (supports Unicode/Korean) ---
+export function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[*_`#]/g, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .substring(0, 80) || 'heading';
+}
+
 // --- Extract headings from markdown content for TOC ---
 export interface Heading {
   id: string;
@@ -24,11 +35,7 @@ export function extractHeadings(content: string): Heading[] {
   while ((match = regex.exec(content)) !== null) {
     const level = match[1].length;
     const text = match[2].replace(/[*_`#]/g, '').trim();
-    const id = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .substring(0, 60);
+    const id = slugifyHeading(text);
     headings.push({ id, text, level });
   }
   return headings;
