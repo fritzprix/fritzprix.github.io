@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Heading, extractHeadings } from '@/lib/blogUtils';
+import { useEffect, useMemo, useState } from 'react';
+import { extractHeadings } from '@/lib/blogUtils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface TableOfContentsProps {
   content: string;
   className?: string;
+  lang?: 'ko' | 'en';
 }
 
-export default function TableOfContents({ content, className = '' }: TableOfContentsProps) {
-  const [headings] = useState<Heading[]>(() => extractHeadings(content));
+export default function TableOfContents({ content, className = '', lang }: TableOfContentsProps) {
+  const { lang: siteLang, t } = useLanguage();
+  const isEnglish = lang === 'en' || siteLang === 'en';
+  const headings = useMemo(() => extractHeadings(content), [content]);
   const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export default function TableOfContents({ content, className = '' }: TableOfCont
   return (
     <nav className={`sticky top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto text-sm ${className}`}>
       <div className="font-semibold mb-3 text-xs uppercase tracking-wider text-muted-foreground">
-        목차
+        {isEnglish ? (t('tableOfContents') || 'Table of Contents') : '목차'}
       </div>
       <ul className="relative space-y-1.5 border-l-2 border-border">
         {headings.map(h => {

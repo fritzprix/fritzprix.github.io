@@ -31,6 +31,7 @@ export const translations = {
     postNotFound: "포스트를 찾을 수 없습니다!",
     goBack: "돌아가기",
     share: "공유하기",
+    tableOfContents: "목차",
     
     // Search Overlay
     searchPlaceholder: "포스트 검색 (제목, 내용, 태그)...",
@@ -83,6 +84,7 @@ export const translations = {
     postNotFound: "Post not found!",
     goBack: "Go Back",
     share: "Share",
+    tableOfContents: "Table of Contents",
     
     // Search Overlay
     searchPlaceholder: "Search posts (title, content, tags)...",

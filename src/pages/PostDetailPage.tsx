@@ -2,7 +2,7 @@ import { Post, ProfileData } from '@/App';
 import { Button } from '@/components/ui/button';
 import { MarkdownComponents } from '../components/MarkdownComponents';
 import { ArrowLeft, Clock, Globe } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Giscus from '@giscus/react';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,7 +11,7 @@ import remarkBreaks from 'remark-breaks';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import remarkDirectiveRehype from '../lib/remark-directive-rehype';
-import { estimateReadingTime, countWords } from '../lib/blogUtils';
+import { estimateReadingTime, countWords, fixKoreanMarkdownEmphasis } from '../lib/blogUtils';
 import TableOfContents from '../components/TableOfContents';
 import SocialShareButtons from '../components/SocialShareButtons';
 import RelatedPosts from '../components/RelatedPosts';
@@ -29,10 +29,13 @@ interface PostDetailPageProps {
 }
 
 const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) => {
-  const { lang, t } = useLanguage();
+  const { lang, t, setLang } = useLanguage();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<ProfileData | null>(null);
+
+  const prevSlugRef = useRef<string | null>(null);
+  const prevLangRef = useRef<string>(lang);
 
   useEffect(() => {
     if (profileData) {
@@ -55,6 +58,30 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
   const post = posts.find(p => p.slug === slug);
   const alternatePost = post ? posts.find(p => p.data.baseSlug === post.data.baseSlug && p.slug !== post.slug) : null;
 
+  useEffect(() => {
+    // 1. If slug changed (user navigated directly to another post)
+    if (slug !== prevSlugRef.current) {
+      prevSlugRef.current = slug || null;
+      prevLangRef.current = post?.data.lang || lang;
+      if (post && post.data.lang !== lang) {
+        setLang(post.data.lang);
+      }
+      return;
+    }
+
+    // 2. If user toggled language in the header LanguageToggle while reading this post
+    if (lang !== prevLangRef.current) {
+      prevLangRef.current = lang;
+      if (post && alternatePost && post.data.lang !== lang && alternatePost.data.lang === lang) {
+        navigate(`/posts/${alternatePost.slug}`);
+      }
+    }
+  }, [slug, post, alternatePost, lang, setLang, navigate]);
+
+  const processedContent = useMemo(() => {
+    return post ? fixKoreanMarkdownEmphasis(post.content) : '';
+  }, [post]);
+
   if (!post) {
     return (
       <div className="text-center py-10">
@@ -66,7 +93,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
     );
   }
 
-  const readingTime = estimateReadingTime(post.content);
+  const readingTime = estimateReadingTime(post.content, 200, post.data.lang);
   const wordCount = countWords(post.content);
   const postUrl = `/posts/${post.slug}`;
 
@@ -109,7 +136,10 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
 
             {alternatePost && (
               <button
-                onClick={() => navigate(`/posts/${alternatePost.slug}`)}
+                onClick={() => {
+                  setLang(alternatePost.data.lang);
+                  navigate(`/posts/${alternatePost.slug}`);
+                }}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-border/80 bg-muted/50 hover:bg-muted hover:border-primary/50 text-foreground transition-all cursor-pointer shadow-xs"
               >
                 <Globe className="w-3.5 h-3.5 text-primary" />
@@ -147,7 +177,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
         <div className="flex gap-8">
           {/* Table of Contents — Desktop only */}
           <div className="hidden xl:block flex-shrink-0">
-            <TableOfContents content={post.content} />
+            <TableOfContents key={post.slug} content={post.content} lang={post.data.lang} />
           </div>
 
           {/* Main Content */}
@@ -165,7 +195,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
                 components={MarkdownComponents}
                 skipHtml={false}
               >
-                {post.content}
+                {processedContent}
               </ReactMarkdown>
             </div>
 

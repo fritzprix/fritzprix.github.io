@@ -1,8 +1,30 @@
 // --- Reading Time Utility ---
-export function estimateReadingTime(content: string, wordsPerMinute: number = 200): string {
+export function estimateReadingTime(content: string, wordsPerMinute: number = 200, lang: 'ko' | 'en' = 'ko'): string {
   const words = content.trim().split(/\s+/).length;
   const minutes = Math.ceil(words / wordsPerMinute);
+  if (lang === 'en') {
+    return minutes < 1 ? '< 1' : `${minutes}`;
+  }
   return minutes < 1 ? '< 1분' : `${minutes}분`;
+}
+
+/**
+ * Fix CommonMark flanking delimiter limitation for Korean/CJK text.
+ * When closing ** or * is preceded by punctuation (e.g. quotes, parentheses)
+ * and directly followed by Hangul characters (particles/조사), CommonMark's
+ * flanking delimiter rule fails because Hangul is categorized as Unicode Letter.
+ * This converts those instances safely to <strong> / <em> tags outside of code blocks.
+ */
+export function fixKoreanMarkdownEmphasis(content: string): string {
+  const parts = content.split(/(```[\s\S]*?```|`[^`\n]+`)/g);
+  return parts
+    .map((part, index) => {
+      if (index % 2 === 1) return part;
+      let res = part.replace(/\*\*([^\n*]+?[.,!?:;'")[\]}])\*\*([가-힣])/g, '<strong>$1</strong>$2');
+      res = res.replace(/(?<!\*)\*([^\n*]+?[.,!?:;'")[\]}])\*(?!\*)([가-힣])/g, '<em>$1</em>$2');
+      return res;
+    })
+    .join('');
 }
 
 // --- Word Count ---
