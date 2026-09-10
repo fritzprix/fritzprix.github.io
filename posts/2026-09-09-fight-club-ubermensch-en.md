@@ -29,9 +29,11 @@ Watching the film again brought back questions that had lingered unresolved for 
 *Why does this magnetic, electrifying leader end up shaving the heads of lobotomized followers, forbidding questions, and assembling a mindless terrorist collective in the final act?*  
 *Why must the magnificent revolutionary, seemingly poised to tear down systemic tyranny and inaugurate a brave new order, be unceremoniously executed by the protagonist's own hand?*
 
-It is precisely at this juncture that most viewers lose their way. They mistake rebellion and destruction—what Nietzsche termed the stage of the "Lion"—for the final destination of life. But as director David Fincher repeatedly emphasized, Tyler Durden was never a messiah come to redeem the world; he was merely *"the most childish and perilous megalomania"* conjured up by modern men racked by castration anxiety and existential deficiency.
+It is precisely at this juncture that most viewers lose their way. Having cast off the heavy burden of the 'Camel'—the beast of burden bowing to systemic demands—they mistake the roaring rebellion of the 'Lion' for the final destination of life.
 
-The spectacle of men who broke away claiming they would "build their own ventures" and "overthrow the rigged game," only to coalesce into a mindless, question-free fascist militia (Project Mayhem), was the director's scathing mockery. A rebellion that merely projects internal insecurity onto external enemies and leeches off a new dogma produces nothing more than a freshly repainted servitude. Rebellion, all too often, is simply subservience wearing a different mask.
+Yet the black-clad legion in the final act are not innocent victims crushed under Tyler's iron fist. They did not have their names stolen by decree; they willingly gave them away. To those terrified of bearing the dizzying weight of freedom—the burden of autonomous thought and responsible choice—Tyler was not a tyrant, but the sweetest possible sanctuary: liberation from the agony of thinking, an absolute refuge where mindless obedience suffices.
+
+When internal impotence and deficiency (*ressentiment*) are projected outward onto external enemies, and one flees willingly into the embrace of a more rigid dogma, rebellion inevitably descends into grotesque fascism. The spectacle of men who broke away claiming they would "build their own ventures" and "overthrow the rigged game," only to coalesce into another question-free militia, was the director's scathing mockery—aimed not at Tyler, but squarely at our own craving for thoughtless comfort. In voluntary submission that abdicates reason, rebellion is simply subservience wearing a different mask.
 
 ## The Gun Pointed at Tyler Durden: Self-Overcoming (*Selbstüberwindung*)
 
@@ -39,7 +41,7 @@ The true climax of the film is not the spectacular demolition of financial skysc
 
 Had the film concluded with Tyler triumphant, reigning as sovereign over the smoldering ashes of the world, it would have marked not liberation, but the birth of another dictator. The rite of passage the Narrator had to navigate to attain true maturity was never a battle against the external world. It was the execution of the seductive demon nesting within his own psyche that had offered cheap vicarious thrill.
 
-The scar blasted beneath his jaw is not a conqueror's armband won by subduing others. It is the authentic seal of personal sovereignty claimed only by one who has shattered his own internal dogmas and delusions.
+The scar blasted beneath his jaw is not a conqueror's armband won by subduing others. It is the authentic seal of personal sovereignty claimed only by one who has shattered his own internal dogmas and delusions. Only by detonating the omnipotent illusion that one can bend the world to one's absolute control (Tyler) can the vast clearing open to finally face raw, uncontainable life.
 
 ## Marla: The Nature of Unpredictable Chaos
 
@@ -71,7 +73,7 @@ This is not resignation in the face of uncertainty. It is the most robust realiz
 
 ## Becoming a Wheel That Rolls by Its Own Motion
 
-There was a time when I, too, believed that breaking away from institutional confines to build an impenetrable fortress and rule my own roost constituted genuine freedom. Trapped in the second stage, I spent days pointing fingers at the world, frantically striving to prove myself.
+There was a time when I, too, believed that breaking away from institutional confines to build an impenetrable fortress and rule my own roost constituted genuine freedom. Trapped in the lion's snare after casting off the camel's yoke, I spent days pointing fingers at the world, frantically striving to prove myself.
 
 Yet authentic freedom does not lie in becoming the master architect of an alternative system. It lies in refusing to depend on external validation, refusing to shrink from the unpredictable chaos life hurls at us, and becoming **"a self-propelling wheel (the Child)"** powered entirely by inner curiosity and fullness.
 
