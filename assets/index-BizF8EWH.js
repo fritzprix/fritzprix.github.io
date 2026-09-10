@@ -1152,7 +1152,7 @@ Watching the film again brought back questions that had lingered unresolved for 
 *Why does this magnetic, electrifying leader end up shaving the heads of lobotomized followers, forbidding questions, and assembling a mindless terrorist collective in the final act?*  
 *Why must the magnificent revolutionary, seemingly poised to tear down systemic tyranny and inaugurate a brave new order, be unceremoniously executed by the protagonist's own hand?*
 
-It is precisely at this juncture that most viewers lose their way. Having cast off the heavy burden of the 'Camel'—the beast of burden bowing to systemic demands—they mistake the roaring rebellion of the 'Lion' for the final destination of life.
+It is precisely at this juncture that most viewers lose their way. Having cast off the heavy burden of the 'Camel'—the beast of burden bowing to systemic demands—they mistake the roaring rebellion of the 'Lion' for the final destination of life. At the heart of that delusion lies nothing less than the cowardly desire to hide behind the fever of revolt and cast off the grueling burden of thought itself.
 
 Yet the black-clad legion in the final act are not innocent victims crushed under Tyler's iron fist. They did not have their names stolen by decree; they willingly gave them away. To those terrified of bearing the dizzying weight of freedom—the burden of autonomous thought and responsible choice—Tyler was not a tyrant, but the sweetest possible sanctuary: liberation from the agony of thinking, an absolute refuge where mindless obedience suffices.
 
@@ -1198,7 +1198,7 @@ This is not resignation in the face of uncertainty. It is the most robust realiz
 
 There was a time when I, too, believed that breaking away from institutional confines to build an impenetrable fortress and rule my own roost constituted genuine freedom. Trapped in the lion's snare after casting off the camel's yoke, I spent days pointing fingers at the world, frantically striving to prove myself.
 
-Yet authentic freedom does not lie in becoming the master architect of an alternative system. It lies in refusing to depend on external validation, refusing to shrink from the unpredictable chaos life hurls at us, and becoming **"a self-propelling wheel (the Child)"** powered entirely by inner curiosity and fullness.
+Yet authentic freedom does not lie in becoming the master architect of an alternative system. It lies in refusing to depend on external validation, refusing to shrink from the unpredictable chaos life hurls at us, and becoming **"a self-propelling wheel (the Child)"** powered entirely by inner curiosity and fullness. To move beyond the raging lion that merely tears down, and to wholeheartedly embrace the absurdities and chaos of existence as creative play—that is the very threshold of standing tall as the **Übermensch**.
 
 It matters not how violently the outer world convulses. One whose center is anchored within takes the hand of Chaos without tremor and takes the next stride forward, even atop the ruins. Past forty, gazing into the cool, unflinching eyes surveying the tumbling towers in the film's final frame, I reaffirm once more the unshakeable North Star of my own life.
 `,__vite_glob_0_11=`---
@@ -1231,7 +1231,7 @@ excerpt: "타일러 더든이라는 매혹적인 최면과 사자의 함정을 �
 *'그토록 매혹적이고 통쾌했던 리더가, 왜 후반부에 이르러서는 머리를 깎고 질문조차 금지당한 추종자들을 모아 테러 집단을 만드는가?'*  
 *'기존 시스템을 시원하게 무너뜨리며 새로운 질서를 세울 것 같던 멋진 혁명가가, 왜 주인공 자신의 손에 허무하게 사살당해야만 하는가?'*
 
-많은 사람이 이 지점에서 길을 잃는다. 기존 체제의 짐을 묵묵히 짊어지는 '낙타'를 지나, 그 멍에를 찢고 포효하는 '사자'의 단계를 인생의 최종 목적지로 착각하기 때문이다. 
+많은 사람이 이 지점에서 길을 잃는다. 기존 체제의 짐을 묵묵히 짊어지는 '낙타'를 지나, 그 멍에를 찢고 포효하는 '사자'의 단계를 인생의 최종 목적지로 착각하기 때문이다. 그 착각의 정체는 다름 아닌, 반항이라는 열기 뒤로 숨어 사유의 짐을 벗어던지고 싶어 하는 욕망 그 자체였다.
 
 하지만 후반부의 검은 옷을 입은 군대는 타일러의 폭압에 짓눌려 억지로 통제당한 피해자가 아니다. 그들은 명령을 받아 이름을 빼앗긴 것이 아니라, 스스로 기꺼이 이름을 지우고 싶어 했다. 스스로 생각하고 선택해야 하는 자유의 무게를 감당할 자신이 없는 자들에게, 타일러는 독재자가 아니라 가장 달콤한 해방구였다—사유하지 않아도 되는 해방, 맹목적으로 복종하기만 하면 되는 완벽한 안식처.
 
@@ -1277,7 +1277,7 @@ excerpt: "타일러 더든이라는 매혹적인 최면과 사자의 함정을 �
 
 한때는 나 역시 조직을 벗어나 나만의 견고한 성채를 세우고, 새로운 판의 우두머리가 되는 것이 자유라 믿었다. 낙타의 멍에를 벗어던진 뒤 찾아온 사자의 함정에 갇혀, 세상과 삿대질하며 무언가를 증명하려 애쓰던 날들이 있었다.
 
-하지만 진정한 자유는 대안 시스템의 지배자가 되는 데 있지 않다. 외부의 증명과 승인에 목매지 않고, 삶이 들이미는 예측 불가능한 카오스를 피하지 않으며, 내면의 호기심과 충만함으로 **'스스로 굴러가는 바퀴(어린아이)'**가 되는 것에 있다.
+하지만 진정한 자유는 대안 시스템의 지배자가 되는 데 있지 않다. 외부의 증명과 승인에 목매지 않고, 삶이 들이미는 예측 불가능한 카오스를 피하지 않으며, 내면의 호기심과 충만함으로 **'스스로 굴러가는 바퀴(어린아이)'**가 되는 것에 있다. 부수고 저항하는 사자를 넘어, 제 삶의 무의미와 혼돈마저 기꺼이 긍정하며 새롭게 유희하는 자—이것이야말로 폐허 위에서 카오스의 손을 잡고 비로소 **위버멘쉬(Übermensch)**로 우뚝 서는 길이다.
 
 세상이 어떤 혼돈으로 흔들리든 상관없다. 내면의 중심을 세운 자는 폐허 위에서도 두려움 없이 카오스의 손을 잡고 다음 걸음을 내딛는다. 마흔을 훌쩍 넘겨, 무너져 내리는 빌딩들을 서늘하게 응시하던 영화의 마지막 장면에서 비로소 흔들리지 않는 내 삶의 북극성을 다시 확인한다.
 `,__vite_glob_0_12=`---
