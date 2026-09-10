@@ -1154,7 +1154,7 @@ Watching the film again brought back questions that had lingered unresolved for 
 
 It is precisely at this juncture that most viewers lose their way. Having cast off the heavy burden of the 'Camel'—the beast of burden bowing to systemic demands—they mistake the roaring rebellion of the 'Lion' for the final destination of life. At the heart of that delusion lies nothing less than the cowardly desire to hide behind the fever of revolt and cast off the grueling burden of thought itself.
 
-Yet the black-clad legion in the final act are not innocent victims crushed under Tyler's iron fist. They did not have their names stolen by decree; they willingly gave them away. To those terrified of bearing the dizzying weight of freedom—the burden of autonomous thought and responsible choice—Tyler was not a tyrant, but the sweetest possible sanctuary: liberation from the agony of thinking, an absolute refuge where mindless obedience suffices.
+The black-clad legion in the final act are not innocent victims crushed under Tyler's iron fist. They did not have their names stolen by decree; they willingly gave them away. To those terrified of bearing the dizzying weight of freedom—the burden of autonomous thought and responsible choice—Tyler was not a tyrant, but the sweetest possible sanctuary: liberation from the agony of thinking, an absolute refuge where mindless obedience suffices.
 
 When internal impotence and deficiency (*ressentiment*) are projected outward onto external enemies, and one flees willingly into the embrace of a more rigid dogma, rebellion inevitably descends into grotesque fascism. The spectacle of men who broke away claiming they would "build their own ventures" and "overthrow the rigged game," only to coalesce into another question-free militia, was the director's scathing mockery—aimed not at Tyler, but squarely at our own craving for thoughtless comfort. In voluntary submission that abdicates reason, rebellion is simply subservience wearing a different mask.
 
@@ -1233,7 +1233,7 @@ excerpt: "타일러 더든이라는 매혹적인 최면과 사자의 함정을 �
 
 많은 사람이 이 지점에서 길을 잃는다. 기존 체제의 짐을 묵묵히 짊어지는 '낙타'를 지나, 그 멍에를 찢고 포효하는 '사자'의 단계를 인생의 최종 목적지로 착각하기 때문이다. 그 착각의 정체는 다름 아닌, 반항이라는 열기 뒤로 숨어 사유의 짐을 벗어던지고 싶어 하는 욕망 그 자체였다.
 
-하지만 후반부의 검은 옷을 입은 군대는 타일러의 폭압에 짓눌려 억지로 통제당한 피해자가 아니다. 그들은 명령을 받아 이름을 빼앗긴 것이 아니라, 스스로 기꺼이 이름을 지우고 싶어 했다. 스스로 생각하고 선택해야 하는 자유의 무게를 감당할 자신이 없는 자들에게, 타일러는 독재자가 아니라 가장 달콤한 해방구였다—사유하지 않아도 되는 해방, 맹목적으로 복종하기만 하면 되는 완벽한 안식처.
+후반부의 검은 옷을 입은 군대는 타일러의 폭압에 짓눌려 억지로 통제당한 피해자가 아니다. 그들은 명령을 받아 이름을 빼앗긴 것이 아니라, 스스로 기꺼이 이름을 지우고 싶어 했다. 스스로 생각하고 선택해야 하는 자유의 무게를 감당할 자신이 없는 자들에게, 타일러는 독재자가 아니라 가장 달콤한 해방구였다—사유하지 않아도 되는 해방, 맹목적으로 복종하기만 하면 되는 완벽한 안식처.
 
 내면의 무기력과 결핍(르상티망)을 외부의 적에게 투사하며, 더 강력한 도그마의 품으로 자발적으로 도피할 때 반항은 필연적으로 가장 기괴한 파시즘으로 귀결된다. "내 사업을 하겠다", "기존 판을 뒤엎겠다"며 뛰쳐나온 이들이 모여 만든 대안 집단이 또 다른 질문 없는 군대로 전락하는 순간, 감독의 조소는 타일러가 아니라 바로 그 맹목적인 안식을 욕망하는 우리 자신을 정면으로 겨눈다. 사유를 포기한 자발적 복종 속에서, 반항은 가장 충실한 종속의 다른 이름이 될 뿐이다.
 
