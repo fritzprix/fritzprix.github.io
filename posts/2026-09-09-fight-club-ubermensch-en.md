@@ -29,7 +29,7 @@ Watching the film again brought back questions that had lingered unresolved for 
 *Why does this magnetic, electrifying leader end up shaving the heads of lobotomized followers, forbidding questions, and assembling a mindless terrorist collective in the final act?*  
 *Why must the magnificent revolutionary, seemingly poised to tear down systemic tyranny and inaugurate a brave new order, be unceremoniously executed by the protagonist's own hand?*
 
-It is precisely at this juncture that most viewers lose their way. Having cast off the heavy burden of the 'Camel'—the beast of burden bowing to systemic demands—they mistake the roaring rebellion of the 'Lion' for the final destination of life.
+It is precisely at this juncture that most viewers lose their way. Having cast off the heavy burden of the 'Camel'—the beast of burden bowing to systemic demands—they mistake the roaring rebellion of the 'Lion' for the final destination of life. At the heart of that delusion lies nothing less than the cowardly desire to hide behind the fever of revolt and cast off the grueling burden of thought itself.
 
 Yet the black-clad legion in the final act are not innocent victims crushed under Tyler's iron fist. They did not have their names stolen by decree; they willingly gave them away. To those terrified of bearing the dizzying weight of freedom—the burden of autonomous thought and responsible choice—Tyler was not a tyrant, but the sweetest possible sanctuary: liberation from the agony of thinking, an absolute refuge where mindless obedience suffices.
 
@@ -75,6 +75,6 @@ This is not resignation in the face of uncertainty. It is the most robust realiz
 
 There was a time when I, too, believed that breaking away from institutional confines to build an impenetrable fortress and rule my own roost constituted genuine freedom. Trapped in the lion's snare after casting off the camel's yoke, I spent days pointing fingers at the world, frantically striving to prove myself.
 
-Yet authentic freedom does not lie in becoming the master architect of an alternative system. It lies in refusing to depend on external validation, refusing to shrink from the unpredictable chaos life hurls at us, and becoming **"a self-propelling wheel (the Child)"** powered entirely by inner curiosity and fullness.
+Yet authentic freedom does not lie in becoming the master architect of an alternative system. It lies in refusing to depend on external validation, refusing to shrink from the unpredictable chaos life hurls at us, and becoming **"a self-propelling wheel (the Child)"** powered entirely by inner curiosity and fullness. To move beyond the raging lion that merely tears down, and to wholeheartedly embrace the absurdities and chaos of existence as creative play—that is the very threshold of standing tall as the **Übermensch**.
 
 It matters not how violently the outer world convulses. One whose center is anchored within takes the hand of Chaos without tremor and takes the next stride forward, even atop the ruins. Past forty, gazing into the cool, unflinching eyes surveying the tumbling towers in the film's final frame, I reaffirm once more the unshakeable North Star of my own life.
