@@ -10,6 +10,7 @@ import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import HomePage from './pages/HomePage';
 import PostDetailPage from './pages/PostDetailPage';
 import SearchOverlay from './components/SearchOverlay';
+import ScrollToTop from './components/ScrollToTop';
 import { SkeletonProfile, SkeletonCard } from './components/SkeletonLoader';
 import { decodeEmail } from './lib/emailUtils';
 
@@ -160,6 +161,7 @@ function AppContent() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="container mx-auto px-4 py-8 flex flex-col min-h-screen relative">
         <header className="mb-8 z-10">
           <nav className="flex justify-between items-center">
