@@ -1,7 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <script type="text/javascript">
+      try {
+        var savedLang = localStorage.getItem('site-lang');
+        if (savedLang) {
+          document.documentElement.lang = savedLang;
+        } else if (navigator.language && !navigator.language.toLowerCase().startsWith('ko')) {
+          document.documentElement.lang = 'en';
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" type="image/png" href="/fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dwid's Space</title>
@@ -24,8 +34,8 @@
       }(window.location))
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
-    <script type="module" crossorigin src="/assets/index-P-Z5Q1TK.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DbY1Cqgq.css">
+    <script type="module" crossorigin src="/assets/index-B540fLKA.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-C-KeUMiG.css">
   </head>
   <body>
     <div id="root"></div>
