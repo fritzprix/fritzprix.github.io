@@ -188,7 +188,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
             </div>
 
             {/* Article Body */}
-            <div className="max-w-none text-justify prose prose-neutral dark:prose-invert max-w-none">
+            <div className="max-w-3xl text-left prose prose-neutral dark:prose-invert">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkBreaks, remarkDirective, remarkDirectiveRehype]}
                 rehypePlugins={[rehypeRaw]}
