@@ -2,14 +2,15 @@
 layout: post
 title: "인과율은 자연의 법칙일까, 인지 엔진의 환영일까: 흄의 『논고』를 읽고"
 date: 2026-09-12
-image: /img/inductive-bias.png
+image: /img/david_hume.jpg
 author: Doowoong(David) Lee
 categories: [Philosophy, Essay]
 tags: [데이비드흄, 인간본성에관한논고, 인식론, 회의주의, 인공지능, 복잡계, 귀납외주화, 회의적실용주의, 반증가능주의]
 excerpt: "당구공의 충돌에서 우리는 정말 인과관계를 보고 있는가? 18세기의 인지과학자 흄이 폭로한 이성의 한계에서 출발해, 복잡계 앞에서 인공신경망이라는 도구를 쥐고 살아가는 현대인의 태도를 묻는다."
 ---
 
-![Inductive Bias Concept](/img/inductive-bias.png)
+![David Hume](/img/david_hume.jpg)
+*데이비드 흄 (David Hume, 1711–1776) — 앨런 램지(Allan Ramsay) 작, 스코틀랜드 국립초상화미술관 소장*
 
 인과율은 자연의 본질일까, 우리 인지 엔진이 만들어낸 환영일까?
 
@@ -76,6 +77,8 @@ excerpt: "당구공의 충돌에서 우리는 정말 인과관계를 보고 있�
 ---
 
 ## 4. Great Demotion: 복잡계 앞에서의 인공적 귀납 외주화
+
+![Inductive Bias Concept](/img/inductive-bias.png)
 
 흄의 사유를 따라가다 보면 현대 인공지능의 본질에 대한 명확한 통찰과 맞닥뜨리게 된다. 오늘날 인간 지성은 또 한 번의 거대한 강등(Great Demotion)을 겪고 있다.
 
