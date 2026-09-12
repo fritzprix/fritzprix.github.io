@@ -182,6 +182,16 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
+            {/* Table of Contents — Mobile & Tablet only */}
+            <div className="block xl:hidden">
+              <TableOfContents
+                key={`mobile-${post.slug}`}
+                content={post.content}
+                lang={post.data.lang}
+                variant="inline"
+              />
+            </div>
+
             {/* Social Share */}
             <div className="mb-6">
               <SocialShareButtons title={post.data.title} url={postUrl} />

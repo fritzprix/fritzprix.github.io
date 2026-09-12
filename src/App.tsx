@@ -159,6 +159,10 @@ function AppContent() {
 
   const isLoading = !profileData || aboutMeContent === "";
 
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent || navigator.platform);
+  const shortcutLabel = isMac ? '⌘K' : 'Ctrl+K';
+  const shortcutAriaLabel = isMac ? 'Command K' : 'Control K';
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -175,18 +179,24 @@ function AppContent() {
             <div className="flex items-center space-x-2 sm:space-x-3">
               <button
                 onClick={() => setSearchOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
-                aria-label={t('search')}
+                className="flex items-center gap-2 px-3 py-1.5 min-h-[44px] sm:min-h-0 min-w-[44px] justify-center rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors cursor-pointer"
+                aria-label={`${t('search')} (${shortcutAriaLabel})`}
+                aria-keyshortcuts={isMac ? 'Meta+K' : 'Control+K'}
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-4 h-4" aria-hidden="true" />
                 <span className="hidden sm:inline">{t('search')}</span>
-                <kbd className="ml-2 px-1.5 py-0.5 bg-muted border rounded text-[10px] text-muted-foreground">{t('searchShortcut')}</kbd>
+                <kbd
+                  aria-hidden="true"
+                  className="ml-1 sm:ml-2 px-1.5 py-0.5 bg-muted border rounded text-[10px] font-mono text-muted-foreground"
+                >
+                  {shortcutLabel}
+                </kbd>
               </button>
               <LanguageToggle />
               <ModeToggle />
               <a
                 href={profileData?.email ? `mailto:${profileData.email}` : undefined}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 flex items-center justify-center"
                 aria-label={t('email')}
               >
                 <Mail className="w-5 h-5" />
@@ -195,7 +205,7 @@ function AppContent() {
                 href={profileData?.social?.find(s => s.icon === 'github')?.url || 'https://github.com/fritzprix'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 flex items-center justify-center"
                 aria-label={t('github')}
               >
                 <Github className="w-5 h-5" />

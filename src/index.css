@@ -71,10 +71,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-feature-settings: "cv02", "cv03", "cv11";
 }
 
-/* Custom Scrollbar */
+/* Firefox Scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.5 0 0 / 0.25) transparent;
+}
+
+html.dark {
+  scrollbar-color: oklch(0.6 0 0 / 0.3) transparent;
+}
+
+/* Webkit Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -96,5 +106,10 @@ body {
 /* Editorial selection */
 ::selection {
   background-color: oklch(0.65 0.15 260 / 0.25);
+  color: inherit;
+}
+
+.dark ::selection {
+  background-color: oklch(0.72 0.13 260 / 0.35);
   color: inherit;
 }

@@ -179,23 +179,27 @@ function LatentSpaceManifold({ isDark }: LatentSpaceProps) {
     const time = state.clock.getElapsedTime();
     const gridTotal = gridResolution * gridResolution;
 
-    // 1. 매니폴드 곡면의 완만하고 부드러운 파동
+    // 1. 매니폴드 곡면의 완만하고 부드러운 파동 (최적화: 루프 내 삼각함수 호출 최소화)
+    const t0 = time * 0.25;
+    const t1 = time * 0.2;
     for (let i = 0; i < gridTotal; i++) {
       const u = initialPositions[i * 3];
       const w = initialPositions[i * 3 + 2];
+      const dist = Math.sqrt(u * u + w * w);
 
       const wave =
-        Math.sin(u * 0.6 + time * 0.25) * Math.cos(w * 0.6 + time * 0.2) * 0.5 +
-        Math.cos(Math.hypot(u, w) * 0.6 - time * 0.25) * 0.3;
+        Math.sin(u * 0.6 + t0) * Math.cos(w * 0.6 + t1) * 0.5 +
+        Math.cos(dist * 0.6 - t0) * 0.3;
 
       posAttr.setY(i, wave);
     }
 
     // 2. 부유 클러스터 데이터 포인트의 미세 호흡
+    const tCluster = time * 0.35;
     for (let i = gridTotal; i < totalCount; i++) {
       const baseY = initialPositions[i * 3 + 1];
       const phase = uvs[i * 2] * 6.28;
-      posAttr.setY(i, baseY + Math.sin(time * 0.35 + phase) * 0.15);
+      posAttr.setY(i, baseY + Math.sin(tCluster + phase) * 0.15);
     }
 
     posAttr.needsUpdate = true;
@@ -261,6 +265,8 @@ const WebGLBackground: React.FC = () => {
     return true;
   });
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   // 테마 변경 및 DOM class ('dark') 직접 감시
   useEffect(() => {
     const updateTheme = () => {
@@ -284,6 +290,7 @@ const WebGLBackground: React.FC = () => {
 
   return (
     <div
+      aria-hidden="true"
       style={{
         position: 'fixed',
         top: 0,
@@ -296,7 +303,11 @@ const WebGLBackground: React.FC = () => {
     >
       <Canvas
         camera={{ position: [0, 4.5, 9.0], fov: 45, near: 0.5, far: 50 }}
-        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        gl={{
+          alpha: true,
+          antialias: !isMobile,
+          powerPreference: isMobile ? 'low-power' : 'high-performance',
+        }}
       >
         <LatentSpaceManifold isDark={isDark} />
       </Canvas>

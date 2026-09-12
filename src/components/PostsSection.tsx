@@ -26,7 +26,6 @@ const calculateTagFrequencies = (posts: Post[]) => {
 const PostListItem: React.FC<{ post: Post }> = ({ post }) => (
   <Link to={`/posts/${post.slug}`} className="block hover:no-underline group">
     <Card
-      key={post.slug}
       className="h-full border border-border/70 hover:border-primary/40 hover:shadow-md transition-all duration-200 bg-card"
     >
       <CardHeader className="pb-3">

@@ -1,7 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <script type="text/javascript">
+      try {
+        var savedLang = localStorage.getItem('site-lang');
+        if (savedLang) {
+          document.documentElement.lang = savedLang;
+        } else if (navigator.language && !navigator.language.toLowerCase().startsWith('ko')) {
+          document.documentElement.lang = 'en';
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" type="image/png" href="/fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dwid's Space</title>

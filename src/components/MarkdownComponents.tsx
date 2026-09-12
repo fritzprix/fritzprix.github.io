@@ -76,7 +76,7 @@ export const MarkdownComponents: MarkdownComponentsMap = {
   img: ({ className, alt, ...props }) => (
     <figure className="my-8">
       <img
-        className={cn("rounded-xl border border-border/70 max-h-[540px] mx-auto object-contain shadow-md transition-transform duration-300 hover:scale-[1.005]", className)}
+        className={cn("rounded-xl border border-border/70 max-w-full max-h-[80vh] w-auto h-auto mx-auto object-contain shadow-md transition-transform duration-300 hover:scale-[1.005]", className)}
         {...props}
         alt={alt || ''}
       />

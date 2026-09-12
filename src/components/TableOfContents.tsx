@@ -2,17 +2,26 @@ import { useEffect, useMemo, useState } from 'react';
 import { extractHeadings } from '@/lib/blogUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
+import { ChevronDown, List } from 'lucide-react';
+
 interface TableOfContentsProps {
   content: string;
   className?: string;
   lang?: 'ko' | 'en';
+  variant?: 'sidebar' | 'inline';
 }
 
-export default function TableOfContents({ content, className = '', lang }: TableOfContentsProps) {
+export default function TableOfContents({
+  content,
+  className = '',
+  lang,
+  variant = 'sidebar',
+}: TableOfContentsProps) {
   const { lang: siteLang, t } = useLanguage();
   const isEnglish = lang === 'en' || siteLang === 'en';
   const headings = useMemo(() => extractHeadings(content), [content]);
   const [activeId, setActiveId] = useState<string>('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,10 +46,67 @@ export default function TableOfContents({ content, className = '', lang }: Table
 
   if (headings.length === 0) return null;
 
+  const titleText = isEnglish ? (t('tableOfContents') || 'Table of Contents') : '목차';
+
+  if (variant === 'inline') {
+    return (
+      <div className={`my-6 rounded-xl border border-border/80 bg-muted/30 p-4 ${className}`}>
+        <button
+          onClick={() => setIsOpen(prev => !prev)}
+          className="w-full flex items-center justify-between text-sm font-semibold text-foreground cursor-pointer"
+          aria-expanded={isOpen}
+        >
+          <span className="flex items-center gap-2">
+            <List className="w-4 h-4 text-primary" />
+            <span>{titleText}</span>
+            <span className="text-xs font-normal text-muted-foreground font-mono">
+              ({headings.length})
+            </span>
+          </span>
+          <ChevronDown
+            className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${
+              isOpen ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+
+        {isOpen && (
+          <ul className="mt-4 pt-3 border-t border-border/60 space-y-2 text-sm max-h-80 overflow-y-auto">
+            {headings.map(h => {
+              const indent = Math.max(0, h.level - 2);
+              const isActive = activeId === h.id;
+              return (
+                <li key={h.id} style={{ paddingLeft: `${indent * 12}px` }}>
+                  <a
+                    href={`#${h.id}`}
+                    onClick={e => {
+                      e.preventDefault();
+                      const el = document.getElementById(h.id);
+                      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      setActiveId(h.id);
+                      setIsOpen(false);
+                    }}
+                    className={`block py-1 transition-colors leading-snug ${
+                      isActive
+                        ? 'text-primary font-semibold'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    );
+  }
+
   return (
     <nav className={`sticky top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto text-sm ${className}`}>
       <div className="font-semibold mb-3 text-xs uppercase tracking-wider text-muted-foreground">
-        {isEnglish ? (t('tableOfContents') || 'Table of Contents') : '목차'}
+        {titleText}
       </div>
       <ul className="relative space-y-1.5 border-l-2 border-border">
         {headings.map(h => {
