@@ -2,6 +2,8 @@ import React from 'react';
 import { cn } from "@/lib/utils";
 import { slugifyHeading } from "@/lib/blogUtils";
 
+import { Mermaid } from './Mermaid';
+
 type MarkdownComponentProps = { className?: string; alt?: string; children?: React.ReactNode; [key: string]: unknown };
 
 type MarkdownComponentsMap = { [key: string]: React.FC<MarkdownComponentProps> };
@@ -125,22 +127,44 @@ export const MarkdownComponents: MarkdownComponentsMap = {
     />
   ),
 
-  // Inline Code
-  code: ({ className, ...props }) => (
-    <code
-      className={cn(
-        "relative rounded-md border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[0.875em] text-foreground font-medium",
-        className
-      )}
-      {...props}
-    />
-  ),
+  // Inline & Block Code
+  code: ({ className, children, ...props }) => {
+    const match = /language-(\w+)/.exec(className || '');
+    if (match && match[1] === 'mermaid') {
+      return <Mermaid chart={String(children).replace(/\n$/, '')} />;
+    }
+
+    return (
+      <code
+        className={cn(
+          "relative rounded-md border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[0.875em] text-foreground font-medium",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
 
   // Code Block (pre)
-  pre: ({ className, ...props }) => (
-    <pre
-      className={cn("my-6 max-h-[650px] overflow-x-auto rounded-xl border border-border/80 bg-zinc-950 p-4 font-mono text-sm leading-normal text-zinc-100 dark:bg-zinc-900/90 shadow-sm", className)}
-      {...props}
-    />
-  ),
+  pre: ({ className, children, ...props }) => {
+    // If the child is a code block with language-mermaid, return children without pre wrapper
+    const child = React.Children.toArray(children)[0];
+    if (React.isValidElement(child)) {
+      const childProps = child.props as { className?: string; children?: React.ReactNode };
+      if (childProps && typeof childProps.className === 'string' && childProps.className.includes('language-mermaid')) {
+        return <>{children}</>;
+      }
+    }
+
+    return (
+      <pre
+        className={cn("my-6 max-h-[650px] overflow-x-auto rounded-xl border border-border/80 bg-zinc-950 p-4 font-mono text-sm leading-normal text-zinc-100 dark:bg-zinc-900/90 shadow-sm", className)}
+        {...props}
+      >
+        {children}
+      </pre>
+    );
+  },
 };
