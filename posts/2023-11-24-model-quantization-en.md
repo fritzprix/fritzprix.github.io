@@ -42,9 +42,19 @@ In Large Language Models, Training-Aware Quantization (QAT) from scratch remains
 ![llm_int8](/img/llm_int8.png)
 
 - Given input activations $X \in \mathbb{R}^{B \times D}$ and weights $W \in \mathbb{R}^{D \times H}$, matrix multiplication is decomposed into outlier and regular components:
-  $$X W = X_{\text{fp16}} W_{\text{fp16}} + C_{X} \cdot (X_{\text{int8}} W_{\text{int8}}) \cdot C_{W}^T$$
+
+$$
+X W = X_{\text{fp16}} W_{\text{fp16}} + C_{X} \cdot (X_{\text{int8}} W_{\text{int8}}) \cdot C_{W}^T
+$$
+
 - **Vector-wise Quantization**: Decouples matrix multiplication into independent row and column vector dot-products, each assigned an independent scaling normalization constant ($C_X, C_W$).
 - **Outlier Isolation**: Channels with outlier magnitudes exceeding threshold $\alpha=6.0$ are segregated and computed in native FP16, while the remaining 99.9% of regular activations and weights are quantized and computed via standard INT8 tensor operations.
+- **Attention Preservation**: Self-attention operations are preserved in FP16 because the softmax computation contains no learnable parameters:
+
+$$
+\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\rule{0pt}{1.15em}\sqrt{d_k}}\right) V
+$$
+
 - Enables zero-loss INT8 inference up to 175B parameters.
 
 ---
@@ -79,13 +89,28 @@ $$
 - Analyzing the top 1% salient weight channels reveals that they correspond directly to features with disproportionately large activation magnitudes.
 
 ### Mathematical Formulation
+
+The standard uniform weight quantization function $Q(w)$ is defined as:
+
+$$
+Q(w) = \Delta \cdot \text{Round}\left(\frac{w}{\Delta}\right), \quad \Delta = \frac{\max(|w|)}{\rule[-0.25em]{0pt}{1.35em} 2^{N-1}-1}
+$$
+
 ![sampling](/img/awq_sampling.png)
 
-Rather than preserving salient weights in costly mixed-precision formats, AWQ introduces an per-channel input scaling factor $s$:
+Rather than preserving salient weights in costly mixed-precision formats, AWQ introduces an per-channel input scaling factor $s$, scaling weights $W' = W \cdot \operatorname{diag}(s)$ and activations $X' = \operatorname{diag}(s)^{-1} \cdot X$:
 
-$$W' = W \cdot \text{diag}(s), \quad X' = \text{diag}(s)^{-1} \cdot X$$
+$$
+\text{Err}' = X' \cdot (Q(W') - W') = X \cdot \text{RoundErr} \cdot \frac{\Delta'}{s}
+$$
 
-By scaling activations down and weights up prior to quantization, the relative rounding error on salient channels decreases proportionally to $1/s$.
+Because the quantization error is inversely proportional to $s$ ($\text{Err}' \propto \frac{1}{s}$), scaling $s > 1$ protects salient channels without altering mathematical equivalence.
+
+The optimal scaling factor $s^*$ is determined by solving:
+
+$$
+s^* = \arg\min_s \left\| W X - Q(W \cdot \operatorname{diag}(s)) \cdot (\operatorname{diag}(s)^{-1} X) \right\|_2^2
+$$
 
 ![awq_loss](/img/awq_loss.png)
 
