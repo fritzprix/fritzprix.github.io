@@ -77,16 +77,16 @@ When private debt funds and commercial lenders walked away from underwriting Ope
 
 This crisis is not merely cyclical. Recent empirical computer science literature from 2025 and 2026 proves that **the scaling paradigm itself has slammed into mathematical and economic ceilings**.
 
-1. **Power-Law Flatline: 1,024x Compute for a 50% Error Reduction (arXiv 2606.24504)**  
-   The empirical scaling exponent ($\alpha$), once celebrated around 0.33 during the Chinchilla era, has mathematically flattened to the **0.05–0.10 range** in state-of-the-art evaluations. The consequence is brutal: **to halve a model's loss, one must pour in 1,024 times the compute, power, and capital**. The naive Silicon Valley orthodoxy that "throwing more compute guarantees smarter models" has collapsed against thermodynamic and mathematical limits.
+1. **Thermodynamic Scaling Limits and the 1,024x Compute Calculation (arXiv 2606.24504)**  
+   Succi, Coveney, and Hansen (arXiv 2606.24504) analytically demonstrate that current LLM scaling trajectories have entered an unsustainable domain from thermodynamic and computational resource perspectives. Moreover, as recent frontier empirical studies report that the effective scaling exponent ($\alpha$) has flattened from the Chinchilla-era ~0.33 down to **0.05–0.10**, direct power-law derivation ($2^{1/\alpha} \approx 2^{10}$) reveals that **halving a model's loss mathematically demands upwards of 1,024 times the compute, power, and capital**. The naive orthodoxy that "throwing more compute guarantees smarter models" has slammed into hard physical and mathematical limits.
 
 2. **No Leap in Reasoning, Only an "Overpriced Memory Ledger" (arXiv 2509.02225)**  
-   What do hundreds of billions of extra parameters actually purchase? A rigorous evaluation across models from 135M to 32B demonstrates that **linguistic competence and reasoning saturate early in small-to-medium models**. Increasing model size accounts for 81% of variance exclusively in simple factual recall—memorization. Frontier labs are not forging an omniscient demigod; they are compiling an inefficient, hyper-expensive external lookup table that could be solved at a fraction of the cost with classical databases and vector search.
+   What do hundreds of billions of extra parameters actually purchase? A rigorous evaluation across models from 135M to 32B demonstrates that **core linguistic competence saturates early in small-to-medium models**. As parameter scale expands, empirical regression reveals that the **scaling slope of internal factual knowledge (0.059) is more than double that of linguistic competence**—meaning scaling disproportionately expands mere rote memorization. Frontier labs are not forging an omniscient intelligence; they are compiling an inefficient, hyper-expensive external lookup table that could be solved at a fraction of the cost with classical databases and vector search.
 
-3. **Distillation and the Open-Source SLM Eclipse (arXiv 2501.05465 & 2605.07783)**  
-   Furthermore, proprietary models' competitive moats are evaporating in real time. Surveying over 160 papers, researchers revealed 7B-class Small Language Models (SLMs) routinely surpassing legacy 70B monolithic models. New chain-based distillation techniques have accelerated smaller models' path to matching frontier teacher models by **200-fold**. Intellectual property forged with billions in compute is distilled within months into agile, open-weight models compressed to 16% of original resource footprints.
+3. **Knowledge Distillation and the Open-Source SLM Eclipse**  
+   Furthermore, proprietary models' competitive moats are evaporating in real time against modern knowledge distillation. Utilizing frontier teacher models' reasoning traces and high-quality synthetic data, recent 7B–8B Small Language Models (SLMs) routinely surpass legacy 70B monolithic models across diverse benchmarks. Intellectual property forged with billions of dollars in pre-training compute is absorbed within weeks into agile, open-weight models running on consumer hardware.
 
-When multi-billion-dollar clusters serve as single-use training scaffolding for lightweight alternatives, the economic rationale for frontier proprietary monoliths breaks down completely.
+When multi-billion-dollar clusters serve as single-use training scaffolding for lightweight alternatives, and continuing progress on monolithic models demands 1,024x compute, the economic rationale for frontier proprietary monoliths breaks down completely.
 
 ---
 
