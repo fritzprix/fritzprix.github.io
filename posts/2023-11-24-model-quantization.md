@@ -65,9 +65,10 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 ![llm_int8](/img/llm_int8.png)
 
-- FP16의 X와 W가 주어졌을 때 feature와 weight은 outlier와 regular values로 나뉘어진다.
-- outlier의 sub-matrices는 fp16 그대로 두고 처리
-- regular values의 sub-matrices는 vector-wise normalization constant를 구하여 이를 통해 full-scale int8으로 sampling함
+- FP16의 입력 $X \in \mathbb{R}^{B \times D}$와 가중치 $W \in \mathbb{R}^{D \times H}$가 주어졌을 때, Feature와 Weight는 Outlier와 Regular values로 분해된다:
+  $$X W = X_{\text{fp16}} W_{\text{fp16}} + C_{X} \cdot (X_{\text{int8}} W_{\text{int8}}) \cdot C_{W}^T$$
+- **Outlier sub-matrices**: 전체 차원 중 약 0.1%에 해당하는 이상치 컬럼/로우는 FP16 정밀도를 그대로 두고 연산 수행
+- **Regular values sub-matrices**: 나머지 99.9%의 일반 값들은 행/열 단위 Vector-wise Normalization Constant($C_X, C_W$)를 구하여 Full-scale INT8으로 양자화한 후 연산 수행
 
 ### limitation
 
@@ -77,8 +78,8 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 #### 3. Attention의 경우 8bit matmul을 적용하지 않았으며 이는
 
-- Attention function 자체는 parameter가 개입되지 않는다.  
-  `Softmax(Q@K.T/sqrt(d))@V`
+- Attention function 자체는 parameter가 개입되지 않는다:  
+  $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$$
 - Memory footprint를 줄이는 것에 주력
 
 #### 4. Inference에만 초점을 맞춘 연구임. Int8 training에 대한 초기 분석을 별첨에 제공하나 int8 training을 대규모로 진행하는 것은 아직은 매우 어려운 문제임
@@ -93,15 +94,17 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 ### Layer-wise Quantization and OBC(Optimal Brain Compression)
 
-- 저자들은 과거 Yann Lecun 등이 제안하여 다양한 xNN에 널리 사용된 [OBD(Optimal Brain Damage)](https://proceedings.neurips.cc/paper/1989/file/6c9882bbac1c7093bd25041881277658-Paper.pdf)를 개선한 OBC라는 자신들이 고안한 방식을 활용
-- Layer 단위로 최적화를 적용, loss에 대한 2차 편미분인 Hessian matrix를 구하고이 값을 기준으로 weight의 Quantization을 우선순위화
-- 각 weight을 위 우선순위에 따라 quantization하고 이에 따라 나머지 Quantize 되지 않은 weight를 update하여 quantization을 보상
+- 저자들은 과거 Yann LeCun 등이 제안하여 다양한 xNN에 널리 사용된 [OBD(Optimal Brain Damage)](https://proceedings.neurips.cc/paper/1989/file/6c9882bbac1c7093bd25041881277658-Paper.pdf) 및 OBS를 개선한 OBC라는 자신들이 고안한 방식을 활용
+- Layer 단위로 최적화를 적용, Loss에 대한 2차 편미분인 Hessian 행렬 $H = 2 X X^T$를 구하고 이 값을 기준으로 가중치 양자화 오차의 우선순위를 결정:
+  $$E = \frac{1}{2} \frac{(w_q - Q(w_q))^2}{[H^{-1}]_{qq}}$$
+- 각 가중치 $w_q$를 위 우선순위에 따라 양자화하고, 아직 양자화되지 않은 나머지 가중치들을 아래 공식을 통해 업데이트하여 양자화 오차를 보상:
+  $$\Delta w = - \frac{w_q - Q(w_q)}{[H^{-1}]_{qq}} \cdot H^{-1}_{:, q}$$
 
 ### Additional Insights
 
 - 위 OBC 기반의 방식은 Hessian에 따라 순서대로 Weight를 Update하였지만 LLM에서 이러한 순서의 영향이 크지 않음을 발견
-- 아울러 이와 같이 Weight를 개별적으로 Iteration하면서 Quantizatino하고 이를 보상하기 위해 다른 모든 Weight를 업데이트 하는 방식이 비효율적이며 다행히 이를 보다 효율적으로 처리할 수 있는 Patch로 나누고 이 Patch에 대한 처리 결과를 전체 Matrix에 한번에 반영하는 형태로 효율화 할 수 있음
-- Hessian 값은 매우 작은 값을 갖기도 하기 때문에 수치 연산의 안정성을 크게 떨어뜨리고 오차가 커지게됨. 이를 Cholesky Reformulation을 통해 방지함
+- 아울러 이와 같이 Weight를 개별적으로 Iteration하면서 Quantization하고 이를 보상하기 위해 다른 모든 Weight를 업데이트 하는 방식이 비효율적이며, 다행히 이를 보다 효율적으로 처리할 수 있는 Patch로 나누고 이 Patch에 대한 처리 결과를 전체 Matrix에 한 번에 반영하는 형태로 효율화할 수 있음
+- Hessian 값은 매우 작은 값을 갖기도 하기 때문에 수치 연산의 안정성을 크게 떨어뜨리고 오차가 커지게 됨. 이를 Cholesky Reformulation을 통해 방지함
 
 ### Result
 
@@ -130,15 +133,19 @@ DNN에서는 Quantization을 통해 모델의 크기를 줄이고, 연산 속도
 
 - 기본적으로 LLM.int8()과 유사한 관찰에서 접근
   - 전체 weight 중 0.1 ~ 1%의 salient weight가 존재하며 이들의 값의 error 혹은 정밀도 손실은 다른 weight보다 더 큰 영향을 줌
-- 단, LLM.int8()는 `weight의 magnitude를 기준으로 outlier를 선정`하였다면  `AWQ에서는 weight에 대응한 Activation output의 magnitude를 기준으로 사용`
-- Quantization function을 Q(w)로 아래와 같이 정의
+- 단, LLM.int8()는 `weight의 magnitude를 기준으로 outlier를 선정`하였다면 `AWQ에서는 weight에 대응한 Activation output의 magnitude를 기준으로 사용`
+- Quantization function $Q(w)$는 기본적으로 아래와 같이 정의된다:
+  $$Q(w) = \Delta \cdot \text{Round}\left(\frac{w}{\Delta}\right), \quad \Delta = \frac{\max(|w|)}{2^{N-1}-1}$$
 ![sampling](/img/awq_sampling.png)
-- 위 Qauntization에서 임의 scale factor s를 추가하여 weight과 입력 x에 적용할 경우 Quantization Error는 s term에 반비례함을 보임 (위 이미지의 Err' = A' *RoundErr* 1 / s)에 의해..
-- RoundErr가 크게 변하지 않는 선에서 s를 1보다 큰 값 범위에서 증가 시킬 경우 전체 Quantiztaion Error가 감소해야 함
-- optimal scale factor를 얻기 위한 loss 함수는 아래와 같이 나타낼 수 있는데,
+- 위 양자화에서 임의의 채널 스케일 팩터 $s$를 도입하여 가중치 $W$와 입력 $X$에 적용할 경우 ($W' = W \cdot \text{diag}(s)$, $X' = \text{diag}(s)^{-1} \cdot X$):
+  $$\text{Err}' = X' \cdot (Q(W') - W') = X \cdot \text{RoundErr} \cdot \frac{\Delta'}{s}$$
+  여기서 Quantization Error는 $s$ 텀에 반비례함을 보임 ($\text{Err}' \propto \frac{1}{s}$)
+- $\text{RoundErr}$가 크게 변하지 않는 선에서 $s > 1$ 범위로 증가시킬 경우 전체 Quantization Error를 효과적으로 감소시킬 수 있음
+- 최적의 스케일 팩터 $s^*$를 얻기 위한 목적 함수(Loss function)는 다음과 같이 표현된다:
+  $$s^* = \arg\min_s \left\| W X - Q(W \cdot \text{diag}(s)) \cdot (\text{diag}(s)^{-1} X) \right\|_2^2$$
 ![awq_loss](/img/awq_loss.png)
-- 여기서 quantization함수는 미분가능하지 않다. 따라서 Gradient Descent에 의한 방법은 적용이 불가하며
-- scale을 1부터 activation의 크기 값까지 fast grid search를 수행하여 최적의 값을 찾음
+- 여기서 양자화 함수 $Q(\cdot)$는 미분 불가능(non-differentiable)하므로 경사하강법(Gradient Descent)에 의한 방법은 적용이 불가함
+- 따라서 $1$부터 Activation의 크기 값까지 고속 그리드 탐색(Fast Grid Search)을 수행하여 최적의 값을 찾음
 
 ### Result
 

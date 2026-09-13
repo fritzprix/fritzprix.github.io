@@ -41,7 +41,9 @@ In Large Language Models, Training-Aware Quantization (QAT) from scratch remains
 
 ![llm_int8](/img/llm_int8.png)
 
-- **Vector-wise Quantization**: Decouples matrix multiplication into independent row and column vector dot-products, each assigned an independent scaling normalization constant.
+- Given input activations $X \in \mathbb{R}^{B \times D}$ and weights $W \in \mathbb{R}^{D \times H}$, matrix multiplication is decomposed into outlier and regular components:
+  $$X W = X_{\text{fp16}} W_{\text{fp16}} + C_{X} \cdot (X_{\text{int8}} W_{\text{int8}}) \cdot C_{W}^T$$
+- **Vector-wise Quantization**: Decouples matrix multiplication into independent row and column vector dot-products, each assigned an independent scaling normalization constant ($C_X, C_W$).
 - **Outlier Isolation**: Channels with outlier magnitudes exceeding threshold $\alpha=6.0$ are segregated and computed in native FP16, while the remaining 99.9% of regular activations and weights are quantized and computed via standard INT8 tensor operations.
 - Enables zero-loss INT8 inference up to 175B parameters.
 
@@ -51,8 +53,10 @@ In Large Language Models, Training-Aware Quantization (QAT) from scratch remains
 
 ### Core Mechanism: Second-Order Optimal Brain Compression
 - Inspired by classic Optimal Brain Surgeon (OBS) theory, GPTQ executes **layer-wise quantization** based on second-order Taylor expansion of the loss function.
-- Computes the inverse Hessian matrix $H^{-1} = (2 X X^T + \lambda I)^{-1}$ using calibration data to evaluate parameter sensitivity.
-- Quantizes column blocks iteratively, updating the remaining unquantized weights across the layer to actively compensate for accumulated rounding error.
+- Computes the inverse Hessian matrix $H^{-1} = (2 X X^T + \lambda I)^{-1}$ using calibration data to evaluate parameter sensitivity:
+  $$E = \frac{1}{2} \frac{(w_q - Q(w_q))^2}{[H^{-1}]_{qq}}$$
+- Quantizes column blocks iteratively, updating the remaining unquantized weights across the layer to actively compensate for accumulated rounding error:
+  $$\Delta w = - \frac{w_q - Q(w_q)}{[H^{-1}]_{qq}} \cdot H^{-1}_{:, q}$$
 
 ### Algorithmic Highlights
 - **Cholesky Reformulation**: Resolves numerical instability in small Hessian eigenvalues, ensuring robust inversion.
