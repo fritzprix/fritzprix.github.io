@@ -7,9 +7,11 @@ import Giscus from '@giscus/react';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router-dom';
 import rehypeRaw from 'rehype-raw';
+import rehypeKatex from 'rehype-katex';
 import remarkBreaks from 'remark-breaks';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import remarkDirectiveRehype from '../lib/remark-directive-rehype';
 import { estimateReadingTime, countWords, fixKoreanMarkdownEmphasis } from '../lib/blogUtils';
 import TableOfContents from '../components/TableOfContents';
@@ -200,8 +202,8 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
             {/* Article Body */}
             <div className="max-w-3xl text-left prose prose-neutral dark:prose-invert">
               <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkBreaks, remarkDirective, remarkDirectiveRehype]}
-                rehypePlugins={[rehypeRaw]}
+                remarkPlugins={[remarkGfm, remarkBreaks, remarkMath, remarkDirective, remarkDirectiveRehype]}
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
                 components={MarkdownComponents}
                 skipHtml={false}
               >
