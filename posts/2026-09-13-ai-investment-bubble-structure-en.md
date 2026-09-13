@@ -32,9 +32,9 @@ On the surface, frontier AI lab valuations appear to defy gravity, while Big Tec
 
 ```mermaid
 flowchart TD
-    A["Big Tech (MS / Nvidia)"] -->|"1. Billions in Equity Investment<br/>(Under the banner of 'AI Ecosystem')"| B["Frontier AI Labs<br/>(OpenAI / Anthropic / CoreWeave)"]
-    B -->|"2. Cloud Credits & GPU Purchases<br/>(Paper reflux of capital)"| C["Big Tech Cloud & Hardware Divisions"]
-    C -->|"3. Zero Net External Value Added<br/>Reporting 'Record AI Revenue'"| D["Wall Street & Public Markets<br/>(Stock surge & inflated valuations)"]
+    A["Big Tech (MS / Nvidia)"] -->|"1. Billions in Equity Investment<br/>(AI Ecosystem Cultivation)"| B["Frontier AI Labs<br/>(OpenAI / Anthropic / CoreWeave)"]
+    B -->|"2. Cloud Credits and GPU Purchases<br/>(Paper reflux of capital)"| C["Big Tech Cloud and Hardware Divisions"]
+    C -->|"3. Zero Net External Value Added<br/>Reporting Record AI Revenue"| D["Wall Street and Public Markets<br/>(Stock surge and inflated valuations)"]
     D -.->|"4. Inflated capital reinvested into startups (Loop)"| A
 
     style A fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff

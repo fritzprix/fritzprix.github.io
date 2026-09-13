@@ -11,6 +11,14 @@ import remarkDirective from 'remark-directive';
 import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 
+import { JSDOM } from 'jsdom';
+const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
+globalThis.window = dom.window;
+globalThis.document = dom.window.document;
+
+const { default: mermaid } = await import('mermaid');
+mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+
 import { fixKoreanMarkdownEmphasis, escapeCurrencyDollars } from '../src/lib/blogUtils.ts';
 import remarkDirectiveRehype from '../src/lib/remark-directive-rehype.ts';
 
@@ -22,7 +30,7 @@ const results = [];
 
 const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md')).sort();
 
-console.log(`\n🔍 Validating ${files.length} posts for markdown rendering & KaTeX math integrity...\n`);
+console.log(`\n🔍 Validating ${files.length} posts for markdown rendering, KaTeX math & Mermaid diagrams...\n`);
 
 for (const file of files) {
   const filePath = path.join(POSTS_DIR, file);
@@ -115,6 +123,18 @@ for (const file of files) {
     const imgPath = path.join(PUBLIC_DIR, imgMatch[1]);
     if (!fs.existsSync(imgPath)) {
       errors.push(`Broken local image reference: "${imgMatch[1]}" does not exist in public directory.`);
+    }
+  }
+
+  // 7. Mermaid Diagrams Syntax & Parser Validation
+  const mermaidBlocks = content.match(/```mermaid([\s\S]*?)```/g) || [];
+  for (const block of mermaidBlocks) {
+    const chart = block.replace(/```mermaid\n?|```/g, '').trim();
+    if (!chart) continue;
+    try {
+      await mermaid.parse(chart);
+    } catch (mErr) {
+      errors.push(`Mermaid diagram syntax error: ${mErr.message || mErr}`);
     }
   }
 

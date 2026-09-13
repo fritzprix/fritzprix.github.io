@@ -33,8 +33,8 @@ permalink: /ai/ai-bubble-and-cartel/
 ```mermaid
 flowchart TD
     A["빅테크 (MS / Nvidia)"] -->|"1. 수십억 달러 지분 투자<br/>(AI 생태계 육성 명목)"| B["AI 스타트업<br/>(OpenAI / Anthropic / CoreWeave)"]
-    B -->|"2. 클라우드 크레딧 & GPU 구매<br/>(투자금의 장부상 환류)"| C["빅테크 클라우드 & 하드웨어 부문"]
-    C -->|"3. 실질 외부 부가가치 0원<br/>'사상 최대 AI 매출' 발표"| D["월가 & 주식 시장<br/>(주가 폭등 및 밸류에이션 부양)"]
+    B -->|"2. 클라우드 크레딧 및 GPU 구매<br/>(투자금의 장부상 환류)"| C["빅테크 클라우드 및 하드웨어 부문"]
+    C -->|"3. 실질 외부 부가가치 0원<br/>사상 최대 AI 매출 발표"| D["월가 및 주식 시장<br/>(주가 폭등 및 밸류에이션 부양)"]
     D -.->|"4. 부양된 자본으로 스타트업 추가 투자 (반복)"| A
 
     style A fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff

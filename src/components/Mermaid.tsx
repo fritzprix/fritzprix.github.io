@@ -5,6 +5,37 @@ interface MermaidProps {
   chart: string;
 }
 
+function ensureMermaidInit(isDark: boolean) {
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: isDark ? 'dark' : 'default',
+    securityLevel: 'loose',
+    fontFamily: 'inherit',
+    suppressErrorRendering: true,
+  });
+}
+
+// Global sequential queue for rendering Mermaid diagrams.
+// Mermaid's internal parser and D3 renderers are stateful singletons;
+// running concurrent render calls on multiple diagrams causes DOM collision & parsing errors.
+let renderQueue: Promise<void> = Promise.resolve();
+
+function renderQueued(id: string, chart: string): Promise<{ svg: string }> {
+  const next = renderQueue.then(async () => {
+    try {
+      return await mermaid.render(id, chart);
+    } finally {
+      // Clean up any lingering temporary DOM nodes created by Mermaid
+      document.getElementById(`d${id}`)?.remove();
+      document.getElementById(id)?.remove();
+    }
+  });
+
+  // Keep the queue flowing even if one diagram errors
+  renderQueue = next.then(() => {}, () => {});
+  return next;
+}
+
 export const Mermaid: React.FC<MermaidProps> = ({ chart }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [svgContent, setSvgContent] = useState<string>('');
@@ -14,20 +45,15 @@ export const Mermaid: React.FC<MermaidProps> = ({ chart }) => {
     let isMounted = true;
     const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
 
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: isDark ? 'dark' : 'default',
-      securityLevel: 'loose',
-      fontFamily: 'inherit',
-    });
+    ensureMermaidInit(isDark);
 
     const cleanChart = chart.trim();
     if (!cleanChart) return;
 
-    const id = `mmd_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+    // Use a clean alphanumeric ID
+    const uniqueId = `mmd_${Math.random().toString(36).substring(2, 9)}_${Date.now()}`;
 
-    mermaid
-      .render(id, cleanChart)
+    renderQueued(uniqueId, cleanChart)
       .then(({ svg }) => {
         if (isMounted) {
           setSvgContent(svg);
@@ -43,6 +69,8 @@ export const Mermaid: React.FC<MermaidProps> = ({ chart }) => {
 
     return () => {
       isMounted = false;
+      document.getElementById(`d${uniqueId}`)?.remove();
+      document.getElementById(uniqueId)?.remove();
     };
   }, [chart]);
 
