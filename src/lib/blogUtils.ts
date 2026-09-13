@@ -27,6 +27,21 @@ export function fixKoreanMarkdownEmphasis(content: string): string {
     .join('');
 }
 
+/**
+ * Protect standalone currency dollar amounts (e.g. $765B, $7.6T, $600B, $25B, $1,000, $3.17M)
+ * by converting the dollar sign to &#36; so that remark-math does not mistakenly parse text
+ * between multiple currency figures as LaTeX inline math formulas.
+ */
+export function escapeCurrencyDollars(content: string): string {
+  const parts = content.split(/(```[\s\S]*?```|`[^`\n]+`|\$\$[\s\S]*?\$\$)/g);
+  return parts
+    .map((part, index) => {
+      if (index % 2 === 1) return part;
+      return part.replace(/\$(?=\d+(?:[.,]\d+)*(?:[bBmMtTkK]|(?:\s*(?:billion|million|trillion|조|억|만|천|달러|원)))?(?!\w*[\^\\{}_]))/g, '&#36;');
+    })
+    .join('');
+}
+
 // --- Word Count ---
 export function countWords(content: string): number {
   return content.trim().split(/\s+/).filter(Boolean).length;

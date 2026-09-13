@@ -13,7 +13,7 @@ import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkDirectiveRehype from '../lib/remark-directive-rehype';
-import { estimateReadingTime, countWords, fixKoreanMarkdownEmphasis } from '../lib/blogUtils';
+import { estimateReadingTime, countWords, fixKoreanMarkdownEmphasis, escapeCurrencyDollars } from '../lib/blogUtils';
 import TableOfContents from '../components/TableOfContents';
 import SocialShareButtons from '../components/SocialShareButtons';
 import RelatedPosts from '../components/RelatedPosts';
@@ -81,7 +81,7 @@ const PostDetailPage: React.FC<PostDetailPageProps> = ({ posts, profileData }) =
   }, [slug, post, alternatePost, lang, setLang, navigate]);
 
   const processedContent = useMemo(() => {
-    return post ? fixKoreanMarkdownEmphasis(post.content) : '';
+    return post ? escapeCurrencyDollars(fixKoreanMarkdownEmphasis(post.content)) : '';
   }, [post]);
 
   if (!post) {
