@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "test": "node scripts/validate-posts.mjs",
+    "test:posts": "node scripts/validate-posts.mjs",
+    "build": "node scripts/validate-posts.mjs && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
