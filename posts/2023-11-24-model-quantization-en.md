@@ -54,9 +54,16 @@ In Large Language Models, Training-Aware Quantization (QAT) from scratch remains
 ### Core Mechanism: Second-Order Optimal Brain Compression
 - Inspired by classic Optimal Brain Surgeon (OBS) theory, GPTQ executes **layer-wise quantization** based on second-order Taylor expansion of the loss function.
 - Computes the inverse Hessian matrix $H^{-1} = (2 X X^T + \lambda I)^{-1}$ using calibration data to evaluate parameter sensitivity:
-  $$E = \frac{1}{2} \frac{(w_q - Q(w_q))^2}{[H^{-1}]_{qq}}$$
+
+$$
+E = \frac{1}{2} \frac{(w_q - Q(w_q))^2}{\rule[-0.2em]{0pt}{1.3em}[H^{-1}]_{qq}}
+$$
+
 - Quantizes column blocks iteratively, updating the remaining unquantized weights across the layer to actively compensate for accumulated rounding error:
-  $$\Delta w = - \frac{w_q - Q(w_q)}{[H^{-1}]_{qq}} \cdot H^{-1}_{:, q}$$
+
+$$
+\Delta w = - \frac{w_q - Q(w_q)}{\rule[-0.2em]{0pt}{1.3em}[H^{-1}]_{qq}} \cdot H^{-1}_{:, q}
+$$
 
 ### Algorithmic Highlights
 - **Cholesky Reformulation**: Resolves numerical instability in small Hessian eigenvalues, ensuring robust inversion.

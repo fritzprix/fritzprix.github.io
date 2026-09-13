@@ -85,7 +85,7 @@ $$
 - Attention function 자체는 parameter가 개입되지 않는다:
 
 $$
-\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V
+\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\rule{0pt}{1.15em}\sqrt{d_k}}\right) V
 $$
 
 - Memory footprint를 줄이는 것에 주력
@@ -106,13 +106,13 @@ $$
 - Layer 단위로 최적화를 적용, Loss에 대한 2차 편미분인 Hessian 행렬 $H = 2 X X^T$를 구하고 이 값을 기준으로 가중치 양자화 오차의 우선순위를 결정:
 
 $$
-E = \frac{1}{2} \frac{(w_q - Q(w_q))^2}{[H^{-1}]_{qq}}
+E = \frac{1}{2} \frac{(w_q - Q(w_q))^2}{\rule[-0.2em]{0pt}{1.3em}[H^{-1}]_{qq}}
 $$
 
 - 각 가중치 $w_q$를 위 우선순위에 따라 양자화하고, 아직 양자화되지 않은 나머지 가중치들을 아래 공식을 통해 업데이트하여 양자화 오차를 보상:
 
 $$
-\Delta w = - \frac{w_q - Q(w_q)}{[H^{-1}]_{qq}} \cdot H^{-1}_{:, q}
+\Delta w = - \frac{w_q - Q(w_q)}{\rule[-0.2em]{0pt}{1.3em}[H^{-1}]_{qq}} \cdot H^{-1}_{:, q}
 $$
 
 ### Additional Insights
@@ -152,7 +152,7 @@ $$
 - Quantization function $Q(w)$는 기본적으로 아래와 같이 정의된다:
 
 $$
-Q(w) = \Delta \cdot \text{Round}\left(\frac{w}{\Delta}\right), \quad \Delta = \frac{\max(|w|)}{2^{N-1}-1}
+Q(w) = \Delta \cdot \text{Round}\left(\frac{w}{\Delta}\right), \quad \Delta = \frac{\max(|w|)}{\rule[-0.25em]{0pt}{1.35em} 2^{N-1}-1}
 $$
 
 ![sampling](/img/awq_sampling.png)

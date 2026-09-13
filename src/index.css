@@ -118,6 +118,14 @@ html.dark {
    KaTeX Math Typography & Margins
    ========================================================================== */
 
+/* Critical: KaTeX requires content-box sizing to prevent Tailwind resets from distorting fractions and struts */
+.katex,
+.katex *,
+.katex-display,
+.katex-display * {
+  box-sizing: content-box !important;
+}
+
 /* Block Math (.katex-display) */
 .katex-display {
   display: block !important;
@@ -148,9 +156,14 @@ ol .katex-display {
 .katex {
   font-size: 1.05em;
   text-rendering: auto;
-  line-height: normal;
+  line-height: 1.2;
   margin: 0 0.22rem;
   padding: 0.05rem 0.15rem;
+}
+
+/* Ensure fractions have crisp separation */
+.katex .mfrac .frac-line {
+  border-bottom-style: solid !important;
 }
 
 /* Prevent vertical overlap with superscripts / fractions in paragraphs and lists */
