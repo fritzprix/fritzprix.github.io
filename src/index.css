@@ -113,3 +113,60 @@ html.dark {
   background-color: oklch(0.72 0.13 260 / 0.35);
   color: inherit;
 }
+
+/* ==========================================================================
+   KaTeX Math Typography & Margins
+   ========================================================================== */
+
+/* Block Math (.katex-display) */
+.katex-display {
+  display: block !important;
+  margin: 1.75rem 0 !important;
+  padding: 0.75rem 1rem !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  text-align: center;
+  max-width: 100%;
+}
+
+.katex-display > .katex {
+  display: inline-block !important;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0.25rem 0;
+}
+
+/* Display math inside lists */
+li .katex-display,
+ul .katex-display,
+ol .katex-display {
+  margin: 1.25rem 0 !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Inline Math (.katex) */
+.katex {
+  font-size: 1.05em;
+  text-rendering: auto;
+  line-height: normal;
+  margin: 0 0.22rem;
+  padding: 0.05rem 0.15rem;
+}
+
+/* Prevent vertical overlap with superscripts / fractions in paragraphs and lists */
+.prose p:has(.katex),
+.prose li:has(.katex),
+p:has(.katex),
+li:has(.katex) {
+  line-height: 1.85 !important;
+}
+
+/* Scrollbar for overflow equations on mobile */
+.katex-display::-webkit-scrollbar {
+  height: 4px;
+}
+.katex-display::-webkit-scrollbar-thumb {
+  background: oklch(0.5 0 0 / 0.2);
+  border-radius: 9999px;
+}
+
